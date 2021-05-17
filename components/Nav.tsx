@@ -1,14 +1,17 @@
 import { VStack, IconButton, Tooltip } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 // Icons
-import { House, VideoCamera, Monitor } from 'phosphor-react';
+import { HomeIcon } from '../SVG/_HomeIcon';
+import { MoviesIcon } from '../SVG/_MoviesIcon';
+import { TVIcon } from '../SVG/_TVIcon';
+
 export const Nav = () => {
   return (
     <StyledVStack spacing="3">
       <Tooltip label="Home" fontSize="md" placement="right-start">
         <StyledIconButton
           aria-label="Home"
-          icon={<House color="var(--font-color)" size={32} />}
+          icon={<HomeIcon color="var(--primary-color)" size={32} />}
         />
       </Tooltip>
       <Tooltip label="Movies" fontSize="md" placement="right-start">
@@ -16,7 +19,7 @@ export const Nav = () => {
           bg="none"
           _hover={{ background: 'none' }}
           aria-label="Movies"
-          icon={<VideoCamera color="var(--font-color)" size={32} />}
+          icon={<MoviesIcon color="var(--primary-color)" size={32} />}
         />
       </Tooltip>
       <Tooltip label="TV Shows" fontSize="md" placement="right-start">
@@ -24,7 +27,7 @@ export const Nav = () => {
           bg="none"
           _hover={{ background: 'none' }}
           aria-label="TV Shows"
-          icon={<Monitor color="var(--font-color)" size={32} />}
+          icon={<TVIcon color="var(--primary-color)" size={32} />}
         />
       </Tooltip>
     </StyledVStack>
@@ -35,7 +38,7 @@ const StyledVStack = styled(VStack)`
   background: var(--bg-primary);
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
-  width: 3.75rem;
+  width: 5rem;
 `;
 
 const StyledIconButton = styled(IconButton)`

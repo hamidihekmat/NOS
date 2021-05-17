@@ -8,6 +8,7 @@ export const GlobalStyle = (props: {}) => (
         --bg-canvas: #0d1117;
         --bg-primary: #161b22;
         --font-color: #c9d1d9;
+        --primary-color: #f0f6fc;
         --border-color: #30363d;
         --dropdown-shadow: 0 16px 32px rgba(1, 4, 9, 0.85);
       }
@@ -23,7 +24,7 @@ export const GlobalStyle = (props: {}) => (
         -webkit-font-smoothing: antialiased;
         scroll-behavior: smooth;
         background: var(--bg-canvas);
-        color: var(--font-color);
+        color: var(--primary-color);
       }
     `}
   />

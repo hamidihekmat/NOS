@@ -34,38 +34,38 @@ export const Profile = () => {
         border="1px solid var(--border-color)"
         color="hsla(0,0%,100%,.7)"
       >
-        <StyledMenuItem command="⌘⇧S">
+        <StyledMenuItem>
           <HStack>
             <GearSix size={20} />
             <Text>Settings</Text>
           </HStack>
         </StyledMenuItem>
-        <StyledMenuItem command="⌘⇧F">
+        <StyledMenuItem>
           <HStack>
             <Heart size={20} />
             <Text>Favouites</Text>
           </HStack>
         </StyledMenuItem>
-        <StyledMenuItem command="⌘⇧W">
+        <StyledMenuItem>
           <HStack>
             <Clock size={20} />
             <Text>Watch Later</Text>
           </HStack>
         </StyledMenuItem>
-        <StyledMenuItem command="⌘⇧K">
+        <StyledMenuItem>
           <HStack>
             <Command size={20} />
             <Text>Shortcuts</Text>
           </HStack>
         </StyledMenuItem>
-        <StyledMenuItem command="⌘⇧H">
+        <StyledMenuItem>
           <HStack>
             <Question size={20} />
             <Text>Help</Text>
           </HStack>
         </StyledMenuItem>
         <Divider color="var(--font-color)" />
-        <StyledMenuItem command="⌘⇧L">
+        <StyledMenuItem>
           <HStack>
             <SignOut size={20} />
             <Text>Sign Out</Text>
