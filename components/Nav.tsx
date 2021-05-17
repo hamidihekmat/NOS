@@ -16,16 +16,12 @@ export const Nav = () => {
       </Tooltip>
       <Tooltip label="Movies" fontSize="md" placement="right-start">
         <StyledIconButton
-          bg="none"
-          _hover={{ background: 'none' }}
           aria-label="Movies"
           icon={<MoviesIcon color="var(--primary-color)" size={32} />}
         />
       </Tooltip>
       <Tooltip label="TV Shows" fontSize="md" placement="right-start">
         <StyledIconButton
-          bg="none"
-          _hover={{ background: 'none' }}
           aria-label="TV Shows"
           icon={<TVIcon color="var(--primary-color)" size={32} />}
         />
@@ -34,14 +30,14 @@ export const Nav = () => {
   );
 };
 
-const StyledVStack = styled(VStack)`
+export const StyledVStack = styled(VStack)`
   background: var(--bg-primary);
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
   width: 5rem;
 `;
 
-const StyledIconButton = styled(IconButton)`
+export const StyledIconButton = styled(IconButton)`
   background: none;
   width: 100%;
   border-radius: 0;

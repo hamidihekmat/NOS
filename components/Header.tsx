@@ -2,8 +2,9 @@ import { Box, Text, IconButton, HStack, Tooltip } from '@chakra-ui/react';
 import { Profile } from './Profile';
 import { Search } from './Search';
 import { List } from 'phosphor-react';
+// Store
 
-export const Header = () => {
+export const Header = ({ onOpen }: { onOpen: () => void }) => {
   return (
     <Box
       display="flex"
@@ -18,6 +19,7 @@ export const Header = () => {
         <Tooltip label="Expand" fontSize="sm" placement="bottom">
           <IconButton
             aria-label="Home"
+            onClick={onOpen}
             bg="transparent"
             _hover={{ background: 'transparent' }}
             _focus={{ background: 'transparent' }}
