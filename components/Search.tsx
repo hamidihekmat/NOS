@@ -12,7 +12,7 @@ export const Search = () => {
     >
       <InputLeftElement
         pointerEvents="none"
-        children={<MagnifyingGlass size={20} />}
+        children={<MagnifyingGlass color="var(--primary-color)" size={20} />}
       />
       <Input
         type="Search"

@@ -3,8 +3,10 @@ import { Profile } from './Profile';
 import { Search } from './Search';
 import { List } from 'phosphor-react';
 // Store
+import { navStore } from '../store/navStore';
 
-export const Header = ({ onOpen }: { onOpen: () => void }) => {
+export const Header = () => {
+  const toggle = navStore((state) => state.toggle);
   return (
     <Box
       display="flex"
@@ -19,7 +21,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
         <Tooltip label="Expand" fontSize="sm" placement="bottom">
           <IconButton
             aria-label="Home"
-            onClick={onOpen}
+            onClick={toggle}
             bg="transparent"
             _hover={{ background: 'transparent' }}
             _focus={{ background: 'transparent' }}

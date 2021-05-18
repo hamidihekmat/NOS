@@ -7,6 +7,7 @@ export const GlobalStyle = (props: {}) => (
       :root {
         --bg-canvas: #0d1117;
         --bg-primary: #161b22;
+        --bg-secondary: #1f6feb;
         --font-color: #c9d1d9;
         --primary-color: #f0f6fc;
         --border-color: #30363d;

@@ -7,5 +7,5 @@ type NavState = {
 
 export const navStore = create<NavState>((set) => ({
   nav: false,
-  toggle: () => set((state) => ({ nav: !state })),
+  toggle: () => set((state) => ({ nav: !state.nav })),
 }));

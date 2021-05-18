@@ -23,7 +23,7 @@ export const Profile = () => {
   return (
     <Menu isLazy placement="bottom-start">
       <MenuButton
-        name="Dan Abrahmov"
+        name="vkarmic"
         src="https://i.pinimg.com/736x/f0/34/58/f034583d34bd2bd5e52732a7ecc96669.jpg"
         as={Avatar}
         cursor="pointer"
@@ -78,9 +78,9 @@ export const Profile = () => {
 
 const StyledMenuItem = styled(MenuItem)`
   :hover {
-    background: #0d1117;
+    background: var(--bg-secondary);
   }
   :focus {
-    background: #0d1117;
+    background: var(--bg-secondary);
   }
 `;
