@@ -81,7 +81,7 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 interface NavItemProp {
-  asPath: string;
+  asPath: string | undefined;
 }
 
 const NavItem = styled(Box)<NavItemProp>`
