@@ -1,5 +1,6 @@
 import { VStack, IconButton, Text, Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 // Icons
 import { HomeIcon } from '../SVG/_HomeIcon';
 import { MoviesIcon } from '../SVG/_MoviesIcon';
@@ -8,6 +9,7 @@ import { TVIcon } from '../SVG/_TVIcon';
 import { navStore } from '../store/navStore';
 
 export const Nav = () => {
+  const router = useRouter();
   const nav = navStore((state) => state.nav);
   return (
     <StyledVStack
@@ -15,10 +17,11 @@ export const Nav = () => {
       spacing="3"
       alignItems="flex-start"
     >
-      <NavItem>
+      <NavItem as="a" href="/" asPath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="Home"
+          _focus={{ outline: 'none' }}
           icon={<HomeIcon color="var(--primary-color)" size={32} />}
         />
         {nav && (
@@ -27,10 +30,11 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
-      <NavItem>
+      <NavItem as="a" href="/movies" asPath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
-          aria-label="Home"
+          aria-label="Movies"
+          _focus={{ outline: 'none' }}
           icon={<MoviesIcon color="var(--primary-color)" size={32} />}
         />
         {nav && (
@@ -39,10 +43,11 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
-      <NavItem>
+      <NavItem as="a" href="/tvshows" asPath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
-          aria-label="Home"
+          aria-label="TV Shows"
+          _focus={{ outline: 'none' }}
           icon={<TVIcon color="var(--primary-color)" size={32} />}
         />
         {nav && (
@@ -75,9 +80,15 @@ const StyledIconButton = styled(IconButton)`
   }
 `;
 
-const NavItem = styled(Box)`
+interface NavItemProp {
+  asPath: string;
+}
+
+const NavItem = styled(Box)<NavItemProp>`
   display: flex;
   padding: 0.5rem;
+  background: ${({ asPath, href }) =>
+    asPath === href ? 'var(--bg-secondary)' : 'transparent'};
   padding-left: 1rem;
   width: 100%;
   cursor: pointer;

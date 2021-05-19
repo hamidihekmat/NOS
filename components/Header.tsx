@@ -33,7 +33,7 @@ export const Header = () => {
 
         <Text
           transform="translateX(-0.5rem)"
-          color="var(--primary-color)"
+          color="var(--bg-secondary)"
           fontSize="2xl"
           fontWeight="bold"
         >

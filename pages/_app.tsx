@@ -1,4 +1,4 @@
-import { ChakraProvider, Box, useDisclosure } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
 import { Header } from '../components/Header';
 import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
