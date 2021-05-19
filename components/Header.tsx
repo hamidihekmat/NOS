@@ -1,11 +1,4 @@
-import {
-  Box,
-  Text,
-  IconButton,
-  HStack,
-  Tooltip,
-  useMediaQuery,
-} from '@chakra-ui/react';
+import { Box, Text, IconButton, HStack } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { Profile } from './Profile';
 import { Search } from './Search';
@@ -15,10 +8,9 @@ import { navStore } from '../store/navStore';
 
 export const Header = () => {
   const toggle = navStore((state) => state.toggle);
-  const [isLargerThan370] = useMediaQuery('(min-width: 374px)');
 
   return (
-    <StyledHeader
+    <Box
       display="flex"
       alignItems="center"
       height="3.75rem"
@@ -28,20 +20,16 @@ export const Header = () => {
       px="1.5rem"
     >
       <HStack>
-        {isLargerThan370 && (
-          <Tooltip label="Expand" fontSize="sm" placement="bottom">
-            <IconButton
-              aria-label="Home"
-              onClick={toggle}
-              bg="transparent"
-              _hover={{ background: 'transparent' }}
-              _focus={{ background: 'transparent' }}
-              _active={{ background: 'transparent' }}
-              transform="translateX(-1.5rem)"
-              icon={<List color="var(--primary-color)" size={32} />}
-            />
-          </Tooltip>
-        )}
+        <StyledIconButton
+          aria-label="Navigation"
+          onClick={toggle}
+          bg="transparent"
+          _hover={{ background: 'transparent' }}
+          _focus={{ background: 'transparent' }}
+          _active={{ background: 'transparent' }}
+          transform="translateX(-0.5rem)"
+          icon={<List color="var(--primary-color)" size={32} />}
+        />
 
         <Text
           transform="translateX(-0.5rem)"
@@ -54,12 +42,12 @@ export const Header = () => {
       </HStack>
       <Search />
       <Profile />
-    </StyledHeader>
+    </Box>
   );
 };
 
-const StyledHeader = styled(Box)`
-  @media (min-width: 320px) {
-    padding: 0rem 1rem 0rem 1rem 0;
+const StyledIconButton = styled(IconButton)`
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
