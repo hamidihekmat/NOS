@@ -9,7 +9,7 @@ export const Search = () => {
       size="md"
       borderRadius="lg"
       border="1px solid var(--border-color)"
-      maxWidth="15rem"
+      maxWidth="20rem"
     >
       <InputLeftElement
         pointerEvents="none"
@@ -27,7 +27,7 @@ export const Search = () => {
 };
 
 const StyledInputGroup = styled(InputGroup)`
-  @media (min-width: 320px) {
-    width: 10rem;
+  @media (max-width: 768px) {
+    width: 11rem;
   }
 `;

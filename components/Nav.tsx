@@ -15,7 +15,7 @@ export const Nav = () => {
   return (
     <StyledVStack
       nav={nav ? 'enabled' : 'disabled'}
-      spacing="3"
+      spacing="0"
       alignItems="flex-start"
     >
       <NavItem as="a" href="/" aspath={router.asPath}>
@@ -89,7 +89,12 @@ const NavItem = styled(Box)<{ aspath: string }>`
   width: 100%;
   cursor: pointer;
   align-items: center;
+
   :hover {
-    background: var(--bg-secondary);
+    ${(props) =>
+      props.aspath !== props.href &&
+      css`
+        background: var(--bg-canvas);
+      `}
   }
 `;
