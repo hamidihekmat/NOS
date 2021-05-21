@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 // Icons
-import { HomeIcon } from '../SVG/_HomeIcon';
-import { MoviesIcon } from '../SVG/_MoviesIcon';
-import { TVIcon } from '../SVG/_TVIcon';
+import { HomeIcon } from '../svg/_HomeIcon';
+import { MoviesIcon } from '../svg/_MoviesIcon';
+import { TVIcon } from '../svg/_TVIcon';
 // Store
 import { navStore } from '../store/navStore';
 
