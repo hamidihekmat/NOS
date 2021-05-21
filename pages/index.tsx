@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react';
+import { Deck } from '../components/Deck';
 
 const IndexPage = () => (
   <Box>
@@ -8,6 +9,7 @@ const IndexPage = () => (
     <Text fontSize="3xl">This is a text</Text>
     <Text fontSize="2xl">This is a text</Text>
     <Text fontSize="xl">This is a text</Text>
+    <Deck />
   </Box>
 );
 
