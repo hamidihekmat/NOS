@@ -1,9 +1,8 @@
 import { Box, Text, Flex, Img } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import { fetchRecentMovies } from '../api/plex';
-import { useRef } from 'react';
 
-export const Deck = () => {
+export const Deck = ({ title }: { title: string }) => {
   const { data, isLoading, isError, isSuccess } = useQuery(
     'recent',
     fetchRecentMovies

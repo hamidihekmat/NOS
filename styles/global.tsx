@@ -13,6 +13,9 @@ export const GlobalStyle = (props: {}) => (
         --border-color: #30363d;
         --dropdown-shadow: 0 16px 32px rgba(1, 4, 9, 0.85);
       }
+      * {
+        box-sizing: border-box;
+      }
 
       html {
         font-family: sans-serif;

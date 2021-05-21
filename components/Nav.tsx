@@ -68,7 +68,8 @@ const StyledVStack = styled(VStack)`
   background: var(--bg-primary);
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
-  width: ${(props) => (props.nav === 'enabled' ? css`12rem` : css`4.25rem`)};
+  min-width: ${(props) =>
+    props.nav === 'enabled' ? css`12rem` : css`4.25rem`};
 `;
 
 const StyledIconButton = styled(IconButton)`
