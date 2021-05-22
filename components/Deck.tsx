@@ -22,11 +22,11 @@ export const Deck = ({ title }: { title: string }) => {
       {isSuccess && (
         <Box position="relative">
           <DeckButton cover="left">
-            <CaretLeft size={40} />
+            <CaretLeft size={38} />
           </DeckButton>
           <Flex overflowX="scroll">
             {data?.Metadata.map((media) => (
-              <Box minW="25vh" paddingRight="1rem">
+              <Box key={media.key} minW="25vh" paddingRight="1rem">
                 <Img
                   width="250px"
                   src={`http://localhost:3000${media.thumb}`}
@@ -39,7 +39,7 @@ export const Deck = ({ title }: { title: string }) => {
             ))}
           </Flex>
           <DeckButton cover="right">
-            <CaretRight size={40} />
+            <CaretRight size={38} />
           </DeckButton>
         </Box>
       )}
