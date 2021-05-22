@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Box, Text, Flex, Img } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -5,8 +6,12 @@ import { useQuery } from 'react-query';
 import { fetchRecentMovies } from '../api/plex';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
+// Hooks
+import { useSlider } from '../hooks/useSlider';
 
 export const Deck = ({ title }: { title: string }) => {
+  const ref = useRef(null);
+  const { next, previous, showNext, showPrev } = useSlider(ref, 2);
   const { data, isLoading, isError, isSuccess } = useQuery(
     'recent',
     fetchRecentMovies
@@ -21,12 +26,14 @@ export const Deck = ({ title }: { title: string }) => {
 
       {isSuccess && (
         <Box position="relative">
-          <DeckButton cover="left">
-            <CaretLeft size={38} />
-          </DeckButton>
-          <Flex overflowX="scroll">
+          {showPrev && (
+            <DeckButton cover="left" onClick={previous}>
+              <CaretLeft size={38} />
+            </DeckButton>
+          )}
+          <Flex overflowX="scroll" ref={ref}>
             {data?.Metadata.map((media) => (
-              <Box key={media.key} minW="25vh" paddingRight="1rem">
+              <Box key={media.key} minW="25vh" paddingRight="1vw">
                 <Img
                   width="250px"
                   src={`http://localhost:3000${media.thumb}`}
@@ -38,9 +45,11 @@ export const Deck = ({ title }: { title: string }) => {
               </Box>
             ))}
           </Flex>
-          <DeckButton cover="right">
-            <CaretRight size={38} />
-          </DeckButton>
+          {showNext && (
+            <DeckButton cover="right" onClick={next}>
+              <CaretRight size={38} />
+            </DeckButton>
+          )}
         </Box>
       )}
     </Box>

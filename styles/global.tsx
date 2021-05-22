@@ -15,6 +15,7 @@ export const GlobalStyle = (props: {}) => (
       }
       * {
         box-sizing: border-box;
+        scroll-behavior: smooth;
       }
 
       html {
@@ -26,9 +27,16 @@ export const GlobalStyle = (props: {}) => (
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
           Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         -webkit-font-smoothing: antialiased;
-        scroll-behavior: smooth;
         background: var(--bg-canvas);
         color: var(--primary-color);
+      }
+      /* Image Select Highlight */
+      img {
+        -khtml-user-select: none;
+        -o-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
       }
     `}
   />
