@@ -29,6 +29,7 @@ export const Profile = () => {
         cursor="pointer"
       />
       <MenuList
+        zIndex="99"
         bg="#1c2128"
         boxShadow="var(--dropdown-shadow)"
         border="1px solid var(--border-color)"

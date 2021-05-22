@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Img, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Flex, Skeleton, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { motion } from 'framer-motion';
 import { useQuery } from 'react-query';
 // Util
 import { MediaSkeletonSize } from '../utils/skeleton';
@@ -34,7 +35,7 @@ export const Deck = ({
       {isLoading && (
         <StyledFlex overflowX="scroll">
           {MediaSkeletonSize.map((_, index) => (
-            <Skeleton
+            <StyledSkeleton
               key={index}
               minW="25vh"
               marginRight="1vw"
@@ -58,16 +59,24 @@ export const Deck = ({
               <Box
                 key={media.key}
                 minW="25vh"
+                id="poster-container"
                 paddingRight="1vw"
                 cursor="pointer"
               >
                 {/* 195 x 293 */}
-                <Img
+
+                <MotionImage
                   width="250px"
-                  src={`http://localhost:3000${media.thumb}`}
+                  loading="lazy"
+                  src={`http://192.168.1.131:4000${media.thumb}`}
                   overflow="hidden"
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6 }}
                   alt={media.title}
                 />
+
                 <Text isTruncated fontSize="md" pt="1rem">
                   {media.title}
                 </Text>
@@ -89,6 +98,7 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
   position: absolute;
   width: 2.5vw;
   height: 100%;
+  z-index: 1;
   ${({ cover }) =>
     cover === 'right' &&
     css`
@@ -96,7 +106,7 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
     `}
   cursor: pointer;
   top: 0;
-  transition: background 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
   background: rgba(0, 0, 0, 0.6);
   :hover {
     background: rgba(0, 0, 0, 0.7);
@@ -113,6 +123,9 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
     transform: scale(0.8);
     transition: all 200ms ease-in;
   }
+  @media (max-width: 768px) {
+    width: 5vw;
+  }
 `;
 
 const StyledFlex = styled(Flex)`
@@ -122,5 +135,25 @@ const StyledFlex = styled(Flex)`
   }
   ::-webkit-scrollbar-thumb {
     background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    #poster-container {
+      min-width: 30vw;
+    }
+  }
+`;
+
+const StyledSkeleton = styled(Skeleton)`
+  @media (max-width: 768px) {
+    min-width: 145px;
+    height: 218px;
+  }
+`;
+
+const MotionImage = styled(motion(Image))`
+  transition: filter 400ms ease-in-out;
+  :hover {
+    filter: brightness(0.5);
   }
 `;
