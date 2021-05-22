@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { Header } from '../components/Header';
 import { AppProps } from 'next/app';
@@ -15,15 +16,17 @@ const queryClient = new QueryClient({
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <Fragment>
       <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
-        <Header />
-        <Box display="flex">
-          <Nav />
-          <Component {...pageProps} />
-        </Box>
+        <ChakraProvider>
+          <GlobalStyle />
+          <Header />
+          <Box display="flex">
+            <Nav />
+            <Component {...pageProps} />
+          </Box>
+        </ChakraProvider>
       </QueryClientProvider>
-    </ChakraProvider>
+    </Fragment>
   );
 }
