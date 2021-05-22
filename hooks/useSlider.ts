@@ -1,7 +1,7 @@
-import { useState, useEffect, RefObject } from 'react';
+import { useState, useEffect } from 'react';
 
 // view is the width of the container which will the carousel slide to on (Next|Prev)
-export function useSlider(ref: RefObject<HTMLDivElement>, view = 1) {
+export function useSlider(ref: HTMLDivElement | undefined, view = 1) {
   const [showPrev, setShowPrev] = useState(false);
   const [showNext, setShowNext] = useState(true);
   const [size, setSize] = useState(0);
@@ -28,29 +28,29 @@ export function useSlider(ref: RefObject<HTMLDivElement>, view = 1) {
   };
 
   useEffect(() => {
-    if (ref && ref.current) {
-      const { scrollWidth, clientWidth } = ref.current;
+    if (ref) {
+      const { scrollWidth, clientWidth } = ref;
 
       if (scrollWidth === clientWidth) {
         setShowNext(false);
       }
 
-      ref.current.addEventListener('scroll', trackScroll);
+      ref.addEventListener('scroll', trackScroll);
     }
   }, [ref, setShowNext]);
 
   const next = () => {
-    if (ref.current) {
-      const width = ref.current.offsetWidth / view;
-      ref.current.scrollLeft += width;
-      ref.current.scrollLeft += width;
+    if (ref) {
+      const width = ref.offsetWidth / view;
+      ref.scrollLeft += width;
+      ref.scrollLeft += width;
     }
   };
   const previous = () => {
-    if (ref.current) {
-      const width = ref.current.offsetWidth / view;
-      ref.current.scrollLeft -= width;
-      ref.current.scrollLeft -= width;
+    if (ref) {
+      const width = ref.offsetWidth / view;
+      ref.scrollLeft -= width;
+      ref.scrollLeft -= width;
     }
   };
 
