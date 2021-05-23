@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Skeleton, Image } from '@chakra-ui/react';
+import { Box, Text, Flex, Skeleton, Img, HStack } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
@@ -29,9 +29,21 @@ export const Deck = ({
   const { data, isLoading, isError, isSuccess } = useQuery(queryKey, fetcher);
   return (
     <Box padding="0rem 2rem 0rem 2rem">
-      <Text fontSize="2xl" fontWeight="bold" py="1.5rem">
-        {title}
-      </Text>
+      <HStack>
+        <Text fontSize="2xl" fontWeight="bold" py="1.5rem">
+          {title}
+        </Text>
+        <Text
+          fontSize="sm"
+          fontWeigh="bold"
+          color="var(--bg-secondary)"
+          cursor="pointer"
+          _hover={{ opacity: 0.8, transition: 'all 400ms' }}
+        >
+          Explore All
+        </Text>
+      </HStack>
+
       {isLoading && (
         <StyledFlex overflowX="scroll">
           {MediaSkeletonSize.map((_, index) => (
@@ -51,7 +63,7 @@ export const Deck = ({
         <Box position="relative">
           {showPrev && (
             <DeckButton cover="left" onClick={previous}>
-              <CaretLeft size={38} color="var(--bg-secondary)" />
+              <CaretLeft size={38} color="#ffffff" />
             </DeckButton>
           )}
           <StyledFlex overflowX="scroll" ref={ref}>
@@ -85,7 +97,7 @@ export const Deck = ({
           </StyledFlex>
           {showNext && (
             <DeckButton cover="right" onClick={next}>
-              <CaretRight size={38} color="var(--bg-secondary)" />
+              <CaretRight size={38} color="#ffffff" />
             </DeckButton>
           )}
         </Box>
@@ -103,13 +115,21 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
     cover === 'right' &&
     css`
       right: 0;
+      background: -webkit-linear-gradient(
+        right,
+        var(--bg-canvas) 20%,
+        rgba(27, 27, 27, 0)
+      ) !important;
     `}
   cursor: pointer;
   top: 0;
   transition: all 200ms ease-in-out;
-  background: rgba(0, 0, 0, 0.6);
+  background: -webkit-linear-gradient(
+    left,
+    var(--bg-canvas) 20%,
+    rgba(27, 27, 27, 0)
+  );
   :hover {
-    background: rgba(0, 0, 0, 0.7);
     svg {
       opacity: 1;
       transform: scale(1);
@@ -117,7 +137,7 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
   }
   svg {
     position: absolute;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     opacity: 0;
     transform: scale(0.8);
@@ -151,7 +171,7 @@ const StyledSkeleton = styled(Skeleton)`
   }
 `;
 
-const MotionImage = styled(motion(Image))`
+const MotionImage = styled(motion(Img))`
   transition: filter 400ms ease-in-out;
   :hover {
     filter: brightness(0.5);

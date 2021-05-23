@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { Header } from '../components/Header';
 import { AppProps } from 'next/app';
