@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Skeleton, Img, HStack } from '@chakra-ui/react';
+import { Box, Text, Flex, Skeleton, HStack } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { motion } from 'framer-motion';
-import { useQuery } from 'react-query';
+import useSWR from 'swr';
+import { LazyImage } from './_LazyImage';
 // Util
 import { MediaSkeletonSize } from '../utils/skeleton';
 // Icons
@@ -26,40 +26,40 @@ export const Deck = ({
     setRefState(node);
   }, []);
   const { next, previous, showNext, showPrev } = useSlider(refState, 2);
-  const { data, isLoading, isError, isSuccess } = useQuery(queryKey, fetcher);
+  const { data, error } = useSWR(queryKey, fetcher);
   return (
     <Box padding="0rem 2rem 0rem 2rem">
       <HStack>
-        <Text fontSize="2xl" fontWeight="bold" py="1.5rem">
+        <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
           {title}
-        </Text>
-        <Text
+        </Heading>
+        <SubHeading
           fontSize="sm"
-          fontWeigh="bold"
+          fontWeight="bold"
           color="var(--bg-secondary)"
           cursor="pointer"
           _hover={{ opacity: 0.8, transition: 'all 400ms' }}
         >
           Explore All
-        </Text>
+        </SubHeading>
       </HStack>
 
-      {isLoading && (
+      {!data && (
         <StyledFlex overflowX="scroll">
           {MediaSkeletonSize.map((_, index) => (
             <StyledSkeleton
               key={index}
-              minW="25vh"
+              minW="240px"
               marginRight="1vw"
-              height="293px"
+              height="360px"
               colorScheme="twitter"
             />
           ))}
         </StyledFlex>
       )}
-      {isError && <Box>Error</Box>}
+      {error && <Box>Error</Box>}
 
-      {isSuccess && (
+      {data && (
         <Box position="relative">
           {showPrev && (
             <DeckButton cover="left" onClick={previous}>
@@ -69,23 +69,35 @@ export const Deck = ({
           <StyledFlex overflowX="scroll" ref={ref}>
             {data?.Metadata.map((media) => (
               <Box
+                as="a"
+                href={`/movie/${media.ratingKey}`}
                 key={media.key}
-                minW="25vh"
-                id="poster-container"
-                paddingRight="1vw"
+                minW="240px"
+                marginRight="1vw"
+                height="400px"
                 cursor="pointer"
+                overflow="hidden"
+                css={css`
+                  @media (max-width: 768px) {
+                    min-width: 145px;
+                    height: 255px;
+                    img {
+                      min-width: 145px;
+                      height: 218px;
+                    }
+                  }
+                `}
               >
                 {/* 195 x 293 */}
 
-                <MotionImage
-                  width="250px"
+                <LazyImage
                   loading="lazy"
-                  src={`http://192.168.1.131:4000${media.thumb}`}
+                  className="img-lazy"
+                  width="240px"
+                  height="360px"
+                  objectFit="cover"
+                  src={`${process.env.BACKEND_URL}${media.thumb}`}
                   overflow="hidden"
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
                   alt={media.title}
                 />
 
@@ -144,7 +156,7 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
     transition: all 200ms ease-in;
   }
   @media (max-width: 768px) {
-    width: 5vw;
+    width: 8vw;
   }
 `;
 
@@ -156,10 +168,10 @@ const StyledFlex = styled(Flex)`
   ::-webkit-scrollbar-thumb {
     background: transparent;
   }
-
   @media (max-width: 768px) {
-    #poster-container {
-      min-width: 30vw;
+    img {
+      width: 145px !important;
+      height: 218px !important;
     }
   }
 `;
@@ -171,9 +183,14 @@ const StyledSkeleton = styled(Skeleton)`
   }
 `;
 
-const MotionImage = styled(motion(Img))`
-  transition: filter 400ms ease-in-out;
-  :hover {
-    filter: brightness(0.5);
+const Heading = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const SubHeading = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
   }
 `;

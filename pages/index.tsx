@@ -1,13 +1,14 @@
 import { Box } from '@chakra-ui/react';
 import { Deck } from '../components/Deck';
-import { fetchRecentMovies } from '../api/plex';
+import { Container } from '../components/_Container';
+import {
+  fetchRecentMovies,
+  fetchReleasedMovies,
+  fetchTopRatedMovies,
+} from '../api/plex';
 
 const IndexPage = () => (
-  <Box
-    width="calc(100vw - 3.75rem)"
-    height="calc(100vh - 3.75rem)"
-    overflowY="scroll"
-  >
+  <Container>
     <Deck
       queryKey="recent"
       title="Recently Added"
@@ -16,10 +17,10 @@ const IndexPage = () => (
     <Deck
       queryKey="newReleases"
       title="New Releases"
-      fetcher={fetchRecentMovies}
+      fetcher={fetchReleasedMovies}
     />
-    <Deck queryKey="topRated" title="Top Rated" fetcher={fetchRecentMovies} />
-  </Box>
+    <Deck queryKey="topRated" title="Top Rated" fetcher={fetchTopRatedMovies} />
+  </Container>
 );
 
 // Added overflow
