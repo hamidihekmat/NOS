@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { fetchMediaById, fetchRecentMovies } from '../../api/plex';
+import { fetchMediaById } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
 import { Container } from '../../components/_Container';
 
