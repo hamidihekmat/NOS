@@ -10,21 +10,28 @@ import {
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { fetchMediaById } from '../../api/plex';
+import { fetchMediaById, fetchRecentMovies } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
 import { Container } from '../../components/_Container';
+
 // Icons
-import { Heart, Plus } from 'phosphor-react';
-import { Play } from '../../svg/_Play';
+import { Heart, Plus, Play } from 'phosphor-react';
 // SWR
 import useSWR from 'swr';
 import { LazyImage } from '../../components/_LazyImage';
 import { Button } from '@chakra-ui/button';
 // Util
 import { formatDuration } from '../../utils/duration';
+import { useState } from 'react';
+import { RelatedMovies } from '../../components/RelatedMovies';
 
 const Media = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const load = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000);
+  };
   const { media } = router.query;
   const { data, error } = useSWR(media, () => fetchMediaById(media as string));
   if (!data) {
@@ -46,19 +53,25 @@ const Media = () => {
             width="100%"
             spacing="10"
             alignItems="flex-start"
-            p="2rem"
+            p="3rem"
+            css={css`
+              @media (max-width: 768px) {
+                padding: 0;
+              }
+            `}
           >
             <LazyImage
-              width="370px"
-              height="555px"
-              minHeight="555px"
-              minW="250px"
+              width="190px"
+              minW="355px"
               cursor="pointer"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
                 @media (max-width: 1080px) {
+                  height: 382.25px;
                   width: 250px;
-                  height: 375px;
+                  min-width: 250px;
+                  max-height: 375px;
+                  min-height: 375px;
                 }
                 @media (max-width: 768px) {
                   display: none;
@@ -88,6 +101,8 @@ const Media = () => {
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   fontWeight="bold"
+                  onClick={load}
+                  isLoading={loading}
                 >
                   PLAY
                 </Button>
@@ -102,8 +117,8 @@ const Media = () => {
                   icon={<Plus size={32} />}
                 />
               </HStack>
-              <Box minW="400px" maxW="850px">
-                <Text fontSize="xl" fontWeight="medium">
+              <Box minW="350px" maxW="850px">
+                <Text letterSpacing="wide" fontSize="lg" fontWeight="bold">
                   {media.summary}
                 </Text>
               </Box>
@@ -192,6 +207,7 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
+      <RelatedMovies id={media as string} />
     </Container>
   );
 };

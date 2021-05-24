@@ -28,7 +28,7 @@ export const Deck = ({
   const { next, previous, showNext, showPrev } = useSlider(refState, 2);
   const { data, error } = useSWR(queryKey, fetcher);
   return (
-    <Box padding="0rem 2rem 0rem 2rem">
+    <Box padding="0rem 3rem 0rem 3rem">
       <HStack>
         <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
           {title}
@@ -118,7 +118,7 @@ export const Deck = ({
   );
 };
 
-const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
+export const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
   position: absolute;
   width: 2.5vw;
   height: 100%;
@@ -160,7 +160,7 @@ const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
   }
 `;
 
-const StyledFlex = styled(Flex)`
+export const StyledFlex = styled(Flex)`
   ::-webkit-scrollbar {
     width: 0; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
@@ -176,20 +176,20 @@ const StyledFlex = styled(Flex)`
   }
 `;
 
-const StyledSkeleton = styled(Skeleton)`
+export const StyledSkeleton = styled(Skeleton)`
   @media (max-width: 768px) {
     min-width: 145px;
     height: 218px;
   }
 `;
 
-const Heading = styled(Text)`
+export const Heading = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
 `;
 
-const SubHeading = styled(Text)`
+export const SubHeading = styled(Text)`
   @media (max-width: 768px) {
     font-size: 0.8rem;
   }

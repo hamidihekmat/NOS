@@ -148,4 +148,18 @@ export interface MediaContainer {
   mediaTagPrefix: string;
   mediaTagVersion: number;
   Metadata: Metadata[];
+  Hub: Hub[];
+}
+
+export interface Hub {
+  hubKey: string;
+  key: string;
+  title: string;
+  type: string;
+  hubIdentifier: string;
+  context: string;
+  size: number;
+  more: boolean;
+  style: string;
+  Metadata: Metadata[];
 }
