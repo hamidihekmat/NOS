@@ -51,6 +51,7 @@ const Media = () => {
             <LazyImage
               width="370px"
               height="555px"
+              minHeight="555px"
               minW="250px"
               cursor="pointer"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
