@@ -35,7 +35,7 @@ export const RelatedMovies = ({ id }: { id: string }) => {
           </HStack>
 
           <Box position="relative">
-            <StyledFlex width="90vw" overflowX="scroll" ref={ref}>
+            <StyledFlex width="90vw" overflowX="scroll">
               {hub.Metadata.map((media) => (
                 <Box
                   as="a"
