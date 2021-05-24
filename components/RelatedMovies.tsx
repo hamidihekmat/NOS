@@ -1,24 +1,15 @@
 import { Box, VStack, HStack, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { DeckButton, Heading, StyledFlex } from './Deck';
+import { Heading, StyledFlex } from './Deck';
 import { BounceLoader } from 'react-spinners';
-import { useCallback, useState } from 'react';
-import { useSlider } from '../hooks/useSlider';
 // SWR
 import useSWR from 'swr';
 import { fetchRelatedMovies } from '../api/plex';
-
-// Icons
-import { CaretLeft, CaretRight } from 'phosphor-react';
 import { LazyImage } from './_LazyImage';
 
 export const RelatedMovies = ({ id }: { id: string }) => {
   const router = useRouter();
-  const [refState, setRefState] = useState<HTMLDivElement>();
-  const ref = useCallback((node) => {
-    setRefState(node);
-  }, []);
   const { data, error } = useSWR(router.asPath, () =>
     fetchRelatedMovies(id as string)
   );
