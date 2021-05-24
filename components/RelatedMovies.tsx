@@ -19,7 +19,6 @@ export const RelatedMovies = ({ id }: { id: string }) => {
   const ref = useCallback((node) => {
     setRefState(node);
   }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 2);
   const { data, error } = useSWR(router.asPath, () =>
     fetchRelatedMovies(id as string)
   );
@@ -35,7 +34,7 @@ export const RelatedMovies = ({ id }: { id: string }) => {
   }
 
   return (
-    <VStack alignItems="flex-start" overflow="hidden">
+    <VStack alignItems="flex-start">
       {data.Hub.map((hub) => (
         <Box key={hub.hubKey} padding="0rem 3rem 0rem 3rem">
           <HStack>
@@ -45,18 +44,14 @@ export const RelatedMovies = ({ id }: { id: string }) => {
           </HStack>
 
           <Box position="relative">
-            {showPrev && (
-              <DeckButton cover="left" onClick={previous}>
-                <CaretLeft size={38} color="#ffffff" />
-              </DeckButton>
-            )}
-            <StyledFlex width="90vw" overflowY="scroll" ref={ref}>
+            <StyledFlex width="90vw" overflowX="scroll" ref={ref}>
               {hub.Metadata.map((media) => (
                 <Box
                   as="a"
                   href={`/movie/${media.ratingKey}`}
                   key={media.key}
                   minW="240px"
+                  maxW="240px"
                   marginRight="1vw"
                   height="400px"
                   cursor="pointer"
@@ -86,18 +81,11 @@ export const RelatedMovies = ({ id }: { id: string }) => {
                   />
 
                   <Text isTruncated fontSize="md" pt="1rem">
-                    {media.title.length > 20
-                      ? `${media.title.slice(0, 15)}...`
-                      : media.title}
+                    {media.title}
                   </Text>
                 </Box>
               ))}
             </StyledFlex>
-            {showNext && (
-              <DeckButton cover="right" onClick={next}>
-                <CaretRight size={38} color="#ffffff" />
-              </DeckButton>
-            )}
           </Box>
         </Box>
       ))}

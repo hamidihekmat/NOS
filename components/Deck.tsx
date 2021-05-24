@@ -73,6 +73,7 @@ export const Deck = ({
                 href={`/movie/${media.ratingKey}`}
                 key={media.key}
                 minW="240px"
+                maxW="240px"
                 marginRight="1vw"
                 height="400px"
                 cursor="pointer"

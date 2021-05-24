@@ -6,6 +6,7 @@ export const Container = (props: BoxProps) => {
       width="calc(100vw - 3.75rem)"
       height="calc(100vh - 3.75rem)"
       overflowY="scroll"
+      overflowX="hidden"
       {...props}
     >
       {props.children}
