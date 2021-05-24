@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { Deck } from '../components/Deck';
 import { Container } from '../components/_Container';
 import {

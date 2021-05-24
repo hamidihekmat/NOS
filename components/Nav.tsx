@@ -12,6 +12,7 @@ import { navStore } from '../store/navStore';
 export const Nav = () => {
   const router = useRouter();
   const nav = navStore((state) => state.nav);
+  console.log(router.asPath.split('/').includes('movie'));
   return (
     <StyledVStack
       nav={nav ? 'enabled' : 'disabled'}
@@ -85,7 +86,11 @@ const NavItem = styled(Box)<{ aspath: string }>`
   display: flex;
   padding: 0.5rem;
   background: ${(props) =>
-    props.aspath === props.href ? css`var(--bg-secondary)` : css`transparent`};
+    props.aspath === props.href
+      ? css`var(--bg-secondary)`
+      : props.aspath.split('/').includes('movie') && props.href === '/movies'
+      ? css`var(--bg-secondary)`
+      : css`transparent`};
   padding-left: 1rem;
   width: 100%;
   cursor: pointer;

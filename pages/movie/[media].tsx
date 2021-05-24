@@ -8,12 +8,14 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { fetchMediaById } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
 import { Container } from '../../components/_Container';
 // Icons
-import { Heart, Play, Plus } from 'phosphor-react';
+import { Heart, Plus } from 'phosphor-react';
+import { Play } from '../../svg/_Play';
 // SWR
 import useSWR from 'swr';
 import { LazyImage } from '../../components/_LazyImage';
@@ -52,6 +54,15 @@ const Media = () => {
               minW="250px"
               cursor="pointer"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
+              css={css`
+                @media (max-width: 1080px) {
+                  width: 250px;
+                  height: 375px;
+                }
+                @media (max-width: 768px) {
+                  display: none;
+                }
+              `}
             />
             <VStack alignItems="flex-start">
               <Text fontSize="3xl" fontWeight="bold">
@@ -74,7 +85,7 @@ const Media = () => {
               <HStack py="2rem" spacing="3">
                 <Button
                   background="var(--bg-secondary)"
-                  leftIcon={<Play size={32} />}
+                  leftIcon={<Play color="#ffffff" size={30} />}
                   fontWeight="bold"
                 >
                   PLAY
@@ -90,12 +101,12 @@ const Media = () => {
                   icon={<Plus size={32} />}
                 />
               </HStack>
-              <Box maxW="50vw">
+              <Box minW="400px" maxW="850px">
                 <Text fontSize="xl" fontWeight="medium">
                   {media.summary}
                 </Text>
               </Box>
-              <List width="30vw" pt="2rem" spacing={3}>
+              <List minW="370px" pt="2rem" spacing={3}>
                 {media.Director && (
                   <ListItem display="flex" fontWeight="bold">
                     <Text
@@ -105,6 +116,7 @@ const Media = () => {
                     >
                       DIRECTED BY
                     </Text>
+                    <Box px="1rem" />
                     <Box flex={2}>
                       {media.Director.map((director, index) => (
                         <Text as="span" key={director.id}>
@@ -126,6 +138,7 @@ const Media = () => {
                     >
                       WRITTEN BY
                     </Text>
+                    <Box px="1rem" />
                     <Box flex={2}>
                       {media.Writer.map((writer, index) => (
                         <Text as="span" key={writer.id}>
@@ -147,6 +160,7 @@ const Media = () => {
                     >
                       STUDIO
                     </Text>
+                    <Box px="1rem" />
                     <Box flex={2}>
                       <Text as="span">{media.studio}</Text>
                     </Box>
@@ -161,6 +175,7 @@ const Media = () => {
                     >
                       GENRE
                     </Text>
+                    <Box px="1rem" />
                     <Box flex={2}>
                       {media.Genre.map((genre, index) => (
                         <Text as="span" key={genre.id}>
