@@ -1,6 +1,12 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Skeleton, HStack } from '@chakra-ui/react';
-import styled from '@emotion/styled';
+import { Box, Text, HStack } from '@chakra-ui/react';
+import {
+  DeckButton,
+  Heading,
+  StyledFlex,
+  StyledSkeleton,
+  SubHeading,
+} from './_Deck';
 import { css } from '@emotion/react';
 import useSWR from 'swr';
 import { LazyImage } from './_LazyImage';
@@ -12,7 +18,7 @@ import { CaretLeft, CaretRight } from 'phosphor-react';
 import { useSlider } from '../hooks/useSlider';
 import { MediaContainer } from '../interfaces/plex.interface';
 
-export const Deck = ({
+export const DeckFetcher = ({
   title,
   queryKey,
   fetcher,
@@ -118,80 +124,3 @@ export const Deck = ({
     </Box>
   );
 };
-
-export const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
-  position: absolute;
-  width: 2.5vw;
-  height: 100%;
-  z-index: 1;
-  ${({ cover }) =>
-    cover === 'right' &&
-    css`
-      right: 0;
-      background: -webkit-linear-gradient(
-        right,
-        var(--bg-canvas) 20%,
-        rgba(27, 27, 27, 0)
-      ) !important;
-    `}
-  cursor: pointer;
-  top: 0;
-  transition: all 200ms ease-in-out;
-  background: -webkit-linear-gradient(
-    left,
-    var(--bg-canvas) 20%,
-    rgba(27, 27, 27, 0)
-  );
-  :hover {
-    svg {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  svg {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 200ms ease-in;
-  }
-  @media (max-width: 768px) {
-    width: 8vw;
-  }
-`;
-
-export const StyledFlex = styled(Flex)`
-  ::-webkit-scrollbar {
-    width: 0; /* Remove scrollbar space */
-    background: transparent; /* Optional: just make scrollbar invisible */
-  }
-  ::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-  @media (max-width: 768px) {
-    img {
-      width: 145px !important;
-      height: 218px !important;
-    }
-  }
-`;
-
-export const StyledSkeleton = styled(Skeleton)`
-  @media (max-width: 768px) {
-    min-width: 145px;
-    height: 218px;
-  }
-`;
-
-export const Heading = styled(Text)`
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
-`;
-
-export const SubHeading = styled(Text)`
-  @media (max-width: 768px) {
-    font-size: 0.8rem;
-  }
-`;

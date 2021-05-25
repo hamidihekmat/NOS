@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    BACKEND_URL: 'http://192.168.1.131:4000',
+    BACKEND_URL: 'http://localhost:4000',
   },
 };

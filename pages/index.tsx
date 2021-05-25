@@ -1,4 +1,4 @@
-import { Deck } from '../components/Deck';
+import { DeckFetcher } from '../components/DeckFetcher';
 import { Container } from '../components/_Container';
 import {
   fetchRecentMovies,
@@ -8,17 +8,21 @@ import {
 
 const IndexPage = () => (
   <Container>
-    <Deck
+    <DeckFetcher
       queryKey="recent"
       title="Recently Added"
       fetcher={fetchRecentMovies}
     />
-    <Deck
+    <DeckFetcher
       queryKey="newReleases"
       title="New Releases"
       fetcher={fetchReleasedMovies}
     />
-    <Deck queryKey="topRated" title="Top Rated" fetcher={fetchTopRatedMovies} />
+    <DeckFetcher
+      queryKey="topRated"
+      title="Top Rated"
+      fetcher={fetchTopRatedMovies}
+    />
   </Container>
 );
 

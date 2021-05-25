@@ -1,12 +1,11 @@
-import { Box, VStack, HStack, Text } from '@chakra-ui/react';
-import { css } from '@emotion/react';
+import { Box, VStack } from '@chakra-ui/react';
+import { Deck } from './_Deck';
 import { useRouter } from 'next/router';
-import { Heading, StyledFlex } from './Deck';
 import { BounceLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
 import { fetchRelatedMovies } from '../api/plex';
-import { LazyImage } from './_LazyImage';
+import { Container } from 'next/app';
 
 export const RelatedMovies = ({ id }: { id: string }) => {
   const router = useRouter();
@@ -25,61 +24,10 @@ export const RelatedMovies = ({ id }: { id: string }) => {
   }
 
   return (
-    <VStack alignItems="flex-start">
+    <Container display="flex">
       {data.Hub.map((hub) => (
-        <Box key={hub.hubKey} padding="0rem 3rem 0rem 3rem">
-          <HStack>
-            <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
-              {hub.title}
-            </Heading>
-          </HStack>
-
-          <Box position="relative">
-            <StyledFlex width="90vw" overflowX="scroll">
-              {hub.Metadata.map((media) => (
-                <Box
-                  as="a"
-                  href={`/movie/${media.ratingKey}`}
-                  key={media.key}
-                  minW="240px"
-                  maxW="240px"
-                  marginRight="1vw"
-                  height="400px"
-                  cursor="pointer"
-                  overflow="hidden"
-                  css={css`
-                    @media (max-width: 768px) {
-                      min-width: 145px;
-                      height: 255px;
-                      img {
-                        min-width: 145px;
-                        height: 218px;
-                      }
-                    }
-                  `}
-                >
-                  {/* 195 x 293 */}
-
-                  <LazyImage
-                    loading="lazy"
-                    className="img-lazy"
-                    width="240px"
-                    height="360px"
-                    objectFit="cover"
-                    src={`${process.env.BACKEND_URL}${media.thumb}`}
-                    overflow="hidden"
-                    alt={media.title}
-                  />
-
-                  <Text isTruncated fontSize="md" pt="1rem">
-                    {media.title}
-                  </Text>
-                </Box>
-              ))}
-            </StyledFlex>
-          </Box>
-        </Box>
+        <Deck key={hub.hubKey} hub={hub} />
       ))}
-    </VStack>
+    </Container>
   );
 };
