@@ -1,4 +1,4 @@
-import { Box, VStack } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { Deck } from './_Deck';
 import { useRouter } from 'next/router';
 import { BounceLoader } from 'react-spinners';

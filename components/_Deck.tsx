@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Skeleton, HStack } from '@chakra-ui/react';
+import { Box, Text, Flex, Skeleton } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
