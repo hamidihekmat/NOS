@@ -95,6 +95,7 @@ export const Casts = (prop: Castsprop) => {
                 textAlign="center"
                 color="#4b5561"
                 isTruncated
+                fontWeight="bold"
                 fontSize="md"
               >
                 {cast.role}
