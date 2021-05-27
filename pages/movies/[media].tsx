@@ -24,6 +24,7 @@ import { Button } from '@chakra-ui/button';
 import { formatDuration } from '../../utils/duration';
 import { useState } from 'react';
 import { RelatedMovies } from '../../components/RelatedMovies';
+import { Casts } from '../../components/Casts';
 
 const Media = () => {
   const router = useRouter();
@@ -207,6 +208,7 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
+      <Casts casts={data.Metadata[0].Role} />
       <RelatedMovies id={media as string} />
     </Container>
   );

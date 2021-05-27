@@ -9,6 +9,7 @@ export const GlobalStyle = (props: {}) => (
         --bg-primary: #161b22;
         --bg-secondary: #1f6feb;
         --font-color: #c9d1d9;
+        --font-secondary-color: #4b5561;
         --primary-color: #f0f6fc;
         --border-color: #30363d;
         --dropdown-shadow: 0 16px 32px rgba(1, 4, 9, 0.85);
