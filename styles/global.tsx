@@ -22,6 +22,7 @@ export const GlobalStyle = (props: {}) => (
         font-family: sans-serif;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
+        background: var(--bg-canvas);
       }
       body {
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
