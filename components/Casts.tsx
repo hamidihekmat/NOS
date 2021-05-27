@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Box, HStack, IconButton, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { DeckButton, Heading, StyledFlex } from './_Deck';
+import { Heading, StyledFlex } from './_Deck';
 import { useSlider } from '../hooks/useSlider';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
