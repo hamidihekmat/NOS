@@ -31,7 +31,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
           {hub.Metadata.map((media) => (
             <Box
               as="a"
-              href={`/movie/${media.ratingKey}`}
+              href={`/movies/${media.ratingKey}`}
               key={media.key}
               minW="240px"
               maxW="240px"

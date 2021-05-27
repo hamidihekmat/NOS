@@ -12,6 +12,7 @@ import { navStore } from '../store/navStore';
 export const Nav = () => {
   const router = useRouter();
   const nav = navStore((state) => state.nav);
+  console.log(router.asPath);
   return (
     <StyledVStack
       nav={nav ? 'enabled' : 'disabled'}
@@ -85,9 +86,7 @@ const NavItem = styled(Box)<{ aspath: string }>`
   display: flex;
   padding: 0.5rem;
   background: ${(props) =>
-    props.aspath === props.href
-      ? css`var(--bg-secondary)`
-      : props.aspath.split('/').includes('movie') && props.href === '/movies'
+    `/${props.aspath.split('/')[1]}` === props.href
       ? css`var(--bg-secondary)`
       : css`transparent`};
   padding-left: 1rem;
@@ -97,7 +96,7 @@ const NavItem = styled(Box)<{ aspath: string }>`
 
   :hover {
     ${(props) =>
-      props.aspath !== props.href &&
+      `/${props.aspath.split('/')[1]}` !== props.href &&
       css`
         background: var(--bg-canvas);
       `}
