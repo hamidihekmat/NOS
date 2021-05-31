@@ -1,8 +1,6 @@
-import { Playlist } from '../interfaces/player.interface';
-
-export const useJWPlayer = (playlist: Playlist) => {
+export const useJWPlayer = (playlist) => {
   const onReady = () => {
-    const jwplayerAPI = (window as any).jwplayer('player');
+    const jwplayerAPI = window.jwplayer('player');
     // Remove Settings
     jwplayerAPI.on('play', () => {
       // Set Title
@@ -23,7 +21,7 @@ export const useJWPlayer = (playlist: Playlist) => {
     vttDiv.className = 'vtt';
     wrapper.appendChild(vttDiv);
     // Add Keyboard Press
-    jw?.addEventListener('keypress', ({ keyCode }) => {
+    jw.addEventListener('keypress', ({ keyCode }) => {
       if (keyCode === 119 || keyCode === 87) {
         addOffset(0.5);
       }
@@ -51,13 +49,11 @@ export const useJWPlayer = (playlist: Playlist) => {
     const currentTrack = player.textTracks[0];
     currentTrack.mode = 'hidden';
     const renderCue = () => {
-      if (currentTrack.activeCues?.length) {
-        const cue = currentTrack.activeCues[0] as VTTCue;
-        if (currentTrack.activeCues.length) {
-          vttDiv.innerHTML = cue.text;
-        } else {
-          vttDiv.innerHTML = '';
-        }
+      const cue = currentTrack.activeCues[0];
+      if (currentTrack.activeCues.length) {
+        vttDiv.innerHTML = cue.text;
+      } else {
+        vttDiv.innerHTML = '';
       }
     };
     if (jwplayerAPI.getCurrentCaptions()) {
@@ -73,16 +69,14 @@ export const useJWPlayer = (playlist: Playlist) => {
     });
   };
 
-  function addOffset(offset: number) {
+  function addOffset(offset) {
     const player = document.getElementsByTagName('video')[0];
     const tracks = player.textTracks;
     Array.from(tracks).forEach((track) => {
-      if (track.cues) {
-        Array.from(track.cues).forEach((cue) => {
-          cue.startTime += offset || 1;
-          cue.endTime += offset || 1;
-        });
-      }
+      Array.from(track.cues).forEach((cue) => {
+        cue.startTime += offset || 1;
+        cue.endTime += offset || 1;
+      });
     });
   }
 

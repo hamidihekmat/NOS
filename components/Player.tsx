@@ -26,7 +26,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
           top="5%"
           zIndex={99}
           left="3%"
-          icon={<ArrowLeft size={48} color="#ffffff" />}
+          icon={<ArrowLeft size={38} color="#ffffff" />}
         />
       )}
 

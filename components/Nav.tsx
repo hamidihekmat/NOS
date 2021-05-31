@@ -12,7 +12,6 @@ import { navStore } from '../store/navStore';
 export const Nav = () => {
   const router = useRouter();
   const nav = navStore((state) => state.nav);
-  console.log(nav);
   return (
     <StyledVStack
       nav={nav ? 'enabled' : 'disabled'}

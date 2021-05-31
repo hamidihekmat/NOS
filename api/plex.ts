@@ -1,3 +1,4 @@
+import { Playlist } from '../interfaces/player.interface';
 import { MediaContainer } from '../interfaces/plex.interface';
 
 export const fetchRecentMovies = async (): Promise<MediaContainer> => {
@@ -28,6 +29,12 @@ export const fetchRelatedMovies = async (
   const response = await fetch(
     `${process.env.BACKEND_URL}/library/related/${id}`
   );
-  console.log(`${process.env.BACKEND_URL}/library/related/${id}`);
+  return await response.json();
+};
+
+export const fetchPlaylist = async (id: string): Promise<Playlist> => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/watch/${id}`
+  );
   return await response.json();
 };
