@@ -3,6 +3,7 @@ import { Box, Text, Flex, Skeleton } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
+
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
 // Hooks
@@ -102,17 +103,18 @@ export const DeckButton = styled(Box)<{ cover: 'right' | 'left' }>`
     var(--bg-canvas) 20%,
     rgba(27, 27, 27, 0)
   );
+
   :hover {
     svg {
-      opacity: 1;
       transform: scale(1);
     }
   }
+
   svg {
     position: absolute;
     top: 45%;
     transform: translateY(-50%);
-    opacity: 0;
+    opacity: 1;
     transform: scale(0.8);
     transition: all 200ms ease-in;
   }

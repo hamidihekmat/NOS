@@ -97,17 +97,20 @@ const Media = () => {
                   href={`/watch/${media.ratingKey}`}
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
+                  _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
                   PLAY
                 </Button>
                 <IconButton
                   aria-label="Like"
+                  _hover={{ opacity: '85%' }}
                   background="var(--border-color)"
                   icon={<Heart size={32} />}
                 />
                 <IconButton
                   aria-label="Add To Watch List"
+                  _hover={{ opacity: '85%' }}
                   background="var(--border-color)"
                   icon={<Plus size={32} />}
                 />

@@ -35,11 +35,25 @@ export const Casts = (prop: Castsprop) => {
               icon={<CaretLeft size={38} color="#ffffff" />}
             />
           )}
+          {!showPrev && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretLeft size={38} color="#4b5561" />}
+            />
+          )}
           {showNext && (
             <StyledIconButton
               onClick={next}
               aria-label="previous"
               icon={<CaretRight size={38} color="#ffffff" />}
+            />
+          )}
+          {!showNext && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretRight size={38} color="#4b5561" />}
             />
           )}
         </HStack>
