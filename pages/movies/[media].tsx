@@ -22,17 +22,11 @@ import { LazyImage } from '../../components/_LazyImage';
 import { Button } from '@chakra-ui/button';
 // Util
 import { formatDuration } from '../../utils/duration';
-import { useState } from 'react';
 import { RelatedMovies } from '../../components/RelatedMovies';
 import { Casts } from '../../components/Casts';
 
 const Media = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const load = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 3000);
-  };
   const { media } = router.query;
   const { data, error } = useSWR(media, () => fetchMediaById(media as string));
   if (!data) {
@@ -99,11 +93,11 @@ const Media = () => {
               </HStack>
               <HStack py="2rem" spacing="3">
                 <Button
+                  as="a"
+                  href={`/watch/${media.ratingKey}`}
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   fontWeight="bold"
-                  onClick={load}
-                  isLoading={loading}
                 >
                   PLAY
                 </Button>
