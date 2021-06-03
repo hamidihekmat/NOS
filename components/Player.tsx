@@ -33,7 +33,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
       <StyledJWPlayer
         playerId="player"
         onPlay={onPlay}
-        playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
+        playerScript="https://cdn.jwplayer.com/libraries/EM0EvxdG.js"
         playlist={[playlist]}
         onReady={onReady}
       />
