@@ -11,8 +11,11 @@ import { ArrowLeft } from 'phosphor-react';
 
 export const Player = ({ playlist }: { playlist: Playlist }) => {
   const router = useRouter();
-  const [onReady] = useJWPlayer(playlist);
+  // const [onReady] = useJWPlayer(playlist);
   const [playing, setPlaying] = useState(false);
+  const onPlay = () => {
+    setPlaying(true);
+  };
   return (
     <Container position="relative">
       {playing && (
@@ -29,9 +32,10 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
 
       <StyledJWPlayer
         playerId="player"
+        onPlay={onPlay}
         playerScript="https://cdn.jwplayer.com/libraries/EM0EvxdG.js"
         playlist={[playlist]}
-        onReady={onReady}
+        // onReady={onReady}
       />
     </Container>
   );
