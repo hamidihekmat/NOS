@@ -1,4 +1,4 @@
-import { useJWPlayer } from '../hooks/usePlayer';
+// import { useJWPlayer } from '../hooks/usePlayer';
 import ReactJWPlayer from 'react-jw-player';
 import styled from '@emotion/styled';
 import { Playlist } from '../interfaces/player.interface';
@@ -35,7 +35,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
         onPlay={onPlay}
         playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
         playlist={[playlist]}
-        // onReady={onReady
+        // onReady={onReady}
       />
     </Container>
   );
