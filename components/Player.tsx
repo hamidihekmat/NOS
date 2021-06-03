@@ -35,7 +35,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
         onPlay={onPlay}
         playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
         playlist={[playlist]}
-        // onReady={onReady}
+        // onReady={onReady
       />
     </Container>
   );
