@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    BACKEND_URL: 'http://api.thenos.org',
+    BACKEND_URL: 'https://api.thenos.org',
   },
 };
