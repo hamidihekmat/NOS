@@ -47,12 +47,14 @@ export const Search = () => {
           position="absolute"
           top="100%"
           left="50%"
+          marginTop=".5rem"
           transform="translateX(-50%)"
           width="100%"
           bg="var(--bg-primary)"
           border="1px solid var(--border-color)"
           zIndex="99"
           maxH="255px"
+          borderRadius="xl"
           overflowY="scroll"
         >
           <SearchResults data={data} />
