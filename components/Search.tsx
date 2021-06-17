@@ -52,6 +52,7 @@ export const Search = () => {
           width="100%"
           bg="var(--bg-primary)"
           border="1px solid var(--border-color)"
+          boxShadow="var(--dropdown-shadow)"
           zIndex="99"
           maxH="255px"
           borderRadius="xl"
