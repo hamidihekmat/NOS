@@ -38,3 +38,19 @@ export const fetchPlaylist = async (id: string): Promise<Playlist> => {
   );
   return await response.json();
 };
+
+export const searchMedia = async (query: string): Promise<MediaContainer> => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/search?` +
+      new URLSearchParams({
+        query,
+      })
+  );
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    // Attach extra info to the error object.
+    throw error;
+  }
+
+  return await response.json();
+};
