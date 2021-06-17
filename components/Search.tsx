@@ -12,7 +12,7 @@ import { searchMedia } from '../api/plex';
 export const Search = () => {
   const [query, setQuery] = useState('');
   const [debounceQuery] = useDebounce(query, 500);
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     debounceQuery,
     () => (debounceQuery ? searchMedia(debounceQuery) : null),
     { refreshInterval: 0 }
