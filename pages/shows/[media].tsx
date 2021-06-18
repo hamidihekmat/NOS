@@ -25,6 +25,7 @@ import { formatDuration } from '../../utils/duration';
 import { RelatedMovies } from '../../components/RelatedMovies';
 import { Casts } from '../../components/Casts';
 import { ShowMore } from '../../components/_ShowMore';
+import { Seasons } from '../../components/Seasons';
 
 const Media = () => {
   const router = useRouter();
@@ -90,13 +91,13 @@ const Media = () => {
                   {media.contentRating}
                 </Badge>
                 {/* <Tooltip label={`${media.rating}/10`} aria-label="imdb rating">
-                  <Badge fontWeight="bold" fontSize="sm">
-                    Rotten Tomato
-                  </Badge>
-                </Tooltip> */}
+                    <Badge fontWeight="bold" fontSize="sm">
+                      Rotten Tomato
+                    </Badge>
+                  </Tooltip> */}
 
                 {/* Rating #1
-                Rating #2 */}
+                  Rating #2 */}
               </HStack>
 
               <HStack py="2rem" spacing="3">
@@ -108,7 +109,7 @@ const Media = () => {
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
-                  PLAY
+                  Resume
                 </Button>
                 <IconButton
                   aria-label="Like"
@@ -211,6 +212,7 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
+      <Seasons id={media as string} />
       <Casts casts={data.Metadata[0].Role} />
       <RelatedMovies id={media as string} />
     </Container>

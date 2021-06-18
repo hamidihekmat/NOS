@@ -1,7 +1,8 @@
-import { Box, Text, HStack, Tooltip, Spacer } from '@chakra-ui/react';
+import { Box, Text, HStack, Tooltip, Spacer, Badge } from '@chakra-ui/react';
 import { LazyImage } from './_LazyImage';
 import { MediaContainer } from '../interfaces/plex.interface';
 import { Hub } from '../interfaces/plex.interface';
+import { formatDuration } from '../utils/duration';
 
 export const SearchResults = ({ data }: { data: MediaContainer }) => {
   const movies: Hub | undefined = data.Hub.find(
@@ -36,9 +37,25 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
                   display="block"
                   src={`${process.env.BACKEND_URL}${movie.thumb}`}
                 />
-                <Text isTruncated fontWeight="bold">
-                  {movie.title}
-                </Text>
+                <Box isTruncated display="flex" flexDir="column">
+                  <Text isTruncated fontWeight="bold">
+                    {movie.title}
+                  </Text>
+                  <Box display="flex" color="hsla(0,0%,98%,.45)">
+                    <Text fontWeight="bold" fontSize="sm">
+                      {formatDuration(movie.duration)}
+                    </Text>
+                    <Badge
+                      ml=".5rem"
+                      style={{ transform: 'scale(0.8)' }}
+                      variant="outline"
+                      fontWeight="bold"
+                      fontSize="sm"
+                    >
+                      {movie.contentRating}
+                    </Badge>
+                  </Box>
+                </Box>
 
                 <Spacer />
                 <Text

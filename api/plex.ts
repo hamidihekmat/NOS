@@ -54,3 +54,10 @@ export const searchMedia = async (query: string): Promise<MediaContainer> => {
 
   return await response.json();
 };
+
+export const fetchSeasons = async (id: string) => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/metadata/${id}/children`
+  );
+  return await response.json();
+};
