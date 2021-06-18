@@ -1,5 +1,4 @@
 import { Box } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { BounceLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
