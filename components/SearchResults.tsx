@@ -53,7 +53,7 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
           </Box>
         ))
       ) : (
-        <div>No search found...</div>
+        <Box padding=".5rem 1rem">No search found...</Box>
       )}
     </>
   );
