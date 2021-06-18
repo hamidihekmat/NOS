@@ -54,9 +54,7 @@ export const Search = () => {
           border="1px solid var(--border-color)"
           boxShadow="var(--dropdown-shadow)"
           zIndex="99"
-          maxH="255px"
           borderRadius="xl"
-          overflowY="scroll"
         >
           <SearchResults data={data} />
         </Box>
