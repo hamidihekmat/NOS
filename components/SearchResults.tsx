@@ -28,7 +28,7 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
                 as="a"
                 href={`/movies/${movie.ratingKey}`}
               >
-                <Badge>Movie</Badge>
+                {/* <Badge>Movie</Badge> */}
                 <LazyImage
                   width="28px"
                   minW="42px"
