@@ -1,4 +1,4 @@
-import { Box, Badge, Text, HStack, Tooltip, Spacer } from '@chakra-ui/react';
+import { Box, Text, HStack, Tooltip, Spacer } from '@chakra-ui/react';
 import { LazyImage } from './_LazyImage';
 import { MediaContainer } from '../interfaces/plex.interface';
 import { Hub } from '../interfaces/plex.interface';
