@@ -52,7 +52,7 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
                       fontWeight="bold"
                       fontSize="sm"
                     >
-                      {movie.contentRating}
+                      {movie.contentRating ? movie.contentRating : 'NA'}
                     </Badge>
                   </Box>
                 </Box>

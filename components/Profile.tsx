@@ -30,7 +30,7 @@ export const Profile = () => {
       />
       <MenuList
         zIndex="99"
-        bg="#1c2128"
+        bg="var(--bg-primary)"
         boxShadow="var(--dropdown-shadow)"
         border="1px solid var(--border-color)"
         color="hsla(0,0%,100%,.7)"

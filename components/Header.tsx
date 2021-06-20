@@ -35,7 +35,11 @@ export const Header = () => {
           transform="translateX(-0.5rem)"
           color="var(--bg-secondary)"
           fontSize="2xl"
-          fontWeight="bold"
+          fontWeight="extrabold"
+          fontStyle="italic"
+          as="a"
+          href="/"
+          cursor="pointer"
         >
           NOS
         </Text>
