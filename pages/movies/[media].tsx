@@ -102,7 +102,7 @@ const Media = () => {
               <HStack py="2rem" spacing="3">
                 <Button
                   as="a"
-                  href={`/watch/${media.ratingKey}`}
+                  href={`/movies/watch/${media.ratingKey}`}
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}

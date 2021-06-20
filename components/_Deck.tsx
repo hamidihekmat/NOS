@@ -3,6 +3,7 @@ import { Box, Text, Flex, Skeleton } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
+import { useRouter } from 'next/router';
 
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
@@ -11,6 +12,7 @@ import { useSlider } from '../hooks/useSlider';
 import { Hub } from '../interfaces/plex.interface';
 
 export const Deck = ({ hub }: { hub: Hub }) => {
+  const router = useRouter();
   const [refState, setRefState] = useState<HTMLDivElement>();
   const ref = useCallback((node) => {
     setRefState(node);
@@ -32,7 +34,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
           {hub.Metadata.map((media) => (
             <Box
               as="a"
-              href={`/movies/${media.ratingKey}`}
+              href={`/${router.asPath.split('/')[1]}/${media.ratingKey}`}
               key={media.key}
               minW="240px"
               maxW="240px"

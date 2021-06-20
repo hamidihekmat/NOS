@@ -1,9 +1,9 @@
-import { Player } from '../../components/Player';
+import { Player } from '../../../components/Player';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { BounceLoader } from 'react-spinners';
 import { Box } from '@chakra-ui/react';
-import { fetchPlaylist } from '../../api/plex';
+import { fetchPlaylist } from '../../../api/plex';
 
 function Watch() {
   const router = useRouter();

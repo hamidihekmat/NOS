@@ -46,7 +46,7 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
-      <NavItem as="a" href="/tvshows" aspath={router.asPath}>
+      <NavItem as="a" href="/shows" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="TV Shows"

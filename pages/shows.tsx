@@ -1,6 +1,6 @@
 import { Box, Text } from '@chakra-ui/react';
 
-const TVShowsPage = () => {
+const ShowsPage = () => {
   return (
     <Box>
       <Text fontSize="6xl">This is a text</Text>
@@ -13,4 +13,4 @@ const TVShowsPage = () => {
   );
 };
 
-export default TVShowsPage;
+export default ShowsPage;

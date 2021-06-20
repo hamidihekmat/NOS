@@ -14,7 +14,6 @@ interface Castsprop {
 }
 
 export const Casts = (prop: Castsprop) => {
-  console.log(prop.casts);
   const [refState, setRefState] = useState<HTMLDivElement>();
   const ref = useCallback((node) => {
     setRefState(node);
