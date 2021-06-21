@@ -10,22 +10,22 @@ import {
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { fetchMediaById } from '../../api/plex';
+import { fetchMediaById } from '../../../api/plex';
 import { BounceLoader } from 'react-spinners';
-import { Container } from '../../components/_Container';
+import { Container } from '../../../components/_Container';
 
 // Icons
 import { Heart, Plus, Play } from 'phosphor-react';
 // SWR
 import useSWR from 'swr';
-import { LazyImage } from '../../components/_LazyImage';
+import { LazyImage } from '../../../components/_LazyImage';
 import { Button } from '@chakra-ui/button';
 // Util
-import { formatDuration } from '../../utils/duration';
-import { RelatedMovies } from '../../components/RelatedMovies';
-import { Casts } from '../../components/Casts';
-import { ShowMore } from '../../components/_ShowMore';
-import { Seasons } from '../../components/Seasons';
+//   import { RelatedMovies } from '../../../components/RelatedMovies';
+//   import { Casts } from '../../../components/Casts';
+import { ShowMore } from '../../../components/_ShowMore';
+import { Episodes } from '../../../components/Episodes'
+//   import { Seasons } from '../../../components/Seasons';
 
 const Media = () => {
   const router = useRouter();
@@ -52,10 +52,10 @@ const Media = () => {
             alignItems="flex-start"
             p="3rem"
             css={css`
-              @media (max-width: 768px) {
-                padding: 0;
-              }
-            `}
+                @media (max-width: 768px) {
+                  padding: 0;
+                }
+              `}
           >
             <LazyImage
               width="190px"
@@ -63,17 +63,17 @@ const Media = () => {
               cursor="pointer"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
-                @media (max-width: 1080px) {
-                  height: 382.25px;
-                  width: 250px;
-                  min-width: 250px;
-                  max-height: 375px;
-                  min-height: 375px;
-                }
-                @media (max-width: 768px) {
-                  display: none;
-                }
-              `}
+                  @media (max-width: 1080px) {
+                    height: 382.25px;
+                    width: 250px;
+                    min-width: 250px;
+                    max-height: 375px;
+                    min-height: 375px;
+                  }
+                  @media (max-width: 768px) {
+                    display: none;
+                  }
+                `}
             />
             <VStack alignItems="flex-start">
               <Text fontSize="3xl" fontWeight="bold">
@@ -82,22 +82,10 @@ const Media = () => {
               <Text fontSize="lg" fontWeight="bold">
                 {media.year}
               </Text>
-
               <HStack spacing={5} color="hsla(0,0%,98%,.45)">
-                <Text fontWeight="bold" fontSize="md">
-                  {formatDuration(media.duration)}
-                </Text>
                 <Badge fontWeight="bold" fontSize="sm">
                   {media.contentRating}
                 </Badge>
-                {/* <Tooltip label={`${media.rating}/10`} aria-label="imdb rating">
-                    <Badge fontWeight="bold" fontSize="sm">
-                      Rotten Tomato
-                    </Badge>
-                  </Tooltip> */}
-
-                {/* Rating #1
-                  Rating #2 */}
               </HStack>
 
               <HStack py="2rem" spacing="3">
@@ -213,9 +201,7 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
-      <Seasons id={media as string} />
-      <Casts casts={data.Metadata[0].Role} />
-      <RelatedMovies id={media as string} />
+      <Episodes id={data.Metadata[0].ratingKey as string} />
     </Container>
   );
 };

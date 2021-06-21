@@ -36,7 +36,7 @@ export const SeasonsDeck = ({
           {mediaContainer.Metadata.map((media) => (
             <Box
               as="a"
-              href={`/movies/${media.ratingKey}`}
+              href={`/shows/seasons/${media.ratingKey}`}
               key={media.key}
               minW="240px"
               maxW="240px"

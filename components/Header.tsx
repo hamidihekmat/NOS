@@ -30,7 +30,6 @@ export const Header = () => {
           transform="translateX(-0.5rem)"
           icon={<List color="var(--primary-color)" size={32} />}
         />
-
         <Text
           transform="translateX(-0.5rem)"
           color="var(--bg-secondary)"

@@ -42,9 +42,9 @@ export const fetchPlaylist = async (id: string): Promise<Playlist> => {
 export const searchMedia = async (query: string): Promise<MediaContainer> => {
   const response = await fetch(
     `${process.env.BACKEND_URL}/library/search?` +
-      new URLSearchParams({
-        query,
-      })
+    new URLSearchParams({
+      query,
+    })
   );
   if (!response.ok) {
     const error = new Error('An error occurred while fetching the data.');
@@ -55,7 +55,15 @@ export const searchMedia = async (query: string): Promise<MediaContainer> => {
   return await response.json();
 };
 
-export const fetchSeasons = async (id: string) => {
+export const fetchSeasons = async (id: string): Promise<MediaContainer> => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/metadata/${id}/children`
+  );
+  return await response.json();
+};
+
+
+export const fetchEpisodes = async (id: string): Promise<MediaContainer> => {
   const response = await fetch(
     `${process.env.BACKEND_URL}/library/metadata/${id}/children`
   );
