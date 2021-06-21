@@ -37,6 +37,7 @@ export const Search = () => {
       <Input
         type="Search"
         border="none"
+        fontWeight="bold"
         placeholder="Search..."
         _focus={{ outline: 'none' }}
         _active={{ outline: 'none' }}

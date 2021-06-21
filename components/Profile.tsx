@@ -38,38 +38,38 @@ export const Profile = () => {
         <StyledMenuItem>
           <HStack>
             <GearSix size={20} />
-            <Text>Settings</Text>
+            <Text fontWeight="bold">Settings</Text>
           </HStack>
         </StyledMenuItem>
         <StyledMenuItem>
           <HStack>
             <Heart size={20} />
-            <Text>Favouites</Text>
+            <Text fontWeight="bold">Favouites</Text>
           </HStack>
         </StyledMenuItem>
         <StyledMenuItem>
           <HStack>
             <Clock size={20} />
-            <Text>Watch Later</Text>
+            <Text fontWeight="bold">Watch Later</Text>
           </HStack>
         </StyledMenuItem>
         <StyledMenuItem>
           <HStack>
             <Command size={20} />
-            <Text>Shortcuts</Text>
+            <Text fontWeight="bold">Shortcuts</Text>
           </HStack>
         </StyledMenuItem>
         <StyledMenuItem>
           <HStack>
             <Question size={20} />
-            <Text>Help</Text>
+            <Text fontWeight="bold">Help</Text>
           </HStack>
         </StyledMenuItem>
         <Divider color="var(--font-color)" />
         <StyledMenuItem>
           <HStack>
             <SignOut size={20} />
-            <Text>Sign Out</Text>
+            <Text fontWeight="bold">Sign Out</Text>
           </HStack>
         </StyledMenuItem>
       </MenuList>

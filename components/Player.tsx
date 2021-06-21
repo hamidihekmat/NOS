@@ -17,7 +17,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
     setPlaying(true);
   };
   return (
-    <Container position="relative">
+    <Container position="relative" overflow="hidden">
       {playing && (
         <BackButton
           aria-label="back"
