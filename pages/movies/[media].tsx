@@ -211,7 +211,7 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
-      <Casts casts={data.Metadata[0].Role} />
+      {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
       <RelatedMovies id={media as string} />
     </Container>
   );
