@@ -25,9 +25,10 @@ export const RelatedMovies = ({ id }: { id: string }) => {
 
   return (
     <Container display="flex">
-      {data.Hub?.map((hub) => (
+      {data?.Hub?.map((hub) => (
         <Deck key={hub.hubKey} hub={hub} />
       ))}
+      <></>
     </Container>
   );
 };
