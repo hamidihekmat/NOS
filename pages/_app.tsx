@@ -4,20 +4,21 @@ import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
 import { useEffect } from 'react';
-import { isMobile, isChromium, isFirefox, isSafari } from 'react-device-detect';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    if (
-      'serviceWorker' in navigator &&
-      isChromium &&
-      !isFirefox &&
-      !isSafari &&
-      !isMobile
-    ) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/sw.js');
-        console.log('Loaded Successfully');
+    useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(
+          (registration) => {
+            console.log(
+              `Service worker registration successful with scope: ${registration}`
+            );
+          },
+          (error) => {
+            console.log(`Service worker registration failed: ${error}`);
+          }
+        );
       });
     }
   }, []);
