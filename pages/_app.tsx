@@ -4,10 +4,11 @@ import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
 import { useEffect } from 'react';
+import { isChromium } from 'react-device-detect';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-    useEffect(() => {
-    if ('serviceWorker' in navigator) {
+  useEffect(() => {
+    if ('serviceWorker' in navigator && isChromium) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').then(
           (registration) => {

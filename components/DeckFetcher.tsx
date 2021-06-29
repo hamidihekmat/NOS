@@ -107,10 +107,19 @@ export const DeckFetcher = ({
                   overflow="hidden"
                   alt={media.title}
                 />
-
-                <Text isTruncated fontSize="md" pt="1rem">
-                  {media.title}
-                </Text>
+                <HStack justifyContent="space-between">
+                  <Text isTruncated fontSize="md" pt="1rem">
+                    {media.title}
+                  </Text>
+                  <Text
+                    fontWeight="bold"
+                    color="hsla(0,0%,98%,.45)"
+                    fontSize="sm"
+                    pt="1rem"
+                  >
+                    {media.year}
+                  </Text>
+                </HStack>
               </Box>
             ))}
           </StyledFlex>
