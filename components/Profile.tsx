@@ -9,6 +9,7 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 // Icons
 import {
   GearSix,
@@ -19,8 +20,10 @@ import {
   Question,
   UserCircle,
 } from 'phosphor-react';
+import { scrollStore } from '../store/scrollStore';
 
 export const Profile = () => {
+  const scroll = scrollStore((state) => state.scroll);
   return (
     <Menu isLazy placement="bottom-start">
       <MenuButton
@@ -34,10 +37,17 @@ export const Profile = () => {
       />
       <MenuList
         zIndex="99"
-        bg="var(--bg-primary)"
         boxShadow="var(--dropdown-shadow)"
         border="1px solid var(--border-color)"
         color="hsla(0,0%,100%,.7)"
+        css={css`
+          background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
+          backdrop-filter: blur(35px);
+          opacity: ${scroll ? `0.8` : `1`};
+          -webkit-font-smoothing: antialiased;
+          border: 2px solid transparent;
+          transition: all ease 300ms;
+        `}
       >
         <StyledMenuItem>
           <HStack>
@@ -83,9 +93,9 @@ export const Profile = () => {
 
 const StyledMenuItem = styled(MenuItem)`
   :hover {
-    background: var(--bg-canvas);
+    background: (var(--hover));
   }
   :focus {
-    background: var(--bg-canvas);
+    background: var(--hover);
   }
 `;

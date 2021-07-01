@@ -10,7 +10,7 @@ export const GlobalStyle = (props: {}) => (
         --bg-secondary: #818cf8;
         --hover: #6b7280;
         --badge-1: #3b82f6;
-        --bagde-2: #7c3aed;
+        --badge-2: #7c3aed;
         --font-color: #c9d1d9;
         --font-secondary-color: #4b5561;
         --primary-color: #f0f6fc;
