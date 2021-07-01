@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Box, HStack, IconButton, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Heading, StyledFlex, DeckButton } from './_Deck';
+import { Heading, StyledFlex } from './_Deck';
 import { useSlider } from '../hooks/useSlider';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
@@ -60,7 +60,6 @@ export const Casts = (prop: Castsprop) => {
 
       <Box position="relative">
         <StyledFlex overflowX="scroll" ref={ref}>
-          {showPrev && <DeckButton cover="left" />}
           {prop.casts.map((cast) => (
             <Box
               as="a"
@@ -116,7 +115,6 @@ export const Casts = (prop: Castsprop) => {
               </Text>
             </Box>
           ))}
-          {showNext && <DeckButton cover="right" />}
         </StyledFlex>
       </Box>
     </Box>
