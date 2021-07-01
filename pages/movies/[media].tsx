@@ -58,7 +58,7 @@ const Media = () => {
           >
             <LazyImage
               width="160px"
-              minW="325px"
+              minW="300px"
               cursor="pointer"
               border="1px solid var(--border-color)"
               boxShadow="2xl"
@@ -98,7 +98,7 @@ const Media = () => {
                 <Button
                   as="a"
                   href={`/movies/watch/${media.ratingKey}`}
-                  background="var(--bg-secondary)"
+                  background="var(--button-1)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"

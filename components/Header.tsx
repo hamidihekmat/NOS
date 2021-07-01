@@ -52,13 +52,17 @@ export const Header = () => {
         />
         <Text
           transform="translateX(-0.5rem)"
-          color="var(--bg-secondary)"
-          fontSize="2xl"
+          fontSize="3xl"
           fontWeight="extrabold"
           fontStyle="italic"
           as="a"
           href="/"
           cursor="pointer"
+          css={css`
+            background: -webkit-linear-gradient(#809df5, #9a80d0);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+          `}
         >
           NOS
         </Text>

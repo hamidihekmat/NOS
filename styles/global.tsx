@@ -9,6 +9,7 @@ export const GlobalStyle = (props: {}) => (
         --bg-primary: #1f2837;
         --bg-secondary: #818cf8;
         --hover: #6b7280;
+        --button-1: -webkit-linear-gradient(#809df5, #9a80d0);
         --badge-1: #3b82f6;
         --badge-2: #7c3aed;
         --font-color: #c9d1d9;
