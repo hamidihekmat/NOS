@@ -23,7 +23,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
           aria-label="back"
           position="absolute"
           onClick={() => router.back()}
-          top="5%"
+          top="15%"
           zIndex={99}
           left="3%"
           icon={<ArrowLeft size={38} color="#ffffff" />}
