@@ -138,6 +138,13 @@ export interface Metadata {
   Role: Role[];
 }
 
+export interface Directory {
+  fastKey: string;
+  key: string;
+  title: string;
+  type: string;
+}
+
 export interface MediaContainer {
   size: number;
   allowSync: boolean;
@@ -149,6 +156,7 @@ export interface MediaContainer {
   mediaTagVersion: number;
   Metadata: Metadata[];
   Hub: Hub[];
+  Directory: Directory[];
 }
 
 export interface Hub {

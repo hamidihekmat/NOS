@@ -20,9 +20,9 @@ export const Casts = (prop: Castsprop) => {
   }, []);
   const { next, previous, showNext, showPrev } = useSlider(refState, 2);
   return (
-    <Box padding="0rem 3rem 0rem 3rem">
+    <Box padding="0rem 1rem 0rem 1rem">
       <HStack justifyContent="space-between">
-        <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
+        <Heading fontSize="2xl" fontWeight="bold" py="1rem">
           Casts
         </Heading>
 
@@ -31,28 +31,28 @@ export const Casts = (prop: Castsprop) => {
             <StyledIconButton
               onClick={previous}
               aria-label="previous"
-              icon={<CaretLeft size={38} color="#ffffff" />}
+              icon={<CaretLeft size={24} color="#ffffff" />}
             />
           )}
           {!showPrev && (
             <StyledIconButton
               cursor="default"
               aria-label="previous"
-              icon={<CaretLeft size={38} color="#4b5561" />}
+              icon={<CaretLeft size={24} color="#4b5561" />}
             />
           )}
           {showNext && (
             <StyledIconButton
               onClick={next}
               aria-label="previous"
-              icon={<CaretRight size={38} color="#ffffff" />}
+              icon={<CaretRight size={24} color="#ffffff" />}
             />
           )}
           {!showNext && (
             <StyledIconButton
               cursor="default"
               aria-label="previous"
-              icon={<CaretRight size={38} color="#4b5561" />}
+              icon={<CaretRight size={24} color="#4b5561" />}
             />
           )}
         </HStack>
@@ -66,8 +66,8 @@ export const Casts = (prop: Castsprop) => {
               as="a"
               // href={`/movies/${media.ratingKey}`}
               key={cast.id}
-              minW="220px"
-              maxW="220px"
+              minW="150px"
+              maxW="150px"
               marginRight="1vw"
               cursor="pointer"
               overflow="hidden"
@@ -100,7 +100,7 @@ export const Casts = (prop: Castsprop) => {
                 textAlign="center"
                 fontWeight="bold"
                 isTruncated
-                fontSize="2xl"
+                fontSize="md"
                 pt="1rem"
               >
                 {cast.tag}
@@ -110,7 +110,7 @@ export const Casts = (prop: Castsprop) => {
                 color="#4b5561"
                 isTruncated
                 fontWeight="bold"
-                fontSize="md"
+                fontSize="sm"
               >
                 {cast.role}
               </Text>
@@ -124,11 +124,11 @@ export const Casts = (prop: Castsprop) => {
 };
 
 const StyledLazyImage = styled(LazyImage)`
-  min-width: 220px;
-  min-height: 220px;
-  height: 220px;
-  max-width: 220px;
-  max-height: 220px;
+  min-width: 150px;
+  min-height: 150px;
+  height: 150px;
+  max-width: 150px;
+  max-height: 150px;
   @media (max-width: 768px) {
     width: 140px;
     height: 140px;
@@ -139,7 +139,7 @@ const StyledLazyImage = styled(LazyImage)`
   }
 `;
 
-const StyledIconButton = styled(IconButton)`
+export const StyledIconButton = styled(IconButton)`
   background: none;
   :hover {
     background: none;

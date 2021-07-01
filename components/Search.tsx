@@ -3,13 +3,17 @@ import { InputGroup, InputLeftElement, Input, Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useDebounce } from 'use-debounce';
 import { SearchResults } from './SearchResults';
+import { css } from '@emotion/react';
+
 // Icons
 import { MagnifyingGlass } from 'phosphor-react';
 // SWR
 import useSWR from 'swr';
 import { searchMedia } from '../api/plex';
+import { scrollStore } from '../store/scrollStore';
 
 export const Search = () => {
+  const scroll = scrollStore((state) => state.scroll);
   const [query, setQuery] = useState('');
   const [debounceQuery] = useDebounce(query, 500);
   const { data } = useSWR(
@@ -25,10 +29,13 @@ export const Search = () => {
   return (
     <StyledInputGroup
       size="md"
-      borderRadius="lg"
+      borderRadius="2xl"
       border="1px solid var(--border-color)"
       maxWidth="20rem"
       position="relative"
+      bg="var(--bg-canvas)"
+      overflow="hidden"
+      opacity="0.8"
     >
       <InputLeftElement
         pointerEvents="none"
@@ -45,16 +52,24 @@ export const Search = () => {
       />
       {data && (
         <Box
-          position="absolute"
-          top="100%"
+          position="fixed"
           left="50%"
           marginTop=".5rem"
           transform="translateX(-50%)"
-          width="100%"
-          bg="var(--bg-primary)"
-          border="1px solid var(--border-color)"
-          boxShadow="var(--dropdown-shadow)"
+          width="30vw"
+          mt="3.4rem"
+          minW="250px"
           zIndex="99"
+          boxShadow="2xl"
+          css={css`
+            background: ${scroll
+              ? `rgba(51, 51, 51, 0.8)`
+              : `var(--bg-primary)`};
+            backdrop-filter: blur(35px);
+            -webkit-font-smoothing: antialiased;
+            border: 2px solid transparent;
+            transition: all ease 300ms;
+          `}
           borderRadius="xl"
         >
           <SearchResults data={data} />

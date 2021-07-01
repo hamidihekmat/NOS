@@ -57,9 +57,12 @@ const Media = () => {
             `}
           >
             <LazyImage
-              width="190px"
-              minW="355px"
+              width="160px"
+              minW="325px"
               cursor="pointer"
+              border="1px solid var(--border-color)"
+              boxShadow="2xl"
+              borderRadius="xl"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
                 @media (max-width: 1080px) {
@@ -89,14 +92,6 @@ const Media = () => {
                 <Badge fontWeight="bold" fontSize="sm">
                   {media.contentRating}
                 </Badge>
-                {/* <Tooltip label={`${media.rating}/10`} aria-label="imdb rating">
-                  <Badge fontWeight="bold" fontSize="sm">
-                    Rotten Tomato
-                  </Badge>
-                </Tooltip> */}
-
-                {/* Rating #1
-                Rating #2 */}
               </HStack>
 
               <HStack py="2rem" spacing="3">

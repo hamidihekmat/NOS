@@ -17,7 +17,7 @@ export const ShowMore = ({ text }: { text: string }) => {
         <>
           {show ? (
             <VStack alignItems="flex-start">
-              <Text letterSpacing="wide" fontSize="lg" fontWeight="bold">
+              <Text letterSpacing="wide" fontSize="md" fontWeight="bold">
                 {`${text.substring(0, 115)}...`}
               </Text>
               <Button
@@ -35,7 +35,7 @@ export const ShowMore = ({ text }: { text: string }) => {
             </VStack>
           ) : (
             <VStack alignItems="flex-start">
-              <Text letterSpacing="wide" fontSize="lg" fontWeight="bold">
+              <Text letterSpacing="wide" fontSize="md" fontWeight="bold">
                 {text}
               </Text>
               <Button
@@ -54,7 +54,7 @@ export const ShowMore = ({ text }: { text: string }) => {
           )}
         </>
       ) : (
-        <Text letterSpacing="wide" fontSize="lg" fontWeight="bold">
+        <Text letterSpacing="wide" fontSize="md" fontWeight="bold">
           {text}
         </Text>
       )}

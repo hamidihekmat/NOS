@@ -1,22 +1,18 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, HStack } from '@chakra-ui/react';
-import {
-  DeckButton,
-  Heading,
-  StyledFlex,
-  StyledSkeleton,
-  SubHeading,
-} from './_Deck';
-import { css } from '@emotion/react';
+import { Box, HStack } from '@chakra-ui/react';
+import { Heading, StyledFlex, StyledSkeleton } from './_Deck';
 import useSWR from 'swr';
-import { LazyImage } from './_LazyImage';
 // Util
 import { MediaSkeletonSize } from '../utils/skeleton';
 // Icons
-import { CaretLeft, CaretRight } from 'phosphor-react';
+import { CaretLeft, CaretRight, ArrowCircleRight } from 'phosphor-react';
 // Hooks
 import { useSlider } from '../hooks/useSlider';
 import { MediaContainer } from '../interfaces/plex.interface';
+
+// Dependencies
+import { StyledIconButton } from './Casts';
+import { Poster } from './_Poster';
 
 export const DeckFetcher = ({
   title,
@@ -31,23 +27,55 @@ export const DeckFetcher = ({
   const ref = useCallback((node) => {
     setRefState(node);
   }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 2);
+  const { next, previous, showNext, showPrev } = useSlider(refState, 1);
   const { data, error } = useSWR(queryKey, fetcher);
   return (
-    <Box padding="0rem 3rem 0rem 3rem">
-      <HStack>
-        <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
-          {title}
-        </Heading>
-        <SubHeading
-          fontSize="sm"
-          fontWeight="bold"
-          color="var(--bg-secondary)"
+    <Box padding="0rem 1rem 0rem 1rem">
+      <HStack justifyContent="space-between">
+        <HStack
+          alignItems="center"
+          justifyContent="center"
+          pt="1.5rem"
+          pb="1rem"
           cursor="pointer"
           _hover={{ opacity: 0.8, transition: 'all 400ms' }}
         >
-          Explore All
-        </SubHeading>
+          <Heading fontSize="2xl" fontWeight="bold">
+            {title}
+          </Heading>
+          <ArrowCircleRight size={24} />
+        </HStack>
+
+        <HStack spacing="0">
+          {showPrev && (
+            <StyledIconButton
+              onClick={previous}
+              aria-label="previous"
+              icon={<CaretLeft size={24} color="#ffffff" />}
+            />
+          )}
+          {!showPrev && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretLeft size={24} color="#4b5561" />}
+            />
+          )}
+          {showNext && (
+            <StyledIconButton
+              onClick={next}
+              aria-label="previous"
+              icon={<CaretRight size={24} color="#ffffff" />}
+            />
+          )}
+          {!showNext && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretRight size={24} color="#4b5561" />}
+            />
+          )}
+        </HStack>
       </HStack>
 
       {!data && (
@@ -55,9 +83,11 @@ export const DeckFetcher = ({
           {MediaSkeletonSize.map((_, index) => (
             <StyledSkeleton
               key={index}
-              minW="240px"
+              minW="176px"
+              borderRadius="2xl"
+              border="1px solid var(--border-color)"
               marginRight="1vw"
-              height="360px"
+              height="264px"
               colorScheme="twitter"
             />
           ))}
@@ -67,67 +97,11 @@ export const DeckFetcher = ({
 
       {data && (
         <Box position="relative">
-          {showPrev && (
-            <DeckButton cover="left" onClick={previous}>
-              <CaretLeft size={38} color="#ffffff" />
-            </DeckButton>
-          )}
           <StyledFlex overflowX="scroll" ref={ref}>
             {data?.Metadata.map((media) => (
-              <Box
-                as="a"
-                href={`/movies/${media.ratingKey}`}
-                key={media.key}
-                minW="240px"
-                maxW="240px"
-                marginRight="1vw"
-                height="400px"
-                cursor="pointer"
-                overflow="hidden"
-                css={css`
-                  @media (max-width: 768px) {
-                    min-width: 145px;
-                    height: 255px;
-                    img {
-                      min-width: 145px;
-                      height: 218px;
-                    }
-                  }
-                `}
-              >
-                {/* 195 x 293 */}
-
-                <LazyImage
-                  loading="lazy"
-                  className="img-lazy"
-                  width="240px"
-                  height="360px"
-                  objectFit="cover"
-                  src={`${process.env.BACKEND_URL}${media.thumb}`}
-                  overflow="hidden"
-                  alt={media.title}
-                />
-                <HStack justifyContent="space-between">
-                  <Text isTruncated fontSize="md" pt="1rem">
-                    {media.title}
-                  </Text>
-                  <Text
-                    fontWeight="bold"
-                    color="hsla(0,0%,98%,.45)"
-                    fontSize="sm"
-                    pt="1rem"
-                  >
-                    {media.year}
-                  </Text>
-                </HStack>
-              </Box>
+              <Poster media={media} key={media.key} />
             ))}
           </StyledFlex>
-          {showNext && (
-            <DeckButton cover="right" onClick={next}>
-              <CaretRight size={38} color="#ffffff" />
-            </DeckButton>
-          )}
         </Box>
       )}
     </Box>

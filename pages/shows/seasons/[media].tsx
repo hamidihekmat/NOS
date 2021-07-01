@@ -24,7 +24,7 @@ import { Button } from '@chakra-ui/button';
 //   import { RelatedMovies } from '../../../components/RelatedMovies';
 //   import { Casts } from '../../../components/Casts';
 import { ShowMore } from '../../../components/_ShowMore';
-import { Episodes } from '../../../components/Episodes'
+import { Episodes } from '../../../components/Episodes';
 //   import { Seasons } from '../../../components/Seasons';
 
 const Media = () => {
@@ -52,10 +52,10 @@ const Media = () => {
             alignItems="flex-start"
             p="3rem"
             css={css`
-                @media (max-width: 768px) {
-                  padding: 0;
-                }
-              `}
+              @media (max-width: 768px) {
+                padding: 0;
+              }
+            `}
           >
             <LazyImage
               width="190px"
@@ -63,17 +63,17 @@ const Media = () => {
               cursor="pointer"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
-                  @media (max-width: 1080px) {
-                    height: 382.25px;
-                    width: 250px;
-                    min-width: 250px;
-                    max-height: 375px;
-                    min-height: 375px;
-                  }
-                  @media (max-width: 768px) {
-                    display: none;
-                  }
-                `}
+                @media (max-width: 1080px) {
+                  height: 382.25px;
+                  width: 250px;
+                  min-width: 250px;
+                  max-height: 375px;
+                  min-height: 375px;
+                }
+                @media (max-width: 768px) {
+                  display: none;
+                }
+              `}
             />
             <VStack alignItems="flex-start">
               <Text fontSize="3xl" fontWeight="bold">
@@ -92,13 +92,13 @@ const Media = () => {
                 <Button
                   as="a"
                   // href={`/shows/watch/${media.ratingKey}`}
-                  cursor='pointer'
+                  cursor="pointer"
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
-                  Resume
+                  RESUME
                 </Button>
                 <IconButton
                   aria-label="Like"

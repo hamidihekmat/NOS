@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { HomeIcon } from '../svg/_HomeIcon';
 import { MoviesIcon } from '../svg/_MoviesIcon';
 import { TVIcon } from '../svg/_TVIcon';
+import { SearchIcon } from '../svg/_SearchIcon';
 // Store
 import { navStore } from '../store/navStore';
 
@@ -14,11 +15,12 @@ export const Nav = () => {
   const nav = navStore((state) => state.nav);
   return (
     <StyledVStack
+      mt="3.75rem"
       nav={nav ? 'enabled' : 'disabled'}
-      spacing="0"
-      alignItems="flex-start"
+      spacing="1"
+      alignItems="center"
     >
-      <NavItem as="a" href="/" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="Home"
@@ -32,7 +34,7 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
-      <NavItem as="a" href="/movies" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/movies" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="Movies"
@@ -46,7 +48,7 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
-      <NavItem as="a" href="/shows" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/shows" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="TV Shows"
@@ -60,16 +62,29 @@ export const Nav = () => {
           </Text>
         )}
       </NavItem>
+      <NavItem borderRadius="xl" as="button" aspath={router.asPath}>
+        <StyledIconButton
+          maxW="3rem"
+          aria-label="Search"
+          as="div"
+          _focus={{ outline: 'none' }}
+          icon={<SearchIcon color="var(--primary-color)" size={32} />}
+        />
+        {nav && (
+          <Text fontWeight="bold" fontSize="large">
+            Search
+          </Text>
+        )}
+      </NavItem>
     </StyledVStack>
   );
 };
 
-const StyledVStack = styled(VStack)`
+const StyledVStack = styled(VStack)<{ nav: string }>`
   background: var(--bg-primary);
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
-  min-width: ${(props) =>
-    props.nav === 'enabled' ? css`12rem` : css`4.25rem`};
+  width: ${(props) => (props.nav === 'enabled' ? css`12rem` : css`4.25rem`)};
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -79,6 +94,9 @@ const StyledIconButton = styled(IconButton)`
   :hover {
     background: transparent;
   }
+  svg {
+    stroke: #2196f3 !important;
+  }
 `;
 
 const NavItem = styled(Box)<{ aspath: string }>`
@@ -86,10 +104,10 @@ const NavItem = styled(Box)<{ aspath: string }>`
   padding: 0.5rem;
   background: ${(props) =>
     `/${props.aspath.split('/')[1]}` === props.href
-      ? css`var(--bg-secondary)`
+      ? css`var(--bg-canvas)`
       : css`transparent`};
   padding-left: 1rem;
-  width: 100%;
+  width: 90%;
   cursor: pointer;
   align-items: center;
 
@@ -97,7 +115,7 @@ const NavItem = styled(Box)<{ aspath: string }>`
     ${(props) =>
       `/${props.aspath.split('/')[1]}` !== props.href &&
       css`
-        background: var(--bg-canvas);
+        background: var(--hover);
       `}
   }
 `;

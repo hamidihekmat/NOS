@@ -5,13 +5,16 @@ export const GlobalStyle = (props: {}) => (
     {...props}
     styles={css`
       :root {
-        --bg-canvas: #141414;
-        --bg-primary: #000000;
-        --bg-secondary: #f54748;
+        --bg-canvas: #121827;
+        --bg-primary: #1f2837;
+        --bg-secondary: #818cf8;
+        --hover: #6b7280;
+        --badge-1: #3b82f6;
+        --bagde-2: #7c3aed;
         --font-color: #c9d1d9;
         --font-secondary-color: #4b5561;
         --primary-color: #f0f6fc;
-        --border-color: #30363d;
+        --border-color: #6b7280;
         --dropdown-shadow: 0 16px 32px rgba(1, 4, 9, 0.85);
       }
       * {

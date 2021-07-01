@@ -1,4 +1,4 @@
-import { Box, Text, HStack, Tooltip, Spacer, Badge } from '@chakra-ui/react';
+import { Box, Text, HStack, Spacer, Badge } from '@chakra-ui/react';
 import { LazyImage } from './_LazyImage';
 import { MediaContainer } from '../interfaces/plex.interface';
 import { Hub } from '../interfaces/plex.interface';
@@ -17,56 +17,49 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
             href={`/movies/${movie.ratingKey}`}
             cursor="pointer"
             key={movie.key}
+            borderRadius="xl"
             padding=".5rem 1rem"
-            _hover={{ background: 'var(--bg-secondary)' }}
+            _hover={{ background: 'var(--bg-canvas)' }}
           >
-            <Tooltip
-              label={`${movie.title} ${movie.year}`}
-              aria-label={movie.title}
+            <HStack
+              alignItems="flex-start"
+              as="a"
+              href={`/movies/${movie.ratingKey}`}
             >
-              <HStack
-                alignItems="flex-start"
-                as="a"
-                href={`/movies/${movie.ratingKey}`}
-              >
-                {/* <Badge>Movie</Badge> */}
-                <LazyImage
-                  width="28px"
-                  minW="42px"
-                  cursor="pointer"
-                  display="block"
-                  src={`${process.env.BACKEND_URL}${movie.thumb}`}
-                />
-                <Box isTruncated display="flex" flexDir="column">
-                  <Text isTruncated fontWeight="bold">
-                    {movie.title}
-                  </Text>
-                  <Box display="flex" color="hsla(0,0%,98%,.45)">
-                    <Text fontWeight="bold" fontSize="sm">
-                      {formatDuration(movie.duration)}
-                    </Text>
-                    <Badge
-                      ml=".5rem"
-                      style={{ transform: 'scale(0.8)' }}
-                      variant="outline"
-                      fontWeight="bold"
-                      fontSize="sm"
-                    >
-                      {movie.contentRating ? movie.contentRating : 'NA'}
-                    </Badge>
-                  </Box>
-                </Box>
-
-                <Spacer />
-                <Text
-                  color="hsla(0,0%,98%,.45)"
-                  fontSize="sm"
-                  fontWeight="bold"
-                >
-                  {movie.year}
+              {/* <Badge>Movie</Badge> */}
+              <LazyImage
+                width="28px"
+                minW="42px"
+                cursor="pointer"
+                display="block"
+                src={`${process.env.BACKEND_URL}${movie.thumb}`}
+              />
+              <Box isTruncated display="flex" flexDir="column">
+                <Text isTruncated fontWeight="black">
+                  {movie.title}
                 </Text>
-              </HStack>
-            </Tooltip>
+                <Box display="flex">
+                  <Text fontWeight="bold" fontSize="sm">
+                    {formatDuration(movie.duration)}
+                  </Text>
+                  <Badge
+                    ml=".5rem"
+                    style={{ transform: 'scale(0.8)' }}
+                    variant="outline"
+                    fontWeight="bold"
+                    fontSize="sm"
+                    color="var(--badge-1)"
+                  >
+                    {movie.contentRating ? movie.contentRating : 'NA'}
+                  </Badge>
+                </Box>
+              </Box>
+
+              <Spacer />
+              <Text fontSize="sm" fontWeight="black">
+                {movie.year}
+              </Text>
+            </HStack>
           </Box>
         ))
       ) : (

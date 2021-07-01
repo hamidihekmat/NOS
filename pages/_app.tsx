@@ -5,11 +5,11 @@ import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
 import { useEffect } from 'react';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
+
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (isChrome || isEdgeChromium) {
       if ('serviceWorker' in navigator) {
-        console.log('works');
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js').then(
             (registration) => {

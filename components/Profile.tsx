@@ -3,10 +3,10 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Avatar,
   HStack,
   Text,
   Divider,
+  IconButton,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 // Icons
@@ -17,16 +17,20 @@ import {
   Command,
   SignOut,
   Question,
+  UserCircle,
 } from 'phosphor-react';
 
 export const Profile = () => {
   return (
     <Menu isLazy placement="bottom-start">
       <MenuButton
-        name="vkarmic"
-        src="https://i.pinimg.com/736x/f0/34/58/f034583d34bd2bd5e52732a7ecc96669.jpg"
-        as={Avatar}
+        aria-label="profile"
+        icon={<UserCircle color="var(--border-color)" size={38} />}
+        as={IconButton}
         cursor="pointer"
+        bg="none"
+        _hover={{ opacity: 1 }}
+        _active={{ opacity: 1 }}
       />
       <MenuList
         zIndex="99"
@@ -79,9 +83,9 @@ export const Profile = () => {
 
 const StyledMenuItem = styled(MenuItem)`
   :hover {
-    background: var(--bg-secondary);
+    background: var(--bg-canvas);
   }
   :focus {
-    background: var(--bg-secondary);
+    background: var(--bg-canvas);
   }
 `;

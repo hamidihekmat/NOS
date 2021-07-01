@@ -104,13 +104,13 @@ const Media = () => {
                 <Button
                   as="a"
                   // href={`/shows/watch/${media.ratingKey}`}
-                  cursor='pointer'
+                  cursor="pointer"
                   background="var(--bg-secondary)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
-                  Resume
+                  RESUME
                 </Button>
                 <IconButton
                   aria-label="Like"

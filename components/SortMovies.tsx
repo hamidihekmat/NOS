@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // Menu
 import {
   Menu,
@@ -10,22 +11,44 @@ import {
 } from '@chakra-ui/react';
 // Icons
 import { CaretDown } from 'phosphor-react';
-// Components
-
-// Interfaces
-import { SortOptions, OrderOptions } from '../interfaces/sort.interface';
+// Utils
+import { SortOptions, OrderOptions } from '../utils/sort';
+// Store
+import { optionsStore } from '../store/moviesOptions';
 
 export const SortMovies = () => {
+  const [options, setOptions] = optionsStore((state) => [
+    state.options,
+    state.setOptions,
+  ]);
+  const [sortOption, setSortOption] = useState<string | undefined>(
+    SortOptions[2].name
+  );
+
+  // Order select handle
+  const handleOrderSelect = (event) => {
+    const option = OrderOptions[event];
+    setOptions({ ...options, order: option.value });
+  };
+
+  // Sorting select handle
+  const handleSortSelect = (event) => {
+    const option = SortOptions.find((option) => option.value === event);
+    setSortOption(option?.name);
+    setOptions({ ...options, sort: '' });
+  };
+
   return (
     <Menu isLazy closeOnSelect={false}>
       <MenuButton
+        borderRadius="0"
         as={Button}
         rightIcon={<CaretDown />}
         bg="var(--bg-primary)"
         _hover={{ opacity: 1 }}
         _active={{ opacity: 1 }}
       >
-        Release Date
+        Sort - {sortOption}
       </MenuButton>
       <MenuList
         zIndex="99"
@@ -35,71 +58,40 @@ export const SortMovies = () => {
         color="hsla(0,0%,100%,.7)"
       >
         <MenuOptionGroup
-          defaultValue={OrderOptions.ascending.value}
+          defaultValue={OrderOptions.asc.value}
           title="Order"
           type="radio"
+          onChange={(event) => handleOrderSelect(event)}
         >
           <MenuItemOption
             _hover={{ background: 'var(--bg-secondary)' }}
-            value={OrderOptions.ascending.value}
+            value={OrderOptions.asc.value}
           >
-            {OrderOptions.ascending.name}
+            {OrderOptions.asc.name}
           </MenuItemOption>
           <MenuItemOption
             _hover={{ background: 'var(--bg-secondary)' }}
-            value={OrderOptions.descending.value}
+            value={OrderOptions.desc.value}
           >
-            {OrderOptions.descending.name}
+            {OrderOptions.desc.name}
           </MenuItemOption>
         </MenuOptionGroup>
         <MenuDivider />
         <MenuOptionGroup
-          defaultValue={SortOptions.release.value}
+          defaultValue={SortOptions[2].value}
           title="Sort"
           type="radio"
+          onChange={(event) => handleSortSelect(event)}
         >
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.title.value}
-          >
-            {SortOptions.title.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.year.value}
-          >
-            {SortOptions.year.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.release.value}
-          >
-            {SortOptions.release.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.criticRating.value}
-          >
-            {SortOptions.criticRating.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.audienceRating.value}
-          >
-            {SortOptions.audienceRating.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.rating.value}
-          >
-            {SortOptions.rating.name}
-          </MenuItemOption>
-          <MenuItemOption
-            _hover={{ background: 'var(--bg-secondary)' }}
-            value={SortOptions.dateAdded.value}
-          >
-            {SortOptions.dateAdded.name}
-          </MenuItemOption>
+          {SortOptions.map((option) => (
+            <MenuItemOption
+              _hover={{ background: 'var(--bg-secondary)' }}
+              value={option.value}
+              key={option.id}
+            >
+              {option.name}
+            </MenuItemOption>
+          ))}
         </MenuOptionGroup>
       </MenuList>
     </Menu>

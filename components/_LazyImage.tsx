@@ -17,7 +17,7 @@ export const LazyImage = (props: ImgProps) => {
 const StyledBox = styled(Box)`
   img {
     opacity: 1;
-    transition: all 400ms ease-in-out;
+    transition: all 200ms ease-in-out;
   }
 
   img[data-lazy-src] {
@@ -26,7 +26,7 @@ const StyledBox = styled(Box)`
 `;
 
 const StyledImage = styled(Img)`
-  :hover {
+  /* :hover {
     filter: brightness(0.5);
-  }
+  } */
 `;
