@@ -6,6 +6,6 @@ type NavState = {
 };
 
 export const navStore = create<NavState>((set) => ({
-  nav: true,
+  nav: false,
   toggle: () => set((state) => ({ nav: !state.nav })),
 }));

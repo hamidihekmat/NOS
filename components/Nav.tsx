@@ -1,4 +1,4 @@
-import { VStack, IconButton, Text, Box } from '@chakra-ui/react';
+import { VStack, IconButton, Text, Box, Fade } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -37,11 +37,11 @@ export const Nav = () => {
           _focus={{ outline: 'none' }}
           icon={<HomeIcon color="var(--primary-color)" size={32} />}
         />
-        {nav && (
+        <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
             Home
           </Text>
-        )}
+        </Fade>
       </NavItem>
       <NavItem borderRadius="xl" as="a" href="/movies" aspath={router.asPath}>
         <StyledIconButton
@@ -51,11 +51,11 @@ export const Nav = () => {
           _focus={{ outline: 'none' }}
           icon={<MoviesIcon color="var(--primary-color)" size={32} />}
         />
-        {nav && (
+        <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
             Movies
           </Text>
-        )}
+        </Fade>
       </NavItem>
       <NavItem borderRadius="xl" as="a" href="/shows" aspath={router.asPath}>
         <StyledIconButton
@@ -65,11 +65,11 @@ export const Nav = () => {
           _focus={{ outline: 'none' }}
           icon={<TVIcon color="var(--primary-color)" size={32} />}
         />
-        {nav && (
+        <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
             Shows
           </Text>
-        )}
+        </Fade>
       </NavItem>
       <NavItem borderRadius="xl" as="button" aspath={router.asPath}>
         <StyledIconButton
@@ -79,11 +79,11 @@ export const Nav = () => {
           _focus={{ outline: 'none' }}
           icon={<SearchIcon color="var(--primary-color)" size={32} />}
         />
-        {nav && (
+        <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
             Search
           </Text>
-        )}
+        </Fade>
       </NavItem>
     </StyledVStack>
   );
@@ -114,7 +114,7 @@ const NavItem = styled(Box)<{ aspath: string }>`
     `/${props.aspath.split('/')[1]}` === props.href
       ? css`var(--bg-canvas)`
       : css`transparent`};
-  padding-left: 1rem;
+  padding-left: 0.8rem;
   width: 90%;
   cursor: pointer;
   align-items: center;

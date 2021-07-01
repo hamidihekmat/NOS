@@ -3,14 +3,11 @@ import { LazyImage } from './_LazyImage';
 import { MediaContainer } from '../interfaces/plex.interface';
 import { Hub } from '../interfaces/plex.interface';
 import { formatDuration } from '../utils/duration';
-import { scrollStore } from '../store/scrollStore';
-import { css } from '@emotion/react';
 
 export const SearchResults = ({ data }: { data: MediaContainer }) => {
   const movies: Hub | undefined = data.Hub.find(
     (metadata) => metadata.title === 'Movies'
   );
-  const scroll = scrollStore((state) => state.scroll);
 
   return (
     <>
@@ -23,14 +20,6 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
             borderRadius="xl"
             padding=".5rem 1rem"
             _hover={{ background: 'var(--bg-canvas)' }}
-            css={css`
-              background: ${scroll
-                ? `rgba(51, 51, 51, 0.8)`
-                : `var(--bg-primary)`};
-              backdrop-filter: blur(35px);
-              -webkit-font-smoothing: antialiased;
-              border: 2px solid transparent;
-            `}
           >
             <HStack
               alignItems="flex-start"

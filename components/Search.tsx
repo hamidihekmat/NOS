@@ -44,19 +44,17 @@ export const Search = () => {
         type="Search"
         border="none"
         placeholder="Search..."
-        _focus={{ outline: 'none' }}
-        _active={{ outline: 'none' }}
         onChange={handleChange}
       />
       {data && (
         <Box
           position="fixed"
-          left="50%"
+          left="51.25%"
           marginTop=".5rem"
           transform="translateX(-50%)"
           width="20vw"
           mt="3.4rem"
-          minW="250px"
+          minW="350px"
           zIndex="99"
           boxShadow="2xl"
           css={css`
