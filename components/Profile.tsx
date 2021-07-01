@@ -46,7 +46,6 @@ export const Profile = () => {
           opacity: ${scroll ? `0.8` : `1`};
           -webkit-font-smoothing: antialiased;
           border: 2px solid transparent;
-          transition: all ease 300ms;
         `}
       >
         <StyledMenuItem>

@@ -33,7 +33,6 @@ export const Search = () => {
       border="1px solid var(--border-color)"
       maxWidth="20rem"
       position="relative"
-      bg="var(--bg-canvas)"
       overflow="hidden"
       opacity="0.8"
     >
