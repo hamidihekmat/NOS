@@ -97,12 +97,12 @@ export const Poster = ({ media }: { media: Metadata }) => {
           pos="absolute"
           top="0"
           height="100%"
-          background="rgba(59,130,246,0.3)"
           borderRadius="2xl"
           shadow="2xl"
           css={css`
-            filter: blur(3px);
             -webkit-text-stroke: 1px black;
+            background: rgba(59, 130, 246, 0.2);
+            -webkit-font-smoothing: antialiased;
           `}
         />
       </Fade>

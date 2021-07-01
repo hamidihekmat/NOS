@@ -9,16 +9,25 @@ import { TVIcon } from '../svg/_TVIcon';
 import { SearchIcon } from '../svg/_SearchIcon';
 // Store
 import { navStore } from '../store/navStore';
+import { scrollStore } from '../store/scrollStore';
 
 export const Nav = () => {
   const router = useRouter();
   const nav = navStore((state) => state.nav);
+  const scroll = scrollStore((state) => state.scroll);
   return (
     <StyledVStack
       mt="3.75rem"
       nav={nav ? 'enabled' : 'disabled'}
       spacing="1"
       alignItems="center"
+      css={css`
+        background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
+        backdrop-filter: blur(35px);
+        -webkit-font-smoothing: antialiased;
+        border: 2px solid transparent;
+        transition: all ease 300ms;
+      `}
     >
       <NavItem borderRadius="xl" as="a" href="/" aspath={router.asPath}>
         <StyledIconButton
@@ -81,7 +90,6 @@ export const Nav = () => {
 };
 
 const StyledVStack = styled(VStack)<{ nav: string }>`
-  background: var(--bg-primary);
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
   width: ${(props) => (props.nav === 'enabled' ? css`12rem` : css`4.25rem`)};

@@ -43,7 +43,6 @@ export const Search = () => {
       <Input
         type="Search"
         border="none"
-        fontWeight="bold"
         placeholder="Search..."
         _focus={{ outline: 'none' }}
         _active={{ outline: 'none' }}
@@ -55,7 +54,7 @@ export const Search = () => {
           left="50%"
           marginTop=".5rem"
           transform="translateX(-50%)"
-          width="30vw"
+          width="20vw"
           mt="3.4rem"
           minW="250px"
           zIndex="99"
