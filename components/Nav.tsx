@@ -24,6 +24,7 @@ export const Nav = () => {
       css={css`
         background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
         backdrop-filter: blur(35px);
+        -webkit-backdrop-filter: blur(35);
         -webkit-font-smoothing: antialiased;
         border: 2px solid transparent;
         transition: all ease 300ms;

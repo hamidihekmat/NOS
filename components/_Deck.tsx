@@ -17,7 +17,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
   const ref = useCallback((node) => {
     setRefState(node);
   }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 2);
+  const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   return (
     <Box padding="0rem 1rem 0rem 1rem">
       <HStack justifyContent="space-between">

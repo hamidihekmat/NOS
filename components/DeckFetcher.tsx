@@ -27,7 +27,7 @@ export const DeckFetcher = ({
   const ref = useCallback((node) => {
     setRefState(node);
   }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 1);
+  const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   const { data, error } = useSWR(queryKey, fetcher);
   return (
     <Box padding="0rem 1rem 0rem 1rem">
