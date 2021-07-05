@@ -2,15 +2,15 @@ import { useCallback, useState } from 'react';
 import { Box, Text, Flex, Skeleton, HStack } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
 // Hooks
 import { useSlider } from '../hooks/useSlider';
 import { Hub } from '../interfaces/plex.interface';
-// Dependencies
+// Components
 import { StyledIconButton } from './Casts';
 import { Poster } from './_Poster';
+import { PaddedContainer } from './_PaddedContainer';
 
 export const Deck = ({ hub }: { hub: Hub }) => {
   const [refState, setRefState] = useState<HTMLDivElement>();
@@ -19,7 +19,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
   }, []);
   const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   return (
-    <Box padding="0rem 1rem 0rem 1rem">
+    <PaddedContainer>
       <HStack justifyContent="space-between">
         <HStack
           alignItems="center"
@@ -68,11 +68,11 @@ export const Deck = ({ hub }: { hub: Hub }) => {
       <Box position="relative">
         <StyledFlex overflowX="scroll" ref={ref}>
           {hub.Metadata.map((media) => (
-            <Poster media={media} />
+            <Poster key={media.key} media={media} />
           ))}
         </StyledFlex>
       </Box>
-    </Box>
+    </PaddedContainer>
   );
 };
 

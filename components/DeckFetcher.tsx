@@ -9,10 +9,10 @@ import { CaretLeft, CaretRight, ArrowCircleRight } from 'phosphor-react';
 // Hooks
 import { useSlider } from '../hooks/useSlider';
 import { MediaContainer } from '../interfaces/plex.interface';
-
-// Dependencies
+// Components
 import { StyledIconButton } from './Casts';
 import { Poster } from './_Poster';
+import { PaddedContainer } from './_PaddedContainer';
 
 export const DeckFetcher = ({
   title,
@@ -30,7 +30,7 @@ export const DeckFetcher = ({
   const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   const { data, error } = useSWR(queryKey, fetcher);
   return (
-    <Box padding="0rem 1rem 0rem 1rem">
+    <PaddedContainer>
       <HStack justifyContent="space-between">
         <HStack
           alignItems="center"
@@ -104,6 +104,6 @@ export const DeckFetcher = ({
           </StyledFlex>
         </Box>
       )}
-    </Box>
+    </PaddedContainer>
   );
 };

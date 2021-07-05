@@ -7,7 +7,7 @@ import { IconButton } from '@chakra-ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 // Icons
-import { ArrowCircleLeft } from 'phosphor-react';
+import { ArrowLeft } from 'phosphor-react';
 
 export const Player = ({ playlist }: { playlist: Playlist }) => {
   const router = useRouter();
@@ -26,7 +26,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
           top="15%"
           zIndex={99}
           left="3%"
-          icon={<ArrowCircleLeft color="var(--border-color)" size={38} />}
+          icon={<ArrowLeft color="#f0f6fc" size={38} />}
         />
       )}
 

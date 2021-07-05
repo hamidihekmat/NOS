@@ -7,27 +7,28 @@ import {
   IconButton,
   List,
   ListItem,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { fetchMediaById } from '../../../api/plex';
+import { fetchMediaById } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
-import { Container } from '../../../components/_Container';
+import { Container } from '../../components/_Container';
 
 // Icons
 import { Heart, Plus, Play } from 'phosphor-react';
 // SWR
 import useSWR from 'swr';
-import { LazyImage } from '../../../components/_LazyImage';
+import { LazyImage } from '../../components/_LazyImage';
 import { Button } from '@chakra-ui/button';
 // Util
-//   import { RelatedMovies } from '../../../components/RelatedMovies';
-//   import { Casts } from '../../../components/Casts';
-import { ShowMore } from '../../../components/_ShowMore';
-import { Episodes } from '../../../components/Episodes';
-//   import { Seasons } from '../../../components/Seasons';
+import { formatDuration } from '../../utils/duration';
+import { RelatedMovies } from '../../components/RelatedMovies';
+import { Casts } from '../../components/Casts';
+import { ShowMore } from '../../components/_ShowMore';
 
 const Media = () => {
+  const [isMobile] = useMediaQuery('(max-width: 768px)');
   const router = useRouter();
   const { media } = router.query;
   const { data, error } = useSWR(media, () => fetchMediaById(media as string));
@@ -42,25 +43,32 @@ const Media = () => {
     return <h1>Error...</h1>;
   }
   return (
-    <Container>
+    <Container pos="relative">
       {data &&
         data.Metadata.map((media) => (
           <HStack
             key={media.key}
             width="100%"
-            spacing="10"
+            p={isMobile ? '1rem' : '2rem'}
+            spacing={isMobile ? '5' : '10'}
             alignItems="flex-start"
-            p="3rem"
             css={css`
+              * {
+                z-index: 10;
+              }
               @media (max-width: 768px) {
                 padding: 0;
               }
             `}
           >
+            {/* OVERLAY */}
             <LazyImage
-              width="190px"
-              minW="355px"
+              width="160px"
+              minW="300px"
               cursor="pointer"
+              border="1px solid var(--border-color)"
+              boxShadow="2xl"
+              borderRadius="xl"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
                 @media (max-width: 1080px) {
@@ -82,7 +90,11 @@ const Media = () => {
               <Text fontSize="lg" fontWeight="bold">
                 {media.year}
               </Text>
+
               <HStack spacing={5} color="hsla(0,0%,98%,.45)">
+                <Text fontWeight="bold" fontSize="md">
+                  {formatDuration(media.duration)}
+                </Text>
                 <Badge fontWeight="bold" fontSize="sm">
                   {media.contentRating}
                 </Badge>
@@ -91,14 +103,13 @@ const Media = () => {
               <HStack py="2rem" spacing="3">
                 <Button
                   as="a"
-                  // href={`/shows/watch/${media.ratingKey}`}
-                  cursor="pointer"
-                  background="var(--bg-secondary)"
+                  href={`/${media.type}/watch/${media.ratingKey}`}
+                  background="var(--button-1)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
-                  RESUME
+                  PLAY
                 </Button>
                 <IconButton
                   aria-label="Like"
@@ -201,7 +212,46 @@ const Media = () => {
             </VStack>
           </HStack>
         ))}
-      <Episodes id={data.Metadata[0].ratingKey as string} />
+      {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
+      <RelatedMovies id={media as string} />
+
+      <Box position="absolute" width="100%" height="60%" top="0" mt="3.75rem">
+        <Box position="relative" width="100%" height="100%">
+          <LazyImage
+            src={`${process.env.BACKEND_URL}${data.Metadata[0].art}`}
+            css={css`
+              object-fit: cover;
+              object-position: top;
+              filter: brightness(0.5);
+            `}
+            pos="absolute"
+            width="100%"
+            height="100%"
+          />
+          <Box
+            position="absolute"
+            width="100%"
+            height="100%"
+            css={css`
+              background: linear-gradient(
+                rgba(18, 24, 39, 0),
+                rgba(18, 24, 39, 1)
+              );
+            `}
+          />
+          <Box
+            position="absolute"
+            width="100%"
+            height="40%"
+            css={css`
+              background: linear-gradient(
+                rgba(18, 24, 39, 1),
+                rgba(18, 24, 39, 0)
+              );
+            `}
+          />
+        </Box>
+      </Box>
     </Container>
   );
 };

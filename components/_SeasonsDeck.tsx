@@ -1,14 +1,16 @@
 import { useCallback, useState } from 'react';
-import { Box, Text, Flex, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Flex, Skeleton, HStack } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { LazyImage } from './_LazyImage';
-
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
 // Hooks
 import { useSlider } from '../hooks/useSlider';
 import { MediaContainer } from '../interfaces/plex.interface';
+// Components
+import { StyledIconButton } from './Casts';
+import { Poster } from './_Poster';
+import { PaddedContainer } from './_PaddedContainer';
 
 export const SeasonsDeck = ({
   mediaContainer,
@@ -19,68 +21,62 @@ export const SeasonsDeck = ({
   const ref = useCallback((node) => {
     setRefState(node);
   }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 2);
+  const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   return (
-    <Box padding="0rem 3rem 0rem 3rem">
-      <Heading fontSize="2xl" fontWeight="bold" py="1.5rem">
-        Seasons
-      </Heading>
+    <PaddedContainer>
+      <HStack justifyContent="space-between">
+        <HStack
+          alignItems="center"
+          justifyContent="center"
+          pt="1.5rem"
+          pb="1rem"
+          cursor="pointer"
+          _hover={{ opacity: 0.8, transition: 'all 400ms' }}
+        >
+          <Heading fontSize="2xl" fontWeight="bold">
+            Seasons
+          </Heading>
+        </HStack>
 
+        <HStack spacing="0">
+          {showPrev && (
+            <StyledIconButton
+              onClick={previous}
+              aria-label="previous"
+              icon={<CaretLeft size={24} color="#ffffff" />}
+            />
+          )}
+          {!showPrev && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretLeft size={24} color="#4b5561" />}
+            />
+          )}
+          {showNext && (
+            <StyledIconButton
+              onClick={next}
+              aria-label="previous"
+              icon={<CaretRight size={24} color="#ffffff" />}
+            />
+          )}
+          {!showNext && (
+            <StyledIconButton
+              cursor="default"
+              aria-label="previous"
+              icon={<CaretRight size={24} color="#4b5561" />}
+            />
+          )}
+        </HStack>
+      </HStack>
       <Box position="relative">
-        {showPrev && (
-          <DeckButton cover="left" onClick={previous}>
-            <CaretLeft size={38} color="#ffffff" />
-          </DeckButton>
-        )}
         <StyledFlex overflowX="scroll" ref={ref}>
           {mediaContainer.Metadata.map((media) => (
-            <Box
-              as="a"
-              href={`/shows/seasons/${media.ratingKey}`}
-              key={media.key}
-              minW="240px"
-              maxW="240px"
-              marginRight="1vw"
-              height="400px"
-              cursor="pointer"
-              overflow="hidden"
-              css={css`
-                @media (max-width: 768px) {
-                  min-width: 145px;
-                  height: 255px;
-                  img {
-                    min-width: 145px;
-                    height: 218px;
-                  }
-                }
-              `}
-            >
-              {/* 195 x 293 */}
-
-              <LazyImage
-                loading="lazy"
-                className="img-lazy"
-                width="240px"
-                height="360px"
-                objectFit="cover"
-                src={`${process.env.BACKEND_URL}${media.thumb}`}
-                overflow="hidden"
-                alt={media.title}
-              />
-
-              <Text isTruncated fontSize="md" pt="1rem">
-                {media.title}
-              </Text>
-            </Box>
+            <Poster key={media.key} media={media} />
           ))}
         </StyledFlex>
-        {showNext && (
-          <DeckButton cover="right" onClick={next}>
-            <CaretRight size={38} color="#ffffff" />
-          </DeckButton>
-        )}
       </Box>
-    </Box>
+    </PaddedContainer>
   );
 };
 

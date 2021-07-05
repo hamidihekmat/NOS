@@ -8,6 +8,8 @@ import { useSlider } from '../hooks/useSlider';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
 import { LazyImage } from './_LazyImage';
+// Components
+import { PaddedContainer } from './_PaddedContainer';
 
 interface Castsprop {
   casts: Role[];
@@ -20,7 +22,7 @@ export const Casts = (prop: Castsprop) => {
   }, []);
   const { next, previous, showNext, showPrev } = useSlider(refState, 2);
   return (
-    <Box padding="0rem 1rem 0rem 1rem">
+    <PaddedContainer mt="1">
       <HStack justifyContent="space-between">
         <Heading fontSize="2xl" fontWeight="bold" py="1rem">
           Casts
@@ -62,21 +64,31 @@ export const Casts = (prop: Castsprop) => {
         <StyledFlex overflowX="scroll" ref={ref}>
           {prop.casts.map((cast) => (
             <Box
-              as="a"
               // href={`/movies/${media.ratingKey}`}
               key={cast.id}
-              minW="150px"
-              maxW="150px"
+              minW="177px"
+              maxW="185px"
               marginRight="1vw"
               cursor="pointer"
               overflow="hidden"
+              boxShadow="2xl"
+              borderRadius="2xl"
+              p="2rem 1rem"
               css={css`
+                height: 264px;
+                background: linear-gradient(
+                  var(--bg-primary),
+                  var(--bg-canvas)
+                );
+                border: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 @media (max-width: 768px) {
                   min-width: 145px;
-                  height: 255px;
                   img {
-                    min-width: 145px;
-                    height: 218px;
+                    transform: scale(0.8);
                   }
                 }
               `}
@@ -96,28 +108,30 @@ export const Casts = (prop: Castsprop) => {
               />
 
               <Text
-                textAlign="center"
                 fontWeight="bold"
-                isTruncated
+                textAlign="center"
                 fontSize="md"
                 pt="1rem"
               >
-                {cast.tag}
+                {cast.tag.length > 15
+                  ? `${cast.tag.substr(0, 15)}...`
+                  : cast.tag}
               </Text>
               <Text
-                textAlign="center"
                 color="#4b5561"
-                isTruncated
+                textAlign="center"
                 fontWeight="bold"
                 fontSize="sm"
               >
-                {cast.role}
+                {cast.role.length > 15
+                  ? `${cast.role.substr(0, 15)}...`
+                  : cast.role}
               </Text>
             </Box>
           ))}
         </StyledFlex>
       </Box>
-    </Box>
+    </PaddedContainer>
   );
 };
 

@@ -34,7 +34,6 @@ export const Header = () => {
           background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
           backdrop-filter: blur(35px);
           opacity: ${scroll ? `0.8` : `1`};
-          -webkit-font-smoothing: antialiased;
           border: 2px solid transparent;
           transition: all ease 300ms;
         `}

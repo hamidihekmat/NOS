@@ -7,13 +7,14 @@ import {
   IconButton,
   List,
   ListItem,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { fetchMediaById } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
 import { Container } from '../../components/_Container';
-
+import { Seasons } from '../../components/Seasons';
 // Icons
 import { Heart, Plus, Play } from 'phosphor-react';
 // SWR
@@ -25,9 +26,9 @@ import { formatDuration } from '../../utils/duration';
 import { RelatedMovies } from '../../components/RelatedMovies';
 import { Casts } from '../../components/Casts';
 import { ShowMore } from '../../components/_ShowMore';
-import { Seasons } from '../../components/Seasons';
 
 const Media = () => {
+  const [isMobile] = useMediaQuery('(max-width: 768px)');
   const router = useRouter();
   const { media } = router.query;
   const { data, error } = useSWR(media, () => fetchMediaById(media as string));
@@ -42,25 +43,32 @@ const Media = () => {
     return <h1>Error...</h1>;
   }
   return (
-    <Container>
+    <Container pos="relative">
       {data &&
         data.Metadata.map((media) => (
           <HStack
             key={media.key}
             width="100%"
-            spacing="10"
+            p={isMobile ? '1rem' : '2rem'}
+            spacing={isMobile ? '5' : '10'}
             alignItems="flex-start"
-            p="3rem"
             css={css`
+              * {
+                z-index: 10;
+              }
               @media (max-width: 768px) {
                 padding: 0;
               }
             `}
           >
+            {/* OVERLAY */}
             <LazyImage
-              width="190px"
-              minW="355px"
+              width="160px"
+              minW="300px"
               cursor="pointer"
+              border="1px solid var(--border-color)"
+              boxShadow="2xl"
+              borderRadius="xl"
               src={`${process.env.BACKEND_URL}${media.thumb}`}
               css={css`
                 @media (max-width: 1080px) {
@@ -90,27 +98,18 @@ const Media = () => {
                 <Badge fontWeight="bold" fontSize="sm">
                   {media.contentRating}
                 </Badge>
-                {/* <Tooltip label={`${media.rating}/10`} aria-label="imdb rating">
-                    <Badge fontWeight="bold" fontSize="sm">
-                      Rotten Tomato
-                    </Badge>
-                  </Tooltip> */}
-
-                {/* Rating #1
-                  Rating #2 */}
               </HStack>
 
               <HStack py="2rem" spacing="3">
                 <Button
                   as="a"
-                  // href={`/shows/watch/${media.ratingKey}`}
-                  cursor="pointer"
-                  background="var(--bg-secondary)"
+                  href={`/${media.type}/watch/${media.ratingKey}`}
+                  background="var(--button-1)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
                   fontWeight="bold"
                 >
-                  RESUME
+                  PLAY
                 </Button>
                 <IconButton
                   aria-label="Like"
@@ -214,8 +213,46 @@ const Media = () => {
           </HStack>
         ))}
       <Seasons id={media as string} />
-      <Casts casts={data.Metadata[0].Role} />
+      {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
       <RelatedMovies id={media as string} />
+
+      <Box position="absolute" width="100%" height="60%" top="0" mt="3.75rem">
+        <Box position="relative" width="100%" height="100%">
+          <LazyImage
+            src={`${process.env.BACKEND_URL}${data.Metadata[0].art}`}
+            css={css`
+              object-fit: cover;
+              object-position: top;
+              filter: brightness(0.5);
+            `}
+            pos="absolute"
+            width="100%"
+            height="100%"
+          />
+          <Box
+            position="absolute"
+            width="100%"
+            height="100%"
+            css={css`
+              background: linear-gradient(
+                rgba(18, 24, 39, 0),
+                rgba(18, 24, 39, 1)
+              );
+            `}
+          />
+          <Box
+            position="absolute"
+            width="100%"
+            height="40%"
+            css={css`
+              background: linear-gradient(
+                rgba(18, 24, 39, 1),
+                rgba(18, 24, 39, 0)
+              );
+            `}
+          />
+        </Box>
+      </Box>
     </Container>
   );
 };

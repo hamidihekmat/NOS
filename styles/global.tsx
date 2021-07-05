@@ -6,6 +6,7 @@ export const GlobalStyle = (props: {}) => (
     styles={css`
       :root {
         --bg-canvas: #121827;
+        --bg-canvas-opacity: rgb(18, 24, 39, 0.5);
         --bg-primary: #1f2837;
         --bg-secondary: #818cf8;
         --hover: #6b7280;
@@ -21,6 +22,8 @@ export const GlobalStyle = (props: {}) => (
       * {
         box-sizing: border-box;
         scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        -webkit-font-smoothing: antialiased;
       }
 
       html {
@@ -35,6 +38,7 @@ export const GlobalStyle = (props: {}) => (
         -webkit-font-smoothing: antialiased;
         background: var(--bg-canvas);
         color: var(--primary-color);
+        min-height: -webkit-fill-available;
       }
       /* Image Select Highlight */
       img {

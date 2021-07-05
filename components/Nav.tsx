@@ -23,11 +23,6 @@ export const Nav = () => {
       alignItems="center"
       css={css`
         background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
-        backdrop-filter: blur(35px);
-        -webkit-backdrop-filter: blur(35);
-        -webkit-font-smoothing: antialiased;
-        border: 2px solid transparent;
-        transition: all ease 300ms;
       `}
     >
       <NavItem borderRadius="xl" as="a" href="/" aspath={router.asPath}>
@@ -36,7 +31,7 @@ export const Nav = () => {
           aria-label="Home"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<HomeIcon color="var(--primary-color)" size={32} />}
+          icon={<HomeIcon href="/" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -50,7 +45,7 @@ export const Nav = () => {
           aria-label="Movies"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<MoviesIcon color="var(--primary-color)" size={32} />}
+          icon={<MoviesIcon href="/movies" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -64,7 +59,7 @@ export const Nav = () => {
           aria-label="TV Shows"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<TVIcon color="var(--primary-color)" size={32} />}
+          icon={<TVIcon href="/shows" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -78,7 +73,7 @@ export const Nav = () => {
           aria-label="Search"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<SearchIcon color="var(--primary-color)" size={32} />}
+          icon={<SearchIcon size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -94,6 +89,18 @@ const StyledVStack = styled(VStack)<{ nav: string }>`
   min-height: calc(100vh - 3.75rem);
   height: calc(100vh - 3.75rem);
   width: ${(props) => (props.nav === 'enabled' ? css`12rem` : css`4.25rem`)};
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  transition: background ease 300ms;
+  @media (max-width: 768px) {
+    position: fixed;
+    flex-direction: row;
+    height: 3.75rem;
+    min-height: 3.75rem;
+    width: 100vw;
+    bottom: 0;
+    z-index: 99;
+  }
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -126,5 +133,16 @@ const NavItem = styled(Box)<{ aspath: string }>`
       css`
         background: var(--hover);
       `}
+  }
+  @media (max-width: 768px) {
+    justify-content: center;
+    border-radius: 0;
+    padding: 0;
+    height: 100% !important;
+    margin: 0 important!;
+    background: transparent;
+    :hover {
+      background: transparent;
+    }
   }
 `;

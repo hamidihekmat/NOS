@@ -27,34 +27,38 @@ export const Search = () => {
   };
 
   return (
-    <StyledInputGroup
-      size="md"
-      borderRadius="2xl"
-      border="1px solid var(--border-color)"
-      maxWidth="20rem"
-      position="relative"
-      overflow="hidden"
-      opacity="0.8"
-    >
-      <InputLeftElement
-        pointerEvents="none"
-        children={<MagnifyingGlass color="var(--primary-color)" size={20} />}
-      />
-      <Input
-        type="Search"
-        border="none"
-        placeholder="Search..."
-        onChange={handleChange}
-      />
+    <Box position="relative">
+      <StyledInputGroup
+        size="md"
+        borderRadius="2xl"
+        border="1px solid var(--border-color)"
+        overflow="hidden"
+        opacity="0.8"
+        width="20vw"
+        css={css`
+          /* transform: translateX(-50%); */
+        `}
+      >
+        <InputLeftElement
+          pointerEvents="none"
+          children={<MagnifyingGlass color="var(--primary-color)" size={20} />}
+        />
+        <Input
+          type="Search"
+          border="none"
+          placeholder="Search..."
+          onChange={handleChange}
+        />
+      </StyledInputGroup>
       {data && (
         <Box
-          position="fixed"
-          left="51.25%"
-          marginTop=".5rem"
-          transform="translateX(-50%)"
+          position="absolute"
+          left="50%"
+          top="1rem"
+          marginTop="2.5rem"
           width="20vw"
-          mt="3.4rem"
-          minW="350px"
+          maxWidth="20vw"
+          minW="300px"
           zIndex="99"
           boxShadow="2xl"
           css={css`
@@ -63,6 +67,7 @@ export const Search = () => {
               : `var(--bg-primary)`};
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35);
+            transform: translateX(-50%);
             -webkit-font-smoothing: antialiased;
             border: 2px solid transparent;
             transition: all ease 300ms;
@@ -72,7 +77,7 @@ export const Search = () => {
           <SearchResults data={data} />
         </Box>
       )}
-    </StyledInputGroup>
+    </Box>
   );
 };
 

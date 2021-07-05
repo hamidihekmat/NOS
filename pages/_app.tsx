@@ -1,4 +1,5 @@
 import { ChakraProvider, Box } from '@chakra-ui/react';
+
 import { Header } from '../components/Header';
 import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
@@ -26,7 +27,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
   return (
-    <ChakraProvider>
+    <ChakraProvider resetCSS>
       <GlobalStyle />
       <Header />
       <Box display="flex">

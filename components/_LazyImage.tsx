@@ -9,7 +9,7 @@ export const LazyImage = (props: ImgProps) => {
   };
   return (
     <StyledBox>
-      <StyledImage as="img" data-lazy-src {...props} onLoad={onLoad} />
+      <Img as="img" data-lazy-src {...props} onLoad={onLoad} />
     </StyledBox>
   );
 };
@@ -23,10 +23,4 @@ const StyledBox = styled(Box)`
   img[data-lazy-src] {
     opacity: 0;
   }
-`;
-
-const StyledImage = styled(Img)`
-  /* :hover {
-    filter: brightness(0.5);
-  } */
 `;

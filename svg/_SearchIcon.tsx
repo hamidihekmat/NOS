@@ -1,6 +1,19 @@
 import { SVGProp } from '../interfaces/svg.interface';
+import { useRouter } from 'next/router';
+import { useMediaQuery } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-export const SearchIcon = ({ size, color }: SVGProp) => {
+export const SearchIcon = ({ size, href }: SVGProp) => {
+  const [select, setSelect] = useState(false);
+  const [isMobile] = useMediaQuery('(max-width: 768px)');
+  const router = useRouter();
+  useEffect(() => {
+    if (isMobile && `/${router.asPath.split('/')[1]}` === href) {
+      setSelect(true);
+    } else {
+      setSelect(false);
+    }
+  }, [isMobile]);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,11 +21,10 @@ export const SearchIcon = ({ size, color }: SVGProp) => {
       data-v-7b357a42=""
       width={size ? size : '24'}
       height={size ? size : '24'}
-      color={color ? color : '#FFFFFF'}
     >
       <g
         fill="none"
-        stroke={color ? color : '#FFFFFF'}
+        stroke={select ? 'var(--bg-canvas)' : '#F0F6FC'}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeMiterlimit="10"

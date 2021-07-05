@@ -10,11 +10,13 @@ export const Poster = ({ media }: { media: Metadata }) => {
   return (
     <Box
       as="a"
-      href={`/movies/${media.ratingKey}`}
+      href={
+        media.type === 'season'
+          ? `/show/${media.type}/${media.ratingKey}`
+          : `/${media.type}/${media.ratingKey}`
+      }
       key={media.key}
       minW="176px"
-      height="264px"
-      minH="264px"
       pos="relative"
       marginRight="1vw"
       cursor="pointer"
@@ -42,7 +44,7 @@ export const Poster = ({ media }: { media: Metadata }) => {
 
       <LazyImage
         loading="lazy"
-        boxShadow="2xl"
+        boxShadow="xl"
         className="img-lazy"
         width="176x"
         border="1px solid var(--border-color)"
@@ -59,6 +61,7 @@ export const Poster = ({ media }: { media: Metadata }) => {
         position="absolute"
         padding=".2rem .4rem"
         borderRadius="2xl"
+        fontWeight="bold"
         zIndex="2"
         bg={`${media.type === 'movie' ? 'var(--badge-1)' : 'var(--badge-2)'}`}
       >
@@ -75,6 +78,11 @@ export const Poster = ({ media }: { media: Metadata }) => {
           pos="absolute"
           pointerEvents="none"
           zIndex="2"
+          css={css`
+            @media (max-width: 768px) {
+              display: none;
+            }
+          `}
         >
           <Text color="white" fontSize="md" fontWeight="black">
             {media.year}
@@ -98,11 +106,14 @@ export const Poster = ({ media }: { media: Metadata }) => {
           top="0"
           height="100%"
           borderRadius="2xl"
-          shadow="2xl"
           css={css`
             -webkit-text-stroke: 1px black;
             background: rgba(59, 130, 246, 0.2);
             -webkit-font-smoothing: antialiased;
+            @media (max-width: 768px) {
+              min-width: 145px;
+              height: 218px;
+            }
           `}
         />
       </Fade>

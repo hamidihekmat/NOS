@@ -14,7 +14,13 @@ export const RelatedMovies = ({ id }: { id: string }) => {
   );
   if (!data) {
     return (
-      <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
+      <Box
+        pos="fixed"
+        zIndex="99"
+        top="50%"
+        right="50%"
+        transform="translate(-50%)"
+      >
         <BounceLoader color="var(--bg-secondary)" size="80px" />
       </Box>
     );

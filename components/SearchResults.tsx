@@ -3,6 +3,7 @@ import { LazyImage } from './_LazyImage';
 import { MediaContainer } from '../interfaces/plex.interface';
 import { Hub } from '../interfaces/plex.interface';
 import { formatDuration } from '../utils/duration';
+import { css } from '@emotion/react';
 
 export const SearchResults = ({ data }: { data: MediaContainer }) => {
   const movies: Hub | undefined = data.Hub.find(
@@ -19,12 +20,19 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
             key={movie.key}
             borderRadius="xl"
             padding=".5rem 1rem"
-            _hover={{ background: 'var(--bg-canvas)' }}
+            css={css`
+              :hover {
+                background: var(--bg-canvas-opacity);
+                backdrop-filter: blur(35px);
+                -webkit-backdrop-filter: blur(35);
+                transition: all ease 300ms;
+              }
+            `}
           >
             <HStack
               alignItems="flex-start"
               as="a"
-              href={`/movies/${movie.ratingKey}`}
+              href={`/${movie.type}/${movie.ratingKey}`}
             >
               {/* <Badge>Movie</Badge> */}
               <LazyImage
