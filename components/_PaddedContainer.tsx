@@ -5,6 +5,8 @@ export const PaddedContainer = (props: BoxProps) => {
   return (
     <Box
       padding="0rem 1rem 0rem 2rem"
+      zIndex="popover"
+      pos="relative"
       css={css`
         @media (max-width: 768px) {
           padding: 0rem 1rem 0rem 1rem;

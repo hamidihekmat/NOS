@@ -24,7 +24,7 @@ export const SearchResults = ({ data }: { data: MediaContainer }) => {
               :hover {
                 background: var(--bg-canvas-opacity);
                 backdrop-filter: blur(35px);
-                -webkit-backdrop-filter: blur(35);
+                -webkit-backdrop-filter: blur(35px);
                 transition: all ease 300ms;
               }
             `}

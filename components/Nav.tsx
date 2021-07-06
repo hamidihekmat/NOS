@@ -39,13 +39,13 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem borderRadius="xl" as="a" href="/movies" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/movie" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="Movies"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<MoviesIcon href="/movies" size={32} />}
+          icon={<MoviesIcon href="/movie" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -53,13 +53,13 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem borderRadius="xl" as="a" href="/shows" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/show" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="TV Shows"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<TVIcon href="/shows" size={32} />}
+          icon={<TVIcon href="/show" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
@@ -99,7 +99,7 @@ const StyledVStack = styled(VStack)<{ nav: string }>`
     min-height: 3.75rem;
     width: 100vw;
     bottom: 0;
-    z-index: 99;
+    z-index: 99999;
   }
 `;
 

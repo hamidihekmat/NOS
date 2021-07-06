@@ -73,7 +73,6 @@ export const Casts = (prop: Castsprop) => {
               overflow="hidden"
               boxShadow="2xl"
               borderRadius="2xl"
-              p="2rem 1rem"
               css={css`
                 height: 264px;
                 background: linear-gradient(
@@ -86,6 +85,7 @@ export const Casts = (prop: Castsprop) => {
                 justify-content: center;
                 align-items: center;
                 @media (max-width: 768px) {
+                  height: 218px;
                   min-width: 145px;
                   img {
                     transform: scale(0.8);
@@ -112,9 +112,10 @@ export const Casts = (prop: Castsprop) => {
                 textAlign="center"
                 fontSize="md"
                 pt="1rem"
+                isTruncated
               >
-                {cast.tag.length > 15
-                  ? `${cast.tag.substr(0, 15)}...`
+                {cast.tag.length > 12
+                  ? `${cast.tag.substr(0, 12)}...`
                   : cast.tag}
               </Text>
               <Text
@@ -122,9 +123,10 @@ export const Casts = (prop: Castsprop) => {
                 textAlign="center"
                 fontWeight="bold"
                 fontSize="sm"
+                isTruncated
               >
-                {cast.role.length > 15
-                  ? `${cast.role.substr(0, 15)}...`
+                {cast.role.length > 12
+                  ? `${cast.role.substr(0, 12)}...`
                   : cast.role}
               </Text>
             </Box>

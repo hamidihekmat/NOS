@@ -22,7 +22,7 @@ export const Header = () => {
       width="100vw"
       pos="fixed"
       py="0"
-      zIndex="99"
+      zIndex="99999"
     >
       {/* Glass */}
       <Box
