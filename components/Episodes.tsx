@@ -33,6 +33,7 @@ export const Episodes = ({ id }: { id: string }) => {
               as="a"
               href={`/show/watch/${episode.ratingKey}`}
               overflow="hidden"
+              maxW="414px"
             >
               <LazyImage
                 loading="lazy"
@@ -40,6 +41,7 @@ export const Episodes = ({ id }: { id: string }) => {
                 width="414px"
                 cursor="pointer"
                 objectFit="cover"
+                maxWidth="414px"
                 src={`${process.env.BACKEND_URL}${episode.thumb}`}
                 overflow="hidden"
                 alt={episode.title}
