@@ -6,6 +6,13 @@ export const fetchRecentMovies = async (): Promise<MediaContainer> => {
   return await response.json();
 };
 
+export const fetchRecentShows = async (): Promise<MediaContainer> => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/recent/shows`
+  );
+  return await response.json();
+};
+
 export const fetchReleasedMovies = async (): Promise<MediaContainer> => {
   const response = await fetch(`${process.env.BACKEND_URL}/library/released`);
   return await response.json();
