@@ -215,7 +215,7 @@ const Media = () => {
       {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
       <RelatedMovies id={media as string} />
 
-      <Box position="absolute" width="100%" height="60%" top="0" mt="3.75rem">
+      <Box position="absolute" width="100%" height="60vh" top="0" mt="3.75rem">
         <Box position="relative" width="100%" height="100%">
           <LazyImage
             src={`${process.env.BACKEND_URL}${data.Metadata[0].art}`}
