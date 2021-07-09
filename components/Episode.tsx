@@ -25,7 +25,7 @@ export const Episode = ({
       onMouseOver={() => setIsShowing(true)}
       onMouseLeave={() => setIsShowing(false)}
     >
-      <Box position="relative">
+      <Box position="relative" width="414px" height="234px">
         <LazyImage
           loading="lazy"
           className="img-lazy"
