@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Text, VStack, Fade } from '@chakra-ui/react';
+import { Box, Text, VStack, Fade, HStack, Badge } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
 // interfaces
@@ -84,9 +84,22 @@ export const Poster = ({ media }: { media: Metadata }) => {
             }
           `}
         >
-          <Text color="white" fontSize="md" fontWeight="black">
-            {media.year}
-          </Text>
+          <HStack justifyContent="space-between" width="100%">
+            <Text color="white" fontSize="md" fontWeight="black">
+              {media.year}
+            </Text>
+            {media.audienceRating && (
+              <HStack>
+                <Badge fontSize="xs" bg="#E1B615" borderRadius="sm">
+                  IMDB
+                </Badge>
+                <Text color="white" fontSize="sm" fontWeight="black">
+                  {media.audienceRating}
+                </Text>
+              </HStack>
+            )}
+          </HStack>
+
           <Text color="white" fontWeight="black" fontSize="lg">
             {media.title.length > 18
               ? `${media.title.substr(0, 18)}...`

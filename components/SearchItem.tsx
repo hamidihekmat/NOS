@@ -42,16 +42,16 @@ export const SearchItem = ({ media }: { media: Metadata }) => {
             <Text fontWeight="bold" fontSize="sm">
               {formatDuration(media.duration)}
             </Text>
-            <Badge
-              ml=".5rem"
-              style={{ transform: 'scale(0.8)' }}
-              variant="outline"
-              fontWeight="bold"
-              fontSize="sm"
-              color="var(--badge-1)"
-            >
-              {media.contentRating ? media.contentRating : 'NA'}
-            </Badge>
+            {media.audienceRating && (
+              <HStack ml="1rem">
+                <Badge fontSize="xs" bg="#E1B615" borderRadius="sm">
+                  IMDB
+                </Badge>
+                <Text color="white" fontSize="sm" fontWeight="black">
+                  {media.audienceRating}
+                </Text>
+              </HStack>
+            )}
           </Box>
         </Box>
 

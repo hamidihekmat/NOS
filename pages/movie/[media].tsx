@@ -98,6 +98,16 @@ const Media = () => {
                 <Badge fontWeight="bold" fontSize="sm">
                   {media.contentRating}
                 </Badge>
+                {media.audienceRating && (
+                  <HStack ml="1rem">
+                    <Badge fontSize="xs" bg="#E1B615" borderRadius="sm">
+                      IMDB
+                    </Badge>
+                    <Text color="white" fontSize="sm" fontWeight="black">
+                      {media.audienceRating}
+                    </Text>
+                  </HStack>
+                )}
               </HStack>
 
               <HStack py="2rem" spacing="3">
