@@ -103,7 +103,11 @@ const Media = () => {
                     <Badge fontSize="sm" bg="#E1B615" borderRadius="sm">
                       IMDB
                     </Badge>
-                    <Text color="white" fontSize="md" fontWeight="black">
+                    <Text
+                      fontSize="md"
+                      color="hsla(0,0%,98%,.45)"
+                      fontWeight="black"
+                    >
                       {media.audienceRating}
                     </Text>
                   </HStack>
