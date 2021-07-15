@@ -100,10 +100,10 @@ const Media = () => {
                 </Badge>
                 {media.audienceRating && (
                   <HStack ml="1rem">
-                    <Badge fontSize="xs" bg="#E1B615" borderRadius="sm">
+                    <Badge fontSize="sm" bg="#E1B615" borderRadius="sm">
                       IMDB
                     </Badge>
-                    <Text color="white" fontSize="sm" fontWeight="black">
+                    <Text color="white" fontSize="md" fontWeight="black">
                       {media.audienceRating}
                     </Text>
                   </HStack>
