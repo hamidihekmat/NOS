@@ -5,7 +5,6 @@ import { Hub } from '../interfaces/plex.interface';
 import { SearchItem } from './SearchItem';
 
 export const SearchResults = ({ data }: { data: MediaContainer }) => {
-  console.log(data);
   const movies: Hub | undefined = data.Hub.find(
     (metadata) => metadata.title === 'Movies'
   );

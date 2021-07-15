@@ -5,16 +5,12 @@ import { LazyImage } from './_LazyImage';
 // interfaces
 import { Metadata } from '../interfaces/plex.interface';
 
-export const Poster = ({ media }: { media: Metadata }) => {
+export const EpisodePoster = ({ media }: { media: Metadata }) => {
   const [isShowing, setIsShowing] = useState(false);
   return (
     <Box
       as="a"
-      href={
-        media.type === 'season'
-          ? `/show/${media.type}/${media.ratingKey}`
-          : `/${media.type}/${media.ratingKey}`
-      }
+      href={`/show/watch/${media.ratingKey}`}
       key={media.key}
       minW="176px"
       pos="relative"
@@ -49,7 +45,7 @@ export const Poster = ({ media }: { media: Metadata }) => {
         width="176x"
         border="1px solid var(--border-color)"
         height="264px"
-        src={`${process.env.BACKEND_URL}${media.thumb}`}
+        src={`${process.env.BACKEND_URL}${media.grandparentThumb}`}
         borderRadius="xl"
         alt={media.title}
       />
@@ -63,9 +59,9 @@ export const Poster = ({ media }: { media: Metadata }) => {
         borderRadius="2xl"
         fontWeight="bold"
         zIndex="2"
-        bg={`${media.type === 'movie' ? 'var(--badge-1)' : 'var(--badge-2)'}`}
+        bg="#0b9361"
       >
-        {media.type.toUpperCase()} {media.type === 'season' && media.index}
+        {media.type.toUpperCase()} {media.index}
       </Box>
       {/* Details */}
       <Fade in={isShowing}>
@@ -86,7 +82,8 @@ export const Poster = ({ media }: { media: Metadata }) => {
         >
           <HStack justifyContent="space-between" width="100%">
             <Text color="white" fontSize="md" fontWeight="black">
-              {media.year}
+              {media.originallyAvailableAt &&
+                media.originallyAvailableAt.split('-')[0]}
             </Text>
             {media.audienceRating && (
               <HStack>
@@ -94,9 +91,7 @@ export const Poster = ({ media }: { media: Metadata }) => {
                   IMDB
                 </Badge>
                 <Text color="white" fontSize="sm" fontWeight="black">
-                  {media.audienceRating % 1 === 0
-                    ? `${media.audienceRating}.0`
-                    : media.audienceRating}
+                  {media.audienceRating}
                 </Text>
               </HStack>
             )}

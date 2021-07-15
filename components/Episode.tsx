@@ -12,7 +12,7 @@ export const Episode = ({
   index,
 }: {
   episode: Metadata;
-  index: number;
+  index: string;
 }) => {
   const [isShowing, setIsShowing] = useState(false);
 
@@ -22,6 +22,7 @@ export const Episode = ({
       href={`/show/watch/${episode.ratingKey}`}
       overflow="hidden"
       maxW="414px"
+      minW="414px"
       onMouseOver={() => setIsShowing(true)}
       onMouseLeave={() => setIsShowing(false)}
     >

@@ -109,6 +109,8 @@ export interface Metadata {
   studio: string;
   type: string;
   title: string;
+  index?: string;
+  grandparentThumb?: string;
   librarySectionTitle: string;
   librarySectionID: number;
   librarySectionKey: string;

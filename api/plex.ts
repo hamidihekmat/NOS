@@ -62,6 +62,22 @@ export const searchMedia = async (query: string): Promise<MediaContainer> => {
   return await response.json();
 };
 
+export const advanceSearch = async (query: string): Promise<MediaContainer> => {
+  const response = await fetch(
+    `${process.env.BACKEND_URL}/library/search/advance?` +
+      new URLSearchParams({
+        query,
+      })
+  );
+  if (!response.ok) {
+    const error = new Error('An error occurred while fetching the data.');
+    // Attach extra info to the error object.
+    throw error;
+  }
+
+  return await response.json();
+};
+
 export const fetchSeasons = async (id: string): Promise<MediaContainer> => {
   const response = await fetch(
     `${process.env.BACKEND_URL}/library/metadata/${id}/children`

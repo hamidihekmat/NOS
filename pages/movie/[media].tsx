@@ -105,10 +105,12 @@ const Media = () => {
                     </Badge>
                     <Text
                       fontSize="md"
-                      color="hsla(0,0%,98%,.45)"
+                      color="var(--font-color)"
                       fontWeight="black"
                     >
-                      {media.audienceRating}
+                      {media.audienceRating % 1 === 0
+                        ? `${media.audienceRating}.0`
+                        : media.audienceRating}
                     </Text>
                   </HStack>
                 )}

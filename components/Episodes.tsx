@@ -28,9 +28,9 @@ export const Episodes = ({ id }: { id: string }) => {
         {`${data.size} Episodes`}
       </Text>
       <Wrap spacing="5">
-        {data.Metadata.map((episode, index) => (
+        {data.Metadata.map((episode) => (
           <WrapItem key={episode.ratingKey}>
-            <Episode episode={episode} index={index} />
+            <Episode episode={episode} index={episode.index!} />
           </WrapItem>
         ))}
       </Wrap>
