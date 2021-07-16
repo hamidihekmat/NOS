@@ -13,8 +13,8 @@ export const Discord = () => {
         position: fixed;
         bottom: 5%;
         left: 93%;
-        width: 3.6rem;
-        height: 3.6rem;
+        width: 3.7rem;
+        height: 3.7rem;
         z-index: 9999999;
         backdrop-filter: blur(35px);
         border: 2px solid transparent;
@@ -31,8 +31,8 @@ export const Discord = () => {
       _hover={{ opacity: 1 }}
       _active={{ opacity: 1 }}
       aria-label="Discord Community"
-      bg="rgba(51, 51, 51, 0.8)"
-      icon={<DiscordLogo color="var(--border-color)" size={40} />}
+      bg="#404EED"
+      icon={<DiscordLogo size={40} />}
     />
   );
 };
