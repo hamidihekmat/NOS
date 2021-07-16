@@ -74,7 +74,7 @@ export const Episode = ({
         p="0rem 0rem 1rem 1rem"
         color="hsla(0,0%,98%,.45)"
       >
-        {`Episode ${index + 1}`}
+        {`Episode ${index}`}
       </Text>
     </Box>
   );
