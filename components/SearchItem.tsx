@@ -48,7 +48,9 @@ export const SearchItem = ({ media }: { media: Metadata }) => {
                   IMDB
                 </Badge>
                 <Text color="white" fontSize="sm" fontWeight="black">
-                  {media.audienceRating}
+                  {media.audienceRating % 1 === 0
+                    ? `${media.audienceRating}.0`
+                    : media.audienceRating}
                 </Text>
               </HStack>
             )}
