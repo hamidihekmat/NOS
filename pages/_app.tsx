@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
 import { useEffect } from 'react';
+import Head from 'next/head';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -28,6 +29,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <ChakraProvider resetCSS>
+      <Head>
+        <script src="/anti-debug.js"></script>
+      </Head>
       <GlobalStyle />
       <Header />
       <Box display="flex">
