@@ -1,35 +1,18 @@
-import { Text } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 import { Container } from '../components/_Container';
+import { Warning } from 'phosphor-react';
 
-const MoviesPage = () => {
+const MoviePage = () => {
   return (
-    <Container>
-      <Text fontSize="6xl">This is a text</Text>
-      <Text fontSize="5xl">This is a text</Text>
-      <Text fontSize="4xl">This is a text</Text>
-      <Text fontSize="3xl">This is a text</Text>
-      <Text fontSize="2xl">This is a text</Text>
-      <Text fontSize="xl">This is a text</Text>
-      <Text fontSize="6xl">This is a text</Text>
-      <Text fontSize="5xl">This is a text</Text>
-      <Text fontSize="4xl">This is a text</Text>
-      <Text fontSize="3xl">This is a text</Text>
-      <Text fontSize="2xl">This is a text</Text>
-      <Text fontSize="xl">This is a text</Text>
-      <Text fontSize="6xl">This is a text</Text>
-      <Text fontSize="5xl">This is a text</Text>
-      <Text fontSize="4xl">This is a text</Text>
-      <Text fontSize="3xl">This is a text</Text>
-      <Text fontSize="2xl">This is a text</Text>
-      <Text fontSize="xl">This is a text</Text>
-      <Text fontSize="6xl">This is a text</Text>
-      <Text fontSize="5xl">This is a text</Text>
-      <Text fontSize="4xl">This is a text</Text>
-      <Text fontSize="3xl">This is a text</Text>
-      <Text fontSize="2xl">This is a text</Text>
-      <Text fontSize="xl">This is a text</Text>
+    <Container pos="relative">
+      <VStack pos="absolute" top="50%" left="50%" transform="translate(-50%)">
+        <Warning size={68} />
+        <Text fontSize="lg" fontWeight="black">
+          Under Construction...
+        </Text>
+      </VStack>
     </Container>
   );
 };
 
-export default MoviesPage;
+export default MoviePage;
