@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
 // Router
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -32,9 +33,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <ChakraProvider resetCSS>
-      {/* <Head>
+      <Head>
         <script src="/anti-debug.js"></script>
-      </Head> */}
+      </Head>
       <GlobalStyle />
       <Header />
       {!currentPath.includes('watch') && <Discord />}
