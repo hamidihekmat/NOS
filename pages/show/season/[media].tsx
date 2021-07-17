@@ -106,7 +106,7 @@ const Media = () => {
               <HStack py="2rem" spacing="3">
                 <Button
                   as="a"
-                  href={`/${media.type}/watch/${media.ratingKey}`}
+                  // href={`/${media.type}/watch/${media.ratingKey}`}
                   background="var(--button-1)"
                   leftIcon={<Play color="#ffffff" size={30} />}
                   _hover={{ opacity: '85%' }}
@@ -218,7 +218,15 @@ const Media = () => {
       <Episodes id={data.Metadata[0].ratingKey as string} />
       {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
 
-      <Box position="absolute" width="100%" height="60%" top="0" mt="3.75rem">
+      <Box
+        position="fixed"
+        width="100%"
+        height="90vh"
+        top="0"
+        css={css`
+          pointer-events: none;
+        `}
+      >
         <Box position="relative" width="100%" height="100%">
           <LazyImage
             src={`${process.env.BACKEND_URL}${data.Metadata[0].art}`}
