@@ -7,7 +7,7 @@ export const Discord = () => {
   return (
     <IconButton
       as="a"
-      href="https://discord.com/invite/cZqjQ3t9Yu"
+      href="https://discord.gg/VstbbYSENY"
       target="_blank"
       css={css`
         position: fixed;
