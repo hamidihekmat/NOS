@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    BACKEND_URL: 'https://api.nosplexserver.tk',
+    BACKEND_URL: 'http://localhost:4000',
   },
 };
