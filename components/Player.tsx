@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 // Icons
 import { ArrowLeft } from 'phosphor-react';
+// import { useJWPlayer } from '../hooks/usePlayer';
 
 export const Player = ({ playlist }: { playlist: Playlist }) => {
   const router = useRouter();
@@ -33,6 +34,7 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
       <StyledJWPlayer
         playerId="player"
         onPlay={onPlay}
+        // onReady={onReady}
         playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
         playlist={[playlist]}
         // onReady={onReady}
@@ -63,7 +65,7 @@ const StyledJWPlayer = styled(ReactJWPlayer)`
     background: #151515;
   }
 
-  .jw-captions {
+  /* .jw-captions {
     color: white !important;
   }
 
@@ -123,5 +125,5 @@ const StyledJWPlayer = styled(ReactJWPlayer)`
 
   video::-webkit-media-text-track-container {
     display: none;
-  }
+  } */
 `;

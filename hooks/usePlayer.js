@@ -46,39 +46,39 @@ export const useJWPlayer = (playlist) => {
     xhttp.open('GET', playlist.tracks[0].file, true);
     xhttp.send();
     player.appendChild(track);
-    const currentTrack = player.textTracks[0];
-    currentTrack.mode = 'hidden';
-    const renderCue = () => {
-      const cue = currentTrack.activeCues[0];
-      if (currentTrack.activeCues.length) {
-        vttDiv.innerHTML = cue.text;
-      } else {
-        vttDiv.innerHTML = '';
-      }
-    };
-    if (jwplayerAPI.getCurrentCaptions()) {
-      currentTrack.addEventListener('cuechange', renderCue);
-    }
-    jwplayerAPI.on('captionsChanged', (e) => {
-      if (e.track) {
-        currentTrack.addEventListener('cuechange', renderCue);
-      } else {
-        currentTrack.removeEventListener('cuechange', renderCue);
-        vttDiv.innerHTML = '';
-      }
-    });
+    //   const currentTrack = player.textTracks[0];
+    //   currentTrack.mode = 'hidden';
+    //   const renderCue = () => {
+    //     const cue = currentTrack.activeCues[0];
+    //     if (currentTrack.activeCues.length) {
+    //       vttDiv.innerHTML = cue.text;
+    //     } else {
+    //       vttDiv.innerHTML = '';
+    //     }
+    //   };
+    //   if (jwplayerAPI.getCurrentCaptions()) {
+    //     currentTrack.addEventListener('cuechange', renderCue);
+    //   }
+    //   jwplayerAPI.on('captionsChanged', (e) => {
+    //     if (e.track) {
+    //       currentTrack.addEventListener('cuechange', renderCue);
+    //     } else {
+    //       currentTrack.removeEventListener('cuechange', renderCue);
+    //       vttDiv.innerHTML = '';
+    //     }
+    //   });
+    // };
+
+    // function addOffset(offset) {
+    //   const player = document.getElementsByTagName('video')[0];
+    //   const tracks = player.textTracks;
+    //   Array.from(tracks).forEach((track) => {
+    //     Array.from(track.cues).forEach((cue) => {
+    //       cue.startTime += offset || 1;
+    //       cue.endTime += offset || 1;
+    //     });
+    //   });
+    // }
   };
-
-  function addOffset(offset) {
-    const player = document.getElementsByTagName('video')[0];
-    const tracks = player.textTracks;
-    Array.from(tracks).forEach((track) => {
-      Array.from(track.cues).forEach((cue) => {
-        cue.startTime += offset || 1;
-        cue.endTime += offset || 1;
-      });
-    });
-  }
-
   return [onReady];
 };
