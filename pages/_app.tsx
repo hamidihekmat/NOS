@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         {/* <script src="/anti-debug.js"></script> */}
-        <title>NOS - Movies & Shows</title>
+        <title>NOS - Stream Movies & Shows</title>
       </Head>
       <ChakraProvider resetCSS>
         <GlobalStyle />
