@@ -4,6 +4,8 @@ import useSWR from 'swr';
 import { BounceLoader } from 'react-spinners';
 import { Box } from '@chakra-ui/react';
 import { fetchPlaylist } from '../../../api/plex';
+// Next head
+import Head from 'next/head';
 
 function Watch() {
   const router = useRouter();
@@ -22,7 +24,14 @@ function Watch() {
   if (error) {
     return <h1>Error...</h1>;
   }
-  return <Player playlist={data} />;
+  return (
+    <>
+      <Head>
+        <title>Watch - {data.title}</title>
+      </Head>
+      <Player playlist={data} />;
+    </>
+  );
 }
 
 export default Watch;

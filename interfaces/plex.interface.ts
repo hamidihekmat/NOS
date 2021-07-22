@@ -110,6 +110,7 @@ export interface Metadata {
   type: string;
   title: string;
   index?: string;
+  parentTitle?: string;
   grandparentThumb?: string;
   librarySectionTitle: string;
   librarySectionID: number;
