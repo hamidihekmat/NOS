@@ -18,7 +18,7 @@ export const LazyImage = (props: ImgProps) => {
 const StyledBox = styled(Box)`
   img {
     opacity: 1;
-    transition: all 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
   }
 
   img[data-lazy-src] {

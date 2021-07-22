@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { BounceLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
 import { fetchSeasons } from '../api/plex';
@@ -12,8 +12,15 @@ export const Seasons = ({ id }: { id: string }) => {
   );
   if (!data) {
     return (
-      <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
-        <BounceLoader color="var(--bg-secondary)" size="80px" />
+      <Box
+        zIndex="99"
+        width="100%"
+        display="flex"
+        m="3rem"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <PulseLoader color="var(--bg-secondary)" size="20px" />
       </Box>
     );
   }

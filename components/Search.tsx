@@ -45,12 +45,8 @@ export const Search = () => {
         overflow="hidden"
         opacity="0.8"
         width="20vw"
-        css={css`
-          /* transform: translateX(-50%); */
-        `}
       >
         <InputLeftElement
-          pointerEvents="none"
           children={<MagnifyingGlass color="var(--primary-color)" size={20} />}
         />
         <Input

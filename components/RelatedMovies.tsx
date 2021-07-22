@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { Deck } from './_Deck';
 import { useRouter } from 'next/router';
-import { BounceLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
 import { fetchRelatedMovies } from '../api/plex';
@@ -15,13 +15,14 @@ export const RelatedMovies = ({ id }: { id: string }) => {
   if (!data) {
     return (
       <Box
-        pos="fixed"
         zIndex="99"
-        top="50%"
-        right="50%"
-        transform="translate(-50%)"
+        width="100%"
+        display="flex"
+        m="3rem"
+        alignItems="center"
+        justifyContent="center"
       >
-        <BounceLoader color="var(--bg-secondary)" size="80px" />
+        <PulseLoader color="var(--bg-secondary)" size="20px" />
       </Box>
     );
   }

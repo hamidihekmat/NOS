@@ -4,11 +4,11 @@ import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
 import { Discord } from '../components/Discord';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
 // Router
 import { useRouter } from 'next/router';
-// import Head from 'next/head';
+import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -32,17 +32,20 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     }
   }, []);
   return (
-    <ChakraProvider resetCSS>
-      {/* <Head>
-        <script src="/anti-debug.js"></script>
-      </Head> */}
-      <GlobalStyle />
-      <Header />
-      {!currentPath.includes('watch') && <Discord />}
-      <Box display="flex">
-        <Nav />
-        <Component {...pageProps} />
-      </Box>
-    </ChakraProvider>
+    <>
+      <Head>
+        {/* <script src="/anti-debug.js"></script> */}
+        <title>NOS - Movies & Shows</title>
+      </Head>
+      <ChakraProvider resetCSS>
+        <GlobalStyle />
+        <Header />
+        {!currentPath.includes('watch') && <Discord />}
+        <Box display="flex">
+          <Nav />
+          <Component {...pageProps} />
+        </Box>
+      </ChakraProvider>
+    </>
   );
 }

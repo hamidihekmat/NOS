@@ -6,6 +6,17 @@ export function useSlider(ref: HTMLDivElement | undefined, view = 1) {
   const [showNext, setShowNext] = useState(true);
   const [size, setSize] = useState(0);
 
+  useEffect(() => {
+    if (ref) {
+      const { scrollWidth, clientWidth } = ref;
+
+      if (scrollWidth === clientWidth) {
+        setShowNext(false);
+      }
+
+      ref.addEventListener('scroll', trackScroll);
+    }
+  }, [ref, setShowNext]);
   const trackScroll = (event: Event) => {
     const { scrollLeft, clientWidth, scrollWidth } =
       event.target as HTMLDivElement;
@@ -26,18 +37,6 @@ export function useSlider(ref: HTMLDivElement | undefined, view = 1) {
       setShowNext(true);
     }
   };
-
-  useEffect(() => {
-    if (ref) {
-      const { scrollWidth, clientWidth } = ref;
-
-      if (scrollWidth === clientWidth) {
-        setShowNext(false);
-      }
-
-      ref.addEventListener('scroll', trackScroll);
-    }
-  }, [ref, setShowNext]);
 
   const next = () => {
     if (ref) {

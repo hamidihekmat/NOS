@@ -17,7 +17,6 @@ import { EpisodesDeck } from '../components/_EpisodesDeck';
 const SeachPage = () => {
   const router = useRouter();
   const { query } = router.query;
-  console.log(query);
   const { data, error } = useSWR(query, () => advanceSearch(query as string));
   if (!data) {
     return (

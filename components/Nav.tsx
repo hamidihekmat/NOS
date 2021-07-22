@@ -15,6 +15,9 @@ export const Nav = () => {
   const router = useRouter();
   const nav = navStore((state) => state.nav);
   const scroll = scrollStore((state) => state.scroll);
+  const focusSearch = () => {
+    console.log('search');
+  };
   return (
     <StyledVStack
       mt="3.75rem"
@@ -67,7 +70,12 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem borderRadius="xl" as="button" aspath={router.asPath}>
+      <NavItem
+        borderRadius="xl"
+        as="button"
+        aspath={router.asPath}
+        onClick={focusSearch}
+      >
         <StyledIconButton
           maxW="3rem"
           aria-label="Search"
