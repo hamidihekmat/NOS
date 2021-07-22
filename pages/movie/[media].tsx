@@ -26,6 +26,7 @@ import { formatDuration } from '../../utils/duration';
 import { RelatedMovies } from '../../components/RelatedMovies';
 import { Casts } from '../../components/Casts';
 import { ShowMore } from '../../components/_ShowMore';
+// Next head
 import Head from 'next/head';
 
 const Media = () => {
@@ -46,7 +47,7 @@ const Media = () => {
   return (
     <>
       <Head>
-        <title>Watch - {data?.Metadata[0].title}</title>
+        <title>Movie - {data?.Metadata[0].title}</title>
       </Head>
       <Container pos="relative">
         {data &&
