@@ -37,6 +37,16 @@ export const Player = ({ playlist }: { playlist: Playlist }) => {
         // onReady={onReady}
         playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
         playlist={[playlist]}
+        customProps={{
+          renderCaptionsNatively: false,
+          skin: { name: 'netflix' },
+          captions: {
+            color: '#FFF',
+            fontSize: 12,
+            backgroundOpacity: 0,
+            edgeStyle: 'raised',
+          },
+        }}
         // onReady={onReady}
       />
     </Container>
