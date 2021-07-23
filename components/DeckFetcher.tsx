@@ -28,6 +28,7 @@ export const DeckFetcher = ({
     align: 'start',
     loop: true,
     dragFree: true,
+    slidesToScroll: 1,
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
