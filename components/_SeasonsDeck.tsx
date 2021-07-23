@@ -72,7 +72,7 @@ export const SeasonsDeck = ({
         </HStack>
       </HStack>
       <Box className="embla" ref={emblaRef}>
-        <StyledFlex overflowX="scroll">
+        <StyledFlex>
           {mediaContainer.Metadata.map((media) => (
             <Poster key={media.key} media={media} />
           ))}
