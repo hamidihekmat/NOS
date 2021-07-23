@@ -64,7 +64,7 @@ export const Casts = (prop: Castsprop) => {
       </HStack>
 
       <Box position="relative" className="embla" ref={emblaRef}>
-        <StyledFlex>
+        <StyledFlex overflowX="scroll">
           {prop.casts.map((cast) => (
             <Box
               // href={`/movies/${media.ratingKey}`}
