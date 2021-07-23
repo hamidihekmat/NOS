@@ -1,11 +1,4 @@
-import {
-  VStack,
-  IconButton,
-  Text,
-  Box,
-  Fade,
-  useMediaQuery,
-} from '@chakra-ui/react';
+import { VStack, IconButton, Text, Box, Fade } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -17,99 +10,79 @@ import { SearchIcon } from '../svg/_SearchIcon';
 // Store
 import { navStore } from '../store/navStore';
 import { scrollStore } from '../store/scrollStore';
-// react
-import { useEffect, useState } from 'react';
 
 export const Nav = () => {
-  const [isMobile] = useMediaQuery('(max-width: 768px)');
-  const [showNav, setShowNav] = useState(true);
   const router = useRouter();
   const nav = navStore((state) => state.nav);
   const scroll = scrollStore((state) => state.scroll);
-  useEffect(() => {
-    if (router.asPath.split('/').includes('watch') && isMobile) {
-      setShowNav(false);
-    }
-  }, [isMobile, router.asPath]);
 
   return (
-    <>
-      {showNav && (
-        <StyledVStack
-          mt="3.75rem"
-          nav={nav ? 'enabled' : 'disabled'}
-          spacing="1"
-          alignItems="center"
-          css={css`
-            background: ${scroll
-              ? `rgba(51, 51, 51, 0.8)`
-              : `var(--bg-primary)`};
-          `}
-        >
-          <NavItem borderRadius="xl" as="a" href="/" aspath={router.asPath}>
-            <StyledIconButton
-              maxW="3rem"
-              aria-label="Home"
-              as="div"
-              _focus={{ outline: 'none' }}
-              icon={<HomeIcon href="/" size={32} />}
-            />
-            <Fade in={nav}>
-              <Text fontWeight="bold" fontSize="large">
-                Home
-              </Text>
-            </Fade>
-          </NavItem>
-          <NavItem
-            borderRadius="xl"
-            as="a"
-            href="/movie"
-            aspath={router.asPath}
-          >
-            <StyledIconButton
-              maxW="3rem"
-              aria-label="Movies"
-              as="div"
-              _focus={{ outline: 'none' }}
-              icon={<MoviesIcon href="/movie" size={32} />}
-            />
-            <Fade in={nav}>
-              <Text fontWeight="bold" fontSize="large">
-                Movies
-              </Text>
-            </Fade>
-          </NavItem>
-          <NavItem borderRadius="xl" as="a" href="/show" aspath={router.asPath}>
-            <StyledIconButton
-              maxW="3rem"
-              aria-label="TV Shows"
-              as="div"
-              _focus={{ outline: 'none' }}
-              icon={<TVIcon href="/show" size={32} />}
-            />
-            <Fade in={nav}>
-              <Text fontWeight="bold" fontSize="large">
-                Shows
-              </Text>
-            </Fade>
-          </NavItem>
-          <NavItem borderRadius="xl" as="button" aspath={router.asPath}>
-            <StyledIconButton
-              maxW="3rem"
-              aria-label="Search"
-              as="div"
-              _focus={{ outline: 'none' }}
-              icon={<SearchIcon size={32} />}
-            />
-            <Fade in={nav}>
-              <Text fontWeight="bold" fontSize="large">
-                Search
-              </Text>
-            </Fade>
-          </NavItem>
-        </StyledVStack>
-      )}
-    </>
+    <StyledVStack
+      mt="3.75rem"
+      nav={nav ? 'enabled' : 'disabled'}
+      spacing="1"
+      alignItems="center"
+      css={css`
+        background: ${scroll ? `rgba(51, 51, 51, 0.8)` : `var(--bg-primary)`};
+      `}
+    >
+      <NavItem borderRadius="xl" as="a" href="/" aspath={router.asPath}>
+        <StyledIconButton
+          maxW="3rem"
+          aria-label="Home"
+          as="div"
+          _focus={{ outline: 'none' }}
+          icon={<HomeIcon href="/" size={32} />}
+        />
+        <Fade in={nav}>
+          <Text fontWeight="bold" fontSize="large">
+            Home
+          </Text>
+        </Fade>
+      </NavItem>
+      <NavItem borderRadius="xl" as="a" href="/movie" aspath={router.asPath}>
+        <StyledIconButton
+          maxW="3rem"
+          aria-label="Movies"
+          as="div"
+          _focus={{ outline: 'none' }}
+          icon={<MoviesIcon href="/movie" size={32} />}
+        />
+        <Fade in={nav}>
+          <Text fontWeight="bold" fontSize="large">
+            Movies
+          </Text>
+        </Fade>
+      </NavItem>
+      <NavItem borderRadius="xl" as="a" href="/show" aspath={router.asPath}>
+        <StyledIconButton
+          maxW="3rem"
+          aria-label="TV Shows"
+          as="div"
+          _focus={{ outline: 'none' }}
+          icon={<TVIcon href="/show" size={32} />}
+        />
+        <Fade in={nav}>
+          <Text fontWeight="bold" fontSize="large">
+            Shows
+          </Text>
+        </Fade>
+      </NavItem>
+      <NavItem borderRadius="xl" as="button" aspath={router.asPath}>
+        <StyledIconButton
+          maxW="3rem"
+          aria-label="Search"
+          as="div"
+          _focus={{ outline: 'none' }}
+          icon={<SearchIcon size={32} />}
+        />
+        <Fade in={nav}>
+          <Text fontWeight="bold" fontSize="large">
+            Search
+          </Text>
+        </Fade>
+      </NavItem>
+    </StyledVStack>
   );
 };
 

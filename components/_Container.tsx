@@ -29,7 +29,7 @@ export const Container = (props: BoxProps) => {
       {...props}
     >
       {props.children}
-      <Box m="3.75rem" />
+      <Box m="4rem" />
     </Box>
   );
 };
