@@ -98,7 +98,7 @@ export const DeckFetcher = ({
 
       {data && (
         <Box position="relative" className="embla" ref={emblaRef}>
-          <StyledFlex overflowX="scroll">
+          <StyledFlex>
             {data?.Metadata.map((media) => (
               <Poster media={media} key={media.key} />
             ))}
