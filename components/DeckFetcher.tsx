@@ -28,7 +28,7 @@ export const DeckFetcher = ({
     align: 'start',
     loop: true,
     dragFree: true,
-    inViewThreshold: 0.5,
+    inViewThreshold: 3,
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
