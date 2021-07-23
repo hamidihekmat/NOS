@@ -68,7 +68,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
         </HStack>
       </HStack>
       <Box position="relative" className="embla" ref={emblaRef}>
-        <StyledFlex>
+        <StyledFlex overflowX="scroll">
           {hub.Metadata.map((media) => (
             <Poster key={media.key} media={media} />
           ))}
