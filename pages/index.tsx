@@ -24,7 +24,6 @@ const IndexPage = () => (
       title="Recently Added in Shows"
       fetcher={fetchRecentShows}
     />
-
     <DeckFetcher
       queryKey="topRated"
       title="Top Rated"

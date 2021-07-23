@@ -1,26 +1,44 @@
 import { Role } from '../interfaces/plex.interface';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Box, HStack, IconButton, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Heading, StyledFlex } from './_Deck';
-import { useSlider } from '../hooks/useSlider';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
 import { LazyImage } from './_LazyImage';
 // Components
 import { PaddedContainer } from './_PaddedContainer';
+// Carousel
+import { useEmblaCarousel } from 'embla-carousel/react';
 
 interface Castsprop {
   casts: Role[];
 }
 
 export const Casts = (prop: Castsprop) => {
-  const [refState, setRefState] = useState<HTMLDivElement>();
-  const ref = useCallback((node) => {
-    setRefState(node);
-  }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 2);
+  const [emblaRef, embla] = useEmblaCarousel({
+    align: 'start',
+    dragFree: true,
+    draggable: true,
+    containScroll: 'trimSnaps',
+  });
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
+
+  const onSelect = useCallback(() => {
+    if (!embla) return;
+    setPrevBtnEnabled(embla.canScrollPrev());
+    setNextBtnEnabled(embla.canScrollNext());
+  }, [embla]);
+
+  useEffect(() => {
+    if (!embla) return;
+    onSelect();
+    embla.on('select', onSelect);
+  }, [embla, onSelect]);
   return (
     <PaddedContainer mt="1">
       <HStack justifyContent="space-between">
@@ -29,39 +47,24 @@ export const Casts = (prop: Castsprop) => {
         </Heading>
 
         <HStack>
-          {showPrev && (
-            <StyledIconButton
-              onClick={previous}
-              aria-label="previous"
-              icon={<CaretLeft size={24} color="#ffffff" />}
-            />
-          )}
-          {!showPrev && (
-            <StyledIconButton
-              cursor="default"
-              aria-label="previous"
-              icon={<CaretLeft size={24} color="#4b5561" />}
-            />
-          )}
-          {showNext && (
-            <StyledIconButton
-              onClick={next}
-              aria-label="previous"
-              icon={<CaretRight size={24} color="#ffffff" />}
-            />
-          )}
-          {!showNext && (
-            <StyledIconButton
-              cursor="default"
-              aria-label="previous"
-              icon={<CaretRight size={24} color="#4b5561" />}
-            />
-          )}
+          <StyledIconButton
+            onClick={scrollPrev}
+            disabled={!prevBtnEnabled}
+            aria-label="previous"
+            icon={<CaretLeft size={24} color="#ffffff" />}
+          />
+
+          <StyledIconButton
+            onClick={scrollNext}
+            disabled={!nextBtnEnabled}
+            aria-label="next"
+            icon={<CaretRight size={24} color="#ffffff" />}
+          />
         </HStack>
       </HStack>
 
-      <Box position="relative">
-        <StyledFlex overflowX="scroll" ref={ref}>
+      <Box position="relative" className="embla" ref={emblaRef}>
+        <StyledFlex>
           {prop.casts.map((cast) => (
             <Box
               // href={`/movies/${media.ratingKey}`}

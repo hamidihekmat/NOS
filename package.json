@@ -12,6 +12,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@types/jwplayer": "^8.2.6",
+    "embla-carousel": "^4.5.3",
     "framer-motion": "^4",
     "next": "latest",
     "phosphor-react": "^1.2.1",

@@ -1,6 +1,7 @@
 import { Img, ImgProps, Box } from '@chakra-ui/react';
 import { SyntheticEvent } from 'react';
 import styled from '@emotion/styled';
+
 // Component
 
 export const LazyImage = (props: ImgProps) => {
@@ -9,7 +10,7 @@ export const LazyImage = (props: ImgProps) => {
     image.removeAttribute('data-lazy-src');
   };
   return (
-    <StyledBox data->
+    <StyledBox>
       <Img as="img" data-lazy-src {...props} onLoad={onLoad} />
     </StyledBox>
   );

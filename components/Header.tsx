@@ -35,7 +35,6 @@ export const Header = () => {
           backdrop-filter: blur(35px);
           opacity: ${scroll ? `0.8` : `1`};
           border: 2px solid transparent;
-          transition: all ease 300ms;
         `}
       />
       <HStack>

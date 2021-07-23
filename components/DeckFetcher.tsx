@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Box, HStack } from '@chakra-ui/react';
 import { Heading, StyledFlex, StyledSkeleton } from './_Deck';
 import useSWR from 'swr';
@@ -6,13 +6,13 @@ import useSWR from 'swr';
 import { MediaSkeletonSize } from '../utils/skeleton';
 // Icons
 import { CaretLeft, CaretRight, ArrowCircleRight } from 'phosphor-react';
-// Hooks
-import { useSlider } from '../hooks/useSlider';
 import { MediaContainer } from '../interfaces/plex.interface';
 // Components
 import { StyledIconButton } from './Casts';
 import { Poster } from './_Poster';
 import { PaddedContainer } from './_PaddedContainer';
+// Carousel
+import { useEmblaCarousel } from 'embla-carousel/react';
 
 export const DeckFetcher = ({
   title,
@@ -23,12 +23,28 @@ export const DeckFetcher = ({
   queryKey: string;
   fetcher: () => Promise<MediaContainer>;
 }) => {
-  const [refState, setRefState] = useState<HTMLDivElement>();
-  const ref = useCallback((node) => {
-    setRefState(node);
-  }, []);
-  const { next, previous, showNext, showPrev } = useSlider(refState, 1.5);
   const { data, error } = useSWR(queryKey, fetcher);
+  const [emblaRef, embla] = useEmblaCarousel({
+    align: 'start',
+    loop: true,
+    dragFree: true,
+  });
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
+
+  const onSelect = useCallback(() => {
+    if (!embla) return;
+    setPrevBtnEnabled(embla.canScrollPrev());
+    setNextBtnEnabled(embla.canScrollNext());
+  }, [embla]);
+
+  useEffect(() => {
+    if (!embla) return;
+    onSelect();
+    embla.on('select', onSelect);
+  }, [embla, onSelect]);
   return (
     <PaddedContainer>
       <HStack justifyContent="space-between">
@@ -47,34 +63,19 @@ export const DeckFetcher = ({
         </HStack>
 
         <HStack spacing="0">
-          {showPrev && (
-            <StyledIconButton
-              onClick={previous}
-              aria-label="previous"
-              icon={<CaretLeft size={24} color="#ffffff" />}
-            />
-          )}
-          {!showPrev && (
-            <StyledIconButton
-              cursor="default"
-              aria-label="previous"
-              icon={<CaretLeft size={24} color="#4b5561" />}
-            />
-          )}
-          {showNext && (
-            <StyledIconButton
-              onClick={next}
-              aria-label="previous"
-              icon={<CaretRight size={24} color="#ffffff" />}
-            />
-          )}
-          {!showNext && (
-            <StyledIconButton
-              cursor="default"
-              aria-label="previous"
-              icon={<CaretRight size={24} color="#4b5561" />}
-            />
-          )}
+          <StyledIconButton
+            onClick={scrollPrev}
+            aria-label="previous"
+            disabled={!prevBtnEnabled}
+            icon={<CaretLeft size={24} color="#ffffff" />}
+          />
+
+          <StyledIconButton
+            onClick={scrollNext}
+            disabled={!nextBtnEnabled}
+            aria-label="previous"
+            icon={<CaretRight size={24} color="#ffffff" />}
+          />
         </HStack>
       </HStack>
 
@@ -96,8 +97,8 @@ export const DeckFetcher = ({
       {error && <Box>Error</Box>}
 
       {data && (
-        <Box position="relative">
-          <StyledFlex overflowX="scroll" ref={ref}>
+        <Box position="relative" className="embla" ref={emblaRef}>
+          <StyledFlex>
             {data?.Metadata.map((media) => (
               <Poster media={media} key={media.key} />
             ))}

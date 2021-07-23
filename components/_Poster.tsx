@@ -16,10 +16,11 @@ export const Poster = ({ media }: { media: Metadata }) => {
           : `/${media.type}/${media.ratingKey}`
       }
       key={media.key}
-      minW="176px"
       pos="relative"
+      minW="176px"
       marginRight="1vw"
       cursor="pointer"
+      zIndex="0"
       overflow="hidden"
       onMouseOver={() => setIsShowing(true)}
       onMouseLeave={() => setIsShowing(false)}

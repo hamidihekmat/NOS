@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@chakra-ui/layout';
+import { Box, BoxProps } from '@chakra-ui/react';
 import { scrollStore } from '../store/scrollStore';
 import { css } from '@emotion/react';
 
@@ -29,6 +29,7 @@ export const Container = (props: BoxProps) => {
       {...props}
     >
       {props.children}
+      <Box m="3.75rem" />
     </Box>
   );
 };
