@@ -58,7 +58,7 @@ export const Profile = () => {
         <StyledMenuItem>
           <HStack>
             <Heart size={20} />
-            <Text fontWeight="bold">Favouites</Text>
+            <Text fontWeight="bold">Favourites</Text>
           </HStack>
         </StyledMenuItem>
         <StyledMenuItem>
