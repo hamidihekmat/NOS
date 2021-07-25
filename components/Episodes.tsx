@@ -41,6 +41,7 @@ export const Episodes = ({ id }: { id: string }) => {
           placeholder="Select Episode"
           width="10rem"
           onChange={handleSelectChange}
+          bg="rgba(51, 51, 51, 0.8)"
         >
           {data.Metadata.map((episode) => (
             <option value={episode.ratingKey}>Episode {episode.index!}</option>
