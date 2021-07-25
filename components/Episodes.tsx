@@ -1,4 +1,4 @@
-import { Box, Wrap, WrapItem, Text } from '@chakra-ui/react';
+import { Box, Wrap, WrapItem, Text, HStack, Select } from '@chakra-ui/react';
 import { BounceLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
@@ -6,12 +6,20 @@ import { fetchEpisodes } from '../api/plex';
 // Component
 import { PaddedContainer } from './_PaddedContainer';
 import { Episode } from './Episode';
+// router
+import { useRouter } from 'next/router';
 
 export const Episodes = ({ id }: { id: string }) => {
+  const router = useRouter();
   const { data, error } = useSWR(`/library/episodes/${id}`, () =>
     fetchEpisodes(id as string)
   );
-  console.log(data);
+
+  const handleSelectChange = (event) => {
+    const { value } = event.target;
+    router.push(`/show/watch/${value}`);
+  };
+
   if (!data) {
     return (
       <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
@@ -24,9 +32,22 @@ export const Episodes = ({ id }: { id: string }) => {
   }
   return (
     <PaddedContainer>
-      <Text fontSize="2xl" fontWeight="bold" py="1.5rem">
-        {`${data.size} Episodes`}
-      </Text>
+      <HStack>
+        <Text fontSize="2xl" fontWeight="bold" py="1.5rem">
+          {`${data.size} Episodes`}
+        </Text>
+        <Box width="1rem" />
+        <Select
+          placeholder="Select Episode"
+          width="10rem"
+          onChange={handleSelectChange}
+        >
+          {data.Metadata.map((episode) => (
+            <option value={episode.ratingKey}>Episode {episode.index!}</option>
+          ))}
+        </Select>
+      </HStack>
+
       <Wrap spacing="5">
         {data.Metadata.map((episode) => (
           <WrapItem key={episode.ratingKey}>
