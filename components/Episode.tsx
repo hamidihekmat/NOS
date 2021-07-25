@@ -34,6 +34,7 @@ export const Episode = ({
           cursor="pointer"
           objectFit="cover"
           maxWidth="414px"
+          maxH="234px"
           boxShadow="2xl"
           border="1px solid var(--border-color)"
           src={`${process.env.BACKEND_URL}${episode.thumb}`}
