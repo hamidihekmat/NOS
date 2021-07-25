@@ -1,4 +1,5 @@
 import { Box, Wrap, WrapItem, Text, HStack, Select } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { BounceLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
@@ -41,7 +42,11 @@ export const Episodes = ({ id }: { id: string }) => {
           placeholder="Select Episode"
           width="10rem"
           onChange={handleSelectChange}
-          bg="rgba(51, 51, 51, 0.8)"
+          css={css`
+            option {
+              background: rgba(51, 51, 51, 0.8);
+            }
+          `}
         >
           {data.Metadata.map((episode) => (
             <option value={episode.ratingKey}>Episode {episode.index!}</option>
