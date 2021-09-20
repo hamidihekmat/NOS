@@ -3,16 +3,16 @@ import { Header } from '../components/Header';
 import { AppProps } from 'next/app';
 import { GlobalStyle } from '../styles/global';
 import { Nav } from '../components/Nav';
-import { Discord } from '../components/Discord';
+// import { Discord } from '../components/Discord';
 import React, { useEffect } from 'react';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
 // Router
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-  const currentPath = router.pathname.split('/');
+  // const router = useRouter();
+  // const currentPath = router.pathname.split('/');
   useEffect(() => {
     if (isChrome || isEdgeChromium) {
       if ('serviceWorker' in navigator) {
@@ -40,7 +40,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider resetCSS>
         <GlobalStyle />
         <Header />
-        {!currentPath.includes('watch') && <Discord />}
+        {/* {!currentPath.includes('watch') && <Discord />} */}
         <Box display="flex">
           <Nav />
           <Component {...pageProps} />
