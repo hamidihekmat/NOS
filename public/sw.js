@@ -13,7 +13,7 @@ async function customHeaderRequestFetch(e) {
   return fetch(n);
 }
 async function getToken() {
-  const e = await fetch('https://token.noss.workers.dev/');
+  const e = await fetch('https://token.thenos.org/');
   return await e.text();
 }
 self.addEventListener('install', (e) => {
