@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { isChrome, isEdgeChromium } from 'react-device-detect';
 // Router
 // import { useRouter } from 'next/router';
-import Head from 'next/head';
+// import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   // const router = useRouter();
@@ -33,10 +33,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <>
-      <Head>
+      {/* <Head>
         <script src="/anti-debug.js"></script>
         <title>NOS - Stream Movies & Shows</title>
-      </Head>
+      </Head> */}
       <ChakraProvider resetCSS>
         <GlobalStyle />
         <Header />

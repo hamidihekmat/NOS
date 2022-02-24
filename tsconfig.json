@@ -17,7 +17,8 @@
     "skipLibCheck": true,
     "noImplicitAny": false,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "incremental": false
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx", "next.config.js", "hooks/usePlayer.js"]

@@ -3,7 +3,7 @@ import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
 import { fetchSeasons } from '../api/plex';
-import { Container } from 'next/app';
+import { Container } from './_Container';
 import { SeasonsDeck } from './_SeasonsDeck';
 
 export const Seasons = ({ id }: { id: string }) => {

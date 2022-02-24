@@ -5,7 +5,7 @@ import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
 import { fetchRelatedMovies } from '../api/plex';
-import { Container } from 'next/app';
+import { Container } from './_Container';
 
 export const RelatedMovies = ({ id }: { id: string }) => {
   const router = useRouter();
