@@ -15,8 +15,6 @@ import { PaddedContainer } from './_PaddedContainer';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
-import { useRouter } from 'next/router';
-
 import Link from 'next/link';
 
 import {

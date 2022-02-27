@@ -12,9 +12,11 @@ type SlugType =
   | 'now-playing'
   | 'top-rated'
   | 'trending-movies'
-  | 'popular-movies';
+  | 'popular-movies'
+  | 'popular-shows';
 
 export function useObserver(slug: SlugType) {
+  console.log(slug);
   const [ref, setRef] = useState<null | HTMLElement>(null);
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(0);
@@ -26,7 +28,7 @@ export function useObserver(slug: SlugType) {
       ? fetchNowPlayingMovies(page)
       : slug === 'popular-movies'
       ? fetchPopularMovies(page)
-      : slug === 'top-movies'
+      : slug === 'top-rated'
       ? fetchTopRated(page)
       : fetchNowPlayingMovies(page)
   );

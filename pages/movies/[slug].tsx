@@ -64,6 +64,21 @@ const MoviePage = ({ slug }) => {
 };
 
 export async function getServerSideProps({ params }) {
+  const slugs = [
+    'now-playing',
+    'top-rated',
+    'trending-movies',
+    'popular-movies',
+  ];
+  if (!slugs.includes(params.slug)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    };
+  }
   return {
     props: {
       slug: params.slug,
