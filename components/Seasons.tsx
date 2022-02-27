@@ -1,14 +1,22 @@
 import { Box } from '@chakra-ui/react';
+import { SeasonsDeck } from './_SeasonsDeck';
+import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
-import { fetchSeasons } from '../api/plex';
-import { Container } from './_Container';
-import { SeasonsDeck } from './_SeasonsDeck';
+import { fetchSeasonsInfo } from '../api/tmdb';
+import { SimpleSeason } from 'moviedb-promise/dist/request-types';
 
-export const Seasons = ({ id }: { id: string }) => {
-  const { data, error } = useSWR(`/library/${id}/children`, () =>
-    fetchSeasons(id as string)
+export const Seasons = ({
+  tvId,
+  seasons,
+}: {
+  tvId: string;
+  seasons: SimpleSeason[];
+}) => {
+  const router = useRouter();
+  const { data, error } = useSWR(`${router.asPath}/seasons`, () =>
+    fetchSeasonsInfo({ tvId: tvId, seasons })
   );
   if (!data) {
     return (
@@ -28,9 +36,5 @@ export const Seasons = ({ id }: { id: string }) => {
     return <h1>Error...</h1>;
   }
 
-  return (
-    <Container display="flex">
-      <SeasonsDeck mediaContainer={data} />
-    </Container>
-  );
+  return <SeasonsDeck seasons={data!} />;
 };

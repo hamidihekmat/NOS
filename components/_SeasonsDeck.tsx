@@ -4,19 +4,15 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
-import { MediaContainer } from '../interfaces/plex.interface';
 // Components
 import { StyledIconButton } from './Casts';
-import { Poster } from './_Poster';
 import { PaddedContainer } from './_PaddedContainer';
 // Carousel
-import { useEmblaCarousel } from 'embla-carousel/react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { TvSeasonResponse } from 'moviedb-promise/dist/request-types';
+import { PosterSeasons } from './_PosterSeason';
 
-export const SeasonsDeck = ({
-  mediaContainer,
-}: {
-  mediaContainer: MediaContainer;
-}) => {
+export const SeasonsDeck = ({ seasons }: { seasons: TvSeasonResponse[] }) => {
   const [emblaRef, embla] = useEmblaCarousel({
     align: 'start',
     dragFree: true,
@@ -51,30 +47,30 @@ export const SeasonsDeck = ({
           _hover={{ opacity: 0.8, transition: 'all 400ms' }}
         >
           <Heading fontSize="2xl" fontWeight="bold">
-            Seasons
+            Season
           </Heading>
         </HStack>
 
         <HStack spacing="0">
           <StyledIconButton
             onClick={scrollPrev}
-            disabled={!prevBtnEnabled}
             aria-label="previous"
+            disabled={!prevBtnEnabled}
             icon={<CaretLeft size={24} color="#ffffff" />}
           />
-
+          ∂
           <StyledIconButton
             onClick={scrollNext}
-            disabled={!nextBtnEnabled}
             aria-label="next"
+            disabled={!nextBtnEnabled}
             icon={<CaretRight size={24} color="#ffffff" />}
           />
         </HStack>
       </HStack>
-      <Box className="embla" ref={emblaRef}>
+      <Box position="relative" className="embla" ref={emblaRef}>
         <StyledFlex>
-          {mediaContainer.Metadata.map((media) => (
-            <Poster key={media.key} media={media} />
+          {seasons.map((season) => (
+            <PosterSeasons key={season.id!} season={season} />
           ))}
         </StyledFlex>
       </Box>

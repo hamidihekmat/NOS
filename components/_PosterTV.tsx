@@ -1,16 +1,17 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { Box, Text, VStack, Fade, HStack, Badge } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
 // interfaces
 
-import { MovieResult } from 'moviedb-promise/dist/request-types';
-export const Poster = ({ media }: { media: MovieResult }) => {
+import { TvResult } from 'moviedb-promise/dist/request-types';
+
+export const PosterTV = ({ media }: { media: TvResult }) => {
   const [isShowing, setIsShowing] = useState(false);
   return (
     <Box
       as="a"
-      href={`/movie/${media.id}`}
+      href={`/show/${media.id}`}
       key={media.id}
       pos="relative"
       minW="176px"
@@ -40,7 +41,7 @@ export const Poster = ({ media }: { media: MovieResult }) => {
       {/* 195 x 293 */}
 
       <LazyImage
-        loading="eager"
+        loading="lazy"
         boxShadow="xl"
         className="img-lazy"
         width="176x"
@@ -48,7 +49,7 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         height="264px"
         src={`${process.env.TMDB_IMAGES}${media.poster_path}`}
         borderRadius="xl"
-        alt={media.original_title}
+        alt={media.name}
       />
 
       <Box
@@ -60,9 +61,9 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         borderRadius="2xl"
         fontWeight="bold"
         zIndex="2"
-        bg="var(--badge-1)"
+        bg={'var(--badge-2)'}
       >
-        Movie
+        TV Show
       </Box>
       {/* Details */}
       <Fade in={isShowing}>
@@ -83,7 +84,7 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         >
           <HStack justifyContent="space-between" width="100%">
             <Text color="white" fontSize="md" fontWeight="black">
-              {new Date(Date.parse(media.release_date!)).getFullYear()}
+              {new Date(Date.parse(media.first_air_date!)).getFullYear()}
             </Text>
             {media.popularity && (
               <HStack>
@@ -103,13 +104,9 @@ export const Poster = ({ media }: { media: MovieResult }) => {
           </HStack>
 
           <Text color="white" fontWeight="black" fontSize="lg">
-            {media.media_type === 'movie'
-              ? media.title && media.title.length > 18
-                ? `${media.title.substr(0, 18)}...`
-                : media.title
-              : media.title && media.title.length > 18
-              ? `${media.title.substr(0, 18)}...`
-              : media.title}
+            {media.name && media.name.length > 18
+              ? `${media.name.substr(0, 18)}...`
+              : media.name}
           </Text>
           <Text fontSize="xs" fontWeight="black">
             {media.overview && media.overview.length > 50
@@ -139,5 +136,3 @@ export const Poster = ({ media }: { media: MovieResult }) => {
     </Box>
   );
 };
-
-export const MemoPoster = memo(Poster);

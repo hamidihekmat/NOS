@@ -1,15 +1,13 @@
 import { Box, HStack, Text, Spacer, Badge } from '@chakra-ui/react';
 import { css } from '@emotion/react';
-import { Metadata } from '../interfaces/plex.interface';
 import { LazyImage } from './_LazyImage';
-import { formatDuration } from '../utils/duration';
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 
-export const SearchItem = ({ media }: { media: Metadata }) => {
+export const SearchItemMovie = ({ media }: { media: MovieResult }) => {
   return (
     <Box
-      href={`/${media.type}/${media.ratingKey}`}
+      href={`/movie/${media.id}`}
       cursor="pointer"
-      key={media.key}
       borderRadius="xl"
       padding=".5rem 1rem"
       css={css`
@@ -21,18 +19,13 @@ export const SearchItem = ({ media }: { media: Metadata }) => {
         }
       `}
     >
-      <HStack
-        alignItems="flex-start"
-        as="a"
-        href={`/${media.type}/${media.ratingKey}`}
-      >
-        {/* <Badge>Movie</Badge> */}
+      <HStack alignItems="flex-start" as="a" href={`/movie/${media.id}`}>
         <LazyImage
           width="28px"
           minW="42px"
           cursor="pointer"
           display="block"
-          src={`${process.env.BACKEND_URL}${media.thumb}`}
+          src={`${process.env.TMDB_IMAGES}${media.poster_path}`}
         />
         <Box isTruncated display="flex" flexDir="column">
           <Text isTruncated fontWeight="black">
@@ -40,26 +33,23 @@ export const SearchItem = ({ media }: { media: Metadata }) => {
           </Text>
           <Box display="flex">
             <Text fontWeight="bold" fontSize="sm">
-              {formatDuration(media.duration)}
+              {media.original_language?.toUpperCase()}
             </Text>
-            {media.audienceRating && (
+            {media.vote_average && (
               <HStack ml="1rem">
-                <Badge fontSize="xs" bg="#E1B615" borderRadius="sm">
-                  IMDB
+                <Badge fontSize="xs" bg="#072541" borderRadius="sm">
+                  TMDB
                 </Badge>
                 <Text color="white" fontSize="sm" fontWeight="black">
-                  {media.audienceRating % 1 === 0
-                    ? `${media.audienceRating}.0`
-                    : media.audienceRating}
+                  {media.vote_average === 0 ? 'NA' : media.vote_average}
                 </Text>
               </HStack>
             )}
           </Box>
         </Box>
-
         <Spacer />
         <Text fontSize="sm" fontWeight="black">
-          {media.year}
+          {new Date(Date.parse(media.release_date!)).getFullYear()}
         </Text>
       </HStack>
     </Box>

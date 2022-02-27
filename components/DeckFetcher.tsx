@@ -6,30 +6,51 @@ import useSWR from 'swr';
 import { MediaSkeletonSize } from '../utils/skeleton';
 // Icons
 import { CaretLeft, CaretRight, ArrowCircleRight } from 'phosphor-react';
-import { MediaContainer } from '../interfaces/plex.interface';
 // Components
 import { StyledIconButton } from './Casts';
 import { Poster } from './_Poster';
+import { PosterTV } from './_PosterTV';
 import { PaddedContainer } from './_PaddedContainer';
 // Carousel
-import { useEmblaCarousel } from 'embla-carousel/react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+
+import { useRouter } from 'next/router';
+
+import Link from 'next/link';
+
+import {
+  DiscoverMovieResponse,
+  DiscoverTvResponse,
+} from 'moviedb-promise/dist/request-types';
+
+type DeckFetcherProp = {
+  title: string;
+  queryKey: string;
+  type: 'movie' | 'tv';
+  fetcher: () => Promise<DiscoverMovieResponse | DiscoverTvResponse>;
+};
 
 export const DeckFetcher = ({
   title,
   queryKey,
+  type,
   fetcher,
-}: {
-  title: string;
-  queryKey: string;
-  fetcher: () => Promise<MediaContainer>;
-}) => {
+}: DeckFetcherProp) => {
   const { data, error } = useSWR(queryKey, fetcher);
-  const [emblaRef, embla] = useEmblaCarousel({
-    align: 'start',
-    loop: true,
-    dragFree: true,
-    inViewThreshold: 3,
-  });
+
+  const wheelGestures = WheelGesturesPlugin();
+
+  const [emblaRef, embla] = useEmblaCarousel(
+    {
+      align: 'start',
+      loop: true,
+      dragFree: true,
+      inViewThreshold: 3,
+      slidesToScroll: 5,
+    },
+    [wheelGestures]
+  );
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
@@ -49,19 +70,25 @@ export const DeckFetcher = ({
   return (
     <PaddedContainer>
       <HStack justifyContent="space-between">
-        <HStack
-          alignItems="center"
-          justifyContent="center"
-          pt="1.5rem"
-          pb="1rem"
-          cursor="pointer"
-          _hover={{ opacity: 0.8, transition: 'all 400ms' }}
-        >
-          <Heading fontSize="2xl" fontWeight="bold">
-            {title}
-          </Heading>
-          <ArrowCircleRight size={24} />
-        </HStack>
+        <Link href={type === 'movie' ? `/movies/${queryKey}` : '#'}>
+          <HStack
+            alignItems="center"
+            justifyContent="center"
+            pt="1.5rem"
+            pb="1rem"
+            cursor="pointer"
+            _hover={{ opacity: 0.8, transition: 'all 400ms' }}
+          >
+            <Heading
+              fontSize="2xl"
+              fontWeight="bold"
+              href={`/movies/${queryKey}`}
+            >
+              {title}
+            </Heading>
+            <ArrowCircleRight size={24} />
+          </HStack>
+        </Link>
 
         <HStack spacing="0">
           <StyledIconButton
@@ -100,9 +127,13 @@ export const DeckFetcher = ({
       {data && (
         <Box position="relative" className="embla" ref={emblaRef}>
           <StyledFlex>
-            {data?.Metadata.map((media) => (
-              <Poster media={media} key={media.key} />
-            ))}
+            {data.results?.map((media) =>
+              type === 'movie' ? (
+                <Poster media={media} key={media.id} />
+              ) : (
+                <PosterTV media={media} key={media.id} />
+              )
+            )}
           </StyledFlex>
         </Box>
       )}

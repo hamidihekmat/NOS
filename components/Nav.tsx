@@ -40,7 +40,7 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem borderRadius="xl" as="a" href="/movie" aspath={router.asPath}>
+      <NavItem borderRadius="xl" as="a" href="/movies" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
           aria-label="Movies"
