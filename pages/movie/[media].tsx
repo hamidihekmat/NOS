@@ -102,7 +102,12 @@ const Media = () => {
                 {formatDuration(movie.runtime!)}
               </Text>
               <HStack ml="1rem">
-                <Badge fontSize="sm" bg="#072541" borderRadius="sm">
+                <Badge
+                  fontSize="sm"
+                  bg="#072541"
+                  color="whitesmoke"
+                  borderRadius="sm"
+                >
                   TMDB
                 </Badge>
                 <Text

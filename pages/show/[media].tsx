@@ -104,7 +104,12 @@ const Media = () => {
                 </Badge>
                 {show.vote_average && (
                   <HStack ml="1rem">
-                    <Badge fontSize="sm" bg="#E1B615" borderRadius="sm">
+                    <Badge
+                      fontSize="sm"
+                      bg="#E1B615"
+                      borderRadius="sm"
+                      color="whitesmoke"
+                    >
                       TMDB
                     </Badge>
                     <Text

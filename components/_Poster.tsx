@@ -89,9 +89,9 @@ export const Poster = ({ media }: { media: MovieResult }) => {
               <HStack>
                 <Badge
                   fontSize="xs"
-                  color="white"
                   bg="#072541"
                   borderRadius="sm"
+                  color="whitesmoke"
                 >
                   TMDB
                 </Badge>

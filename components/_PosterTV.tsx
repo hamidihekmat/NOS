@@ -90,7 +90,7 @@ export const PosterTV = ({ media }: { media: TvResult }) => {
               <HStack>
                 <Badge
                   fontSize="xs"
-                  color="white"
+                  color="whitesmoke"
                   bg="#072541"
                   borderRadius="sm"
                 >
