@@ -4,14 +4,11 @@ import { useRouter } from 'next/router';
 import { PulseLoader } from 'react-spinners';
 // SWR
 import useSWR from 'swr';
-import { fetchRelatedMovies } from '../api/plex';
-import { Container } from 'next/app';
+import { fetchRelatedMovies } from '../api/tmdb';
 
-export const RelatedMovies = ({ id }: { id: string }) => {
+export const RelatedTitles = ({ id, title }: { id: string; title: string }) => {
   const router = useRouter();
-  const { data, error } = useSWR(router.asPath, () =>
-    fetchRelatedMovies(id as string)
-  );
+  const { data, error } = useSWR(router.asPath, () => fetchRelatedMovies(id));
   if (!data) {
     return (
       <Box
@@ -30,12 +27,5 @@ export const RelatedMovies = ({ id }: { id: string }) => {
     return <h1>Error...</h1>;
   }
 
-  return (
-    <Container display="flex">
-      {data?.Hub?.map((hub) => (
-        <Deck key={hub.hubKey} hub={hub} />
-      ))}
-      <></>
-    </Container>
-  );
+  return <Deck title={title} media={data} />;
 };

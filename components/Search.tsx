@@ -8,7 +8,7 @@ import { css } from '@emotion/react';
 import { MagnifyingGlass } from 'phosphor-react';
 // SWR
 import useSWR from 'swr';
-import { searchMedia } from '../api/plex';
+import { searchMedia } from '../api/tmdb';
 import { scrollStore } from '../store/scrollStore';
 // Router
 import { useRouter } from 'next/router';
@@ -18,11 +18,9 @@ export const Search = () => {
   const scroll = scrollStore((state) => state.scroll);
   const [query, setQuery] = useState('');
   const [debounceQuery] = useDebounce(query, 500);
-  const { data } = useSWR(
-    debounceQuery,
-    () => (debounceQuery ? searchMedia(debounceQuery) : null),
-    { refreshInterval: 0 }
-  );
+  const { data } = useSWR(debounceQuery, () => searchMedia(debounceQuery), {
+    refreshInterval: 0,
+  });
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setQuery(value.trim());

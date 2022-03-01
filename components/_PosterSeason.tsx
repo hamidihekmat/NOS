@@ -1,17 +1,19 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { Box, Text, VStack, Fade, HStack, Badge } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { LazyImage } from './_LazyImage';
 // interfaces
 
-import { MovieResult } from 'moviedb-promise/dist/request-types';
-export const Poster = ({ media }: { media: MovieResult }) => {
+import { TvSeasonResponse } from 'moviedb-promise/dist/request-types';
+
+export const PosterSeasons = ({ season }: { season: TvSeasonResponse }) => {
   const [isShowing, setIsShowing] = useState(false);
+  console.log(season);
   return (
     <Box
       as="a"
-      href={`/movie/${media.id}`}
-      key={media.id}
+      href={`/show/season/${season.id}`}
+      key={season.id}
       pos="relative"
       minW="176px"
       marginRight="1vw"
@@ -46,9 +48,9 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         width="176x"
         border="1px solid var(--border-color)"
         height="264px"
-        src={`${process.env.TMDB_IMAGES}${media.poster_path}`}
+        src={`${process.env.TMDB_IMAGES}${season.poster_path}`}
         borderRadius="xl"
-        alt={media.original_title}
+        alt={season.name}
       />
 
       <Box
@@ -60,9 +62,9 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         borderRadius="2xl"
         fontWeight="bold"
         zIndex="2"
-        bg="var(--badge-1)"
+        bg="var(--badge-2)"
       >
-        Movie
+        Season
       </Box>
       {/* Details */}
       <Fade in={isShowing}>
@@ -83,38 +85,34 @@ export const Poster = ({ media }: { media: MovieResult }) => {
         >
           <HStack justifyContent="space-between" width="100%">
             <Text color="white" fontSize="md" fontWeight="black">
-              {new Date(Date.parse(media.release_date!)).getFullYear()}
+              {new Date(Date.parse(season.air_date!)).getFullYear()}
             </Text>
-            {media.popularity && (
+            {season.episodes && (
               <HStack>
                 <Badge
                   fontSize="xs"
+                  color="white"
                   bg="#072541"
                   borderRadius="sm"
-                  color="whitesmoke"
                 >
-                  TMDB
+                  EPISODES
                 </Badge>
                 <Text color="white" fontSize="sm" fontWeight="black">
-                  {media.vote_average === 0 ? 'NA' : media.vote_average}
+                  {season.episodes.length}
                 </Text>
               </HStack>
             )}
           </HStack>
 
           <Text color="white" fontWeight="black" fontSize="lg">
-            {media.media_type === 'movie'
-              ? media.title && media.title.length > 18
-                ? `${media.title.substr(0, 18)}...`
-                : media.title
-              : media.title && media.title.length > 18
-              ? `${media.title.substr(0, 18)}...`
-              : media.title}
+            {season.name && season.name.length > 18
+              ? `${season.name.substr(0, 18)}...`
+              : season.name}
           </Text>
           <Text fontSize="xs" fontWeight="black">
-            {media.overview && media.overview.length > 50
-              ? `${media.overview.substr(0, 50)}...`
-              : media.overview}
+            {season.overview && season.overview.length > 50
+              ? `${season.overview.substr(0, 50)}...`
+              : season.overview}
           </Text>
         </VStack>
       </Fade>
@@ -139,5 +137,3 @@ export const Poster = ({ media }: { media: MovieResult }) => {
     </Box>
   );
 };
-
-export const MemoPoster = memo(Poster);

@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
-import { fetchMediaById } from '../../api/plex';
 import { BounceLoader } from 'react-spinners';
 import { Container } from '../../components/_Container';
 
@@ -23,18 +22,22 @@ import { LazyImage } from '../../components/_LazyImage';
 import { Button } from '@chakra-ui/button';
 // Util
 import { formatDuration } from '../../utils/duration';
-import { RelatedMovies } from '../../components/RelatedMovies';
-import { Casts } from '../../components/Casts';
 import { ShowMore } from '../../components/_ShowMore';
 // Next head
 import Head from 'next/head';
+import { MovieResponse } from 'moviedb-promise/dist/request-types';
+import { tmdb } from '../../api/tmdb';
+import { Casts } from '../../components/Casts';
+import { RelatedTitles } from '../../components/RelatedTitles';
 
 const Media = () => {
   const [isMobile] = useMediaQuery('(max-width: 768px)');
   const router = useRouter();
   const { media } = router.query;
-  const { data, error } = useSWR(media, () => fetchMediaById(media as string));
-  if (!data) {
+  const { data: movie, error } = useSWR<MovieResponse>(media, () =>
+    tmdb.movieInfo({ id: +media })
+  );
+  if (!movie) {
     return (
       <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
         <BounceLoader color="var(--bg-secondary)" size="80px" />
@@ -47,195 +50,171 @@ const Media = () => {
   return (
     <>
       <Head>
-        <title>Movie - {data?.Metadata[0].title}</title>
+        <title>Movie - {movie.title}</title>
       </Head>
       <Container pos="relative">
-        {data &&
-          data.Metadata.map((media) => (
-            <HStack
-              key={media.key}
-              width="100%"
-              p={isMobile ? '1rem' : '2rem'}
-              spacing={isMobile ? '5' : '10'}
-              alignItems="flex-start"
-              css={css`
-                * {
-                  z-index: 10;
-                }
-                @media (max-width: 768px) {
-                  padding: 0;
-                }
-              `}
-            >
-              {/* OVERLAY */}
-              <LazyImage
-                width="160px"
-                minW="300px"
-                cursor="pointer"
-                border="1px solid var(--border-color)"
-                boxShadow="2xl"
-                borderRadius="xl"
-                src={`${process.env.BACKEND_URL}${media.thumb}`}
-                css={css`
-                  @media (max-width: 1080px) {
-                    height: 382.25px;
-                    width: 250px;
-                    min-width: 250px;
-                    max-height: 375px;
-                    min-height: 375px;
-                  }
-                  @media (max-width: 768px) {
-                    display: none;
-                  }
-                `}
-              />
-              <VStack alignItems="flex-start">
-                <Text fontSize="3xl" fontWeight="bold">
-                  {media.title}
+        <HStack
+          width="100%"
+          p={isMobile ? '1rem' : '2rem'}
+          spacing={isMobile ? '5' : '10'}
+          alignItems="flex-start"
+          css={css`
+            * {
+              z-index: 10;
+            }
+            @media (max-width: 768px) {
+              padding: 0;
+            }
+          `}
+        >
+          {/* OVERLAY */}
+          <LazyImage
+            width="160px"
+            minW="300px"
+            cursor="pointer"
+            border="1px solid var(--border-color)"
+            boxShadow="2xl"
+            borderRadius="xl"
+            src={`${process.env.TMDB_IMAGES_ORIGINAL}${movie.poster_path}`}
+            css={css`
+              @media (max-width: 1080px) {
+                height: 382.25px;
+                width: 250px;
+                min-width: 250px;
+                max-height: 375px;
+                min-height: 375px;
+              }
+              @media (max-width: 768px) {
+                display: none;
+              }
+            `}
+          />
+          <VStack alignItems="flex-start">
+            <Text fontSize="3xl" fontWeight="bold">
+              {movie.title}
+            </Text>
+            <Text fontSize="lg" fontWeight="bold">
+              {new Date(Date.parse(movie.release_date!)).getFullYear()}
+            </Text>
+
+            <HStack spacing={5} color="hsla(0,0%,98%,.45)">
+              <Text fontWeight="bold" fontSize="md">
+                {formatDuration(movie.runtime!)}
+              </Text>
+              <HStack ml="1rem">
+                <Badge
+                  fontSize="sm"
+                  bg="#072541"
+                  color="whitesmoke"
+                  borderRadius="sm"
+                >
+                  TMDB
+                </Badge>
+                <Text
+                  fontSize="md"
+                  color="var(--font-color)"
+                  fontWeight="black"
+                >
+                  {movie.vote_average}
                 </Text>
-                <Text fontSize="lg" fontWeight="bold">
-                  {media.year}
-                </Text>
-
-                <HStack spacing={5} color="hsla(0,0%,98%,.45)">
-                  <Text fontWeight="bold" fontSize="md">
-                    {formatDuration(media.duration)}
-                  </Text>
-                  <Badge fontWeight="bold" fontSize="sm">
-                    {media.contentRating}
-                  </Badge>
-                  {media.audienceRating && (
-                    <HStack ml="1rem">
-                      <Badge fontSize="sm" bg="#E1B615" borderRadius="sm">
-                        IMDB
-                      </Badge>
-                      <Text
-                        fontSize="md"
-                        color="var(--font-color)"
-                        fontWeight="black"
-                      >
-                        {media.audienceRating % 1 === 0
-                          ? `${media.audienceRating}.0`
-                          : media.audienceRating}
-                      </Text>
-                    </HStack>
-                  )}
-                </HStack>
-
-                <HStack py="2rem" spacing="3">
-                  <Button
-                    as="a"
-                    href={`/${media.type}/watch/${media.ratingKey}`}
-                    background="var(--button-1)"
-                    leftIcon={<Play color="#ffffff" size={30} />}
-                    _hover={{ opacity: '85%' }}
-                    fontWeight="bold"
-                  >
-                    PLAY
-                  </Button>
-                  <IconButton
-                    aria-label="Like"
-                    _hover={{ opacity: '85%' }}
-                    background="var(--border-color)"
-                    icon={<Heart size={32} />}
-                  />
-                  <IconButton
-                    aria-label="Add To Watch List"
-                    _hover={{ opacity: '85%' }}
-                    background="var(--border-color)"
-                    icon={<Plus size={32} />}
-                  />
-                </HStack>
-                <Box minW="350px" maxW="850px">
-                  <ShowMore text={media.summary} />
-                </Box>
-                <List minW="370px" pt="2rem" spacing={3}>
-                  {media.Director && (
-                    <ListItem display="flex" fontWeight="bold">
-                      <Text
-                        color="hsla(0,0%,98%,.45)"
-                        flex={1}
-                        whiteSpace="nowrap"
-                      >
-                        DIRECTED BY
-                      </Text>
-                      <Box px="1rem" />
-                      <Box flex={2}>
-                        {media.Director.map((director, index) => (
-                          <Text as="span" key={director.id}>
-                            {index !== media.Director.length - 1
-                              ? `${director.tag}, `
-                              : director.tag}
-                          </Text>
-                        ))}
-                      </Box>
-                    </ListItem>
-                  )}
-
-                  {media.Writer && (
-                    <ListItem display="flex" fontWeight="bold">
-                      <Text
-                        color="hsla(0,0%,98%,.45)"
-                        flex="1"
-                        whiteSpace="nowrap"
-                      >
-                        WRITTEN BY
-                      </Text>
-                      <Box px="1rem" />
-                      <Box flex={2}>
-                        {media.Writer.map((writer, index) => (
-                          <Text as="span" key={writer.id}>
-                            {index !== media.Writer.length - 1
-                              ? `${writer.tag}, `
-                              : writer.tag}
-                          </Text>
-                        ))}
-                      </Box>
-                    </ListItem>
-                  )}
-
-                  {media.studio && (
-                    <ListItem display="flex" fontWeight="bold">
-                      <Text
-                        color="hsla(0,0%,98%,.45)"
-                        flex="1"
-                        whiteSpace="nowrap"
-                      >
-                        STUDIO
-                      </Text>
-                      <Box px="1rem" />
-                      <Box flex={2}>
-                        <Text as="span">{media.studio}</Text>
-                      </Box>
-                    </ListItem>
-                  )}
-                  {media.Genre && (
-                    <ListItem display="flex" fontWeight="bold">
-                      <Text
-                        color="hsla(0,0%,98%,.45)"
-                        flex="1"
-                        whiteSpace="nowrap"
-                      >
-                        GENRE
-                      </Text>
-                      <Box px="1rem" />
-                      <Box flex={2}>
-                        {media.Genre.map((genre, index) => (
-                          <Text as="span" key={genre.id}>
-                            {index !== media.Genre.length - 1
-                              ? `${genre.tag}, `
-                              : genre.tag}
-                          </Text>
-                        ))}
-                      </Box>
-                    </ListItem>
-                  )}
-                </List>
-              </VStack>
+              </HStack>
             </HStack>
-          ))}
-        {data.Metadata[0]?.Role && <Casts casts={data.Metadata[0].Role} />}
-        <RelatedMovies id={media as string} />
+
+            <HStack py="2rem" spacing="3">
+              <Button
+                as="a"
+                // href={`/${media.type}/watch/${media.ratingKey}`}
+                background="var(--button-1)"
+                leftIcon={<Play color="#ffffff" size={30} />}
+                _hover={{ opacity: '85%' }}
+                fontWeight="bold"
+              >
+                PLAY
+              </Button>
+              <IconButton
+                aria-label="Like"
+                _hover={{ opacity: '85%' }}
+                background="var(--border-color)"
+                icon={<Heart size={32} />}
+              />
+              <IconButton
+                aria-label="Add To Watch List"
+                _hover={{ opacity: '85%' }}
+                background="var(--border-color)"
+                icon={<Plus size={32} />}
+              />
+            </HStack>
+            <Box minW="350px" maxW="850px">
+              <ShowMore text={movie.overview ?? ''} />
+            </Box>
+            <List minW="370px" pt="2rem" spacing={3}>
+              {movie.production_companies && (
+                <ListItem display="flex" fontWeight="bold">
+                  <Text color="hsla(0,0%,98%,.45)" flex={1} whiteSpace="nowrap">
+                    PRODUCTION
+                  </Text>
+                  <Box px="1rem" />
+                  <Box flex={2}>
+                    {movie.production_companies.map((production, index) => (
+                      <Text as="span" key={production.id}>
+                        {index !== movie.production_companies!.length - 1
+                          ? `${production.name}, `
+                          : production.name}
+                      </Text>
+                    ))}
+                  </Box>
+                </ListItem>
+              )}
+              <ListItem display="flex" fontWeight="bold">
+                <Text color="hsla(0,0%,98%,.45)" flex="1" whiteSpace="nowrap">
+                  BUDGET
+                </Text>
+                <Box px="1rem" />
+                <Box flex={2}>
+                  <Text as="span">
+                    {movie.budget
+                      ? new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                        }).format(movie.budget)
+                      : 'NA'}
+                  </Text>
+                </Box>
+              </ListItem>
+              <ListItem display="flex" fontWeight="bold">
+                <Text color="hsla(0,0%,98%,.45)" flex="1" whiteSpace="nowrap">
+                  LANGUAGE
+                </Text>
+                <Box px="1rem" />
+                <Box flex={2}>
+                  <Text as="span">
+                    {movie.original_language?.toUpperCase()}
+                  </Text>
+                </Box>
+              </ListItem>
+              {movie.genres && (
+                <ListItem display="flex" fontWeight="bold">
+                  <Text color="hsla(0,0%,98%,.45)" flex="1" whiteSpace="nowrap">
+                    GENRE
+                  </Text>
+                  <Box px="1rem" />
+                  <Box flex={2}>
+                    {movie.genres.map((genre, index) => (
+                      <Text as="span" key={genre.id}>
+                        {index != movie.genres!.length - 1
+                          ? `${genre.name}, `
+                          : genre.name}
+                      </Text>
+                    ))}
+                  </Box>
+                </ListItem>
+              )}
+            </List>
+          </VStack>
+        </HStack>
+
+        <Casts id={movie.id?.toString()!} />
+        <RelatedTitles title="Similar Movies" id={movie.id!.toString()} />
 
         <Box
           position="fixed"
@@ -248,7 +227,7 @@ const Media = () => {
         >
           <Box position="relative" width="100%" height="100%">
             <LazyImage
-              src={`${process.env.BACKEND_URL}${data.Metadata[0].art}`}
+              src={`${process.env.TMDB_IMAGES_ORIGINAL}${movie.backdrop_path}`}
               css={css`
                 object-fit: cover;
                 object-position: top;

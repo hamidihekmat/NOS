@@ -4,20 +4,27 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 // Icons
 import { CaretLeft, CaretRight } from 'phosphor-react';
-import { Hub } from '../interfaces/plex.interface';
 // Components
 import { StyledIconButton } from './Casts';
 import { Poster } from './_Poster';
 import { PaddedContainer } from './_PaddedContainer';
 // Carousel
-import { useEmblaCarousel } from 'embla-carousel/react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { MovieResult } from 'moviedb-promise/dist/request-types';
 
-export const Deck = ({ hub }: { hub: Hub }) => {
+export const Deck = ({
+  media,
+  title,
+}: {
+  media: MovieResult[];
+  title: string;
+}) => {
   const [emblaRef, embla] = useEmblaCarousel({
     align: 'start',
     dragFree: true,
     draggable: true,
     containScroll: 'trimSnaps',
+    slidesToScroll: 3,
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -35,6 +42,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
     onSelect();
     embla.on('select', onSelect);
   }, [embla, onSelect]);
+
   return (
     <PaddedContainer>
       <HStack justifyContent="space-between">
@@ -47,7 +55,7 @@ export const Deck = ({ hub }: { hub: Hub }) => {
           _hover={{ opacity: 0.8, transition: 'all 400ms' }}
         >
           <Heading fontSize="2xl" fontWeight="bold">
-            {hub.title}
+            {title}
           </Heading>
         </HStack>
 
@@ -58,7 +66,6 @@ export const Deck = ({ hub }: { hub: Hub }) => {
             disabled={!prevBtnEnabled}
             icon={<CaretLeft size={24} color="#ffffff" />}
           />
-
           <StyledIconButton
             onClick={scrollNext}
             aria-label="next"
@@ -69,8 +76,8 @@ export const Deck = ({ hub }: { hub: Hub }) => {
       </HStack>
       <Box position="relative" className="embla" ref={emblaRef}>
         <StyledFlex>
-          {hub.Metadata.map((media) => (
-            <Poster key={media.key} media={media} />
+          {media.map((movie) => (
+            <Poster key={movie.id} media={movie} />
           ))}
         </StyledFlex>
       </Box>

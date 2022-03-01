@@ -1,4 +1,3 @@
-import { Role } from '../interfaces/plex.interface';
 import { useCallback, useState, useEffect } from 'react';
 import { Box, HStack, IconButton, Text } from '@chakra-ui/react';
 import { css } from '@emotion/react';
@@ -10,10 +9,13 @@ import { LazyImage } from './_LazyImage';
 // Components
 import { PaddedContainer } from './_PaddedContainer';
 // Carousel
-import { useEmblaCarousel } from 'embla-carousel/react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { fetchCasts } from '../api/tmdb';
+import useSWR from 'swr';
+import { BounceLoader } from 'react-spinners';
 
 interface Castsprop {
-  casts: Role[];
+  id: string;
 }
 
 export const Casts = (prop: Castsprop) => {
@@ -22,6 +24,7 @@ export const Casts = (prop: Castsprop) => {
     dragFree: true,
     draggable: true,
     containScroll: 'trimSnaps',
+    slidesToScroll: 6,
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -39,6 +42,23 @@ export const Casts = (prop: Castsprop) => {
     onSelect();
     embla.on('select', onSelect);
   }, [embla, onSelect]);
+
+  const { data: casts, error } = useSWR(`Casts ${prop.id}`, () =>
+    fetchCasts(prop.id)
+  );
+
+  if (error) {
+    return <div>Error...</div>;
+  }
+
+  if (!casts) {
+    return (
+      <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
+        <BounceLoader color="var(--bg-secondary)" size="80px" />
+      </Box>
+    );
+  }
+
   return (
     <PaddedContainer mt="1">
       <HStack justifyContent="space-between">
@@ -65,7 +85,7 @@ export const Casts = (prop: Castsprop) => {
 
       <Box position="relative" className="embla" ref={emblaRef}>
         <StyledFlex>
-          {prop.casts.map((cast) => (
+          {casts.map((cast) => (
             <Box
               // href={`/movies/${media.ratingKey}`}
               key={cast.id}
@@ -104,10 +124,12 @@ export const Casts = (prop: Castsprop) => {
                 objectFit="cover"
                 style={{ borderRadius: '50%' }}
                 src={`${
-                  cast.thumb ? cast.thumb : 'https://via.placeholder.com/150'
+                  cast.profile_path
+                    ? `${process.env.TMDB_IMAGES}${cast.profile_path}`
+                    : 'https://via.placeholder.com/150'
                 }`}
                 overflow="hidden"
-                alt={cast.tag}
+                alt={cast.profile_path!}
               />
 
               <Text
@@ -117,9 +139,9 @@ export const Casts = (prop: Castsprop) => {
                 pt="1rem"
                 isTruncated
               >
-                {cast.tag.length > 12
-                  ? `${cast.tag.substr(0, 12)}...`
-                  : cast.tag}
+                {cast.character!.length > 12
+                  ? `${cast.character!.substr(0, 12)}...`
+                  : cast.character}
               </Text>
               <Text
                 color="#4b5561"
@@ -128,9 +150,9 @@ export const Casts = (prop: Castsprop) => {
                 fontSize="sm"
                 isTruncated
               >
-                {cast.role.length > 12
-                  ? `${cast.role.substr(0, 12)}...`
-                  : cast.role}
+                {cast.name!.length > 12
+                  ? `${cast.name!.substr(0, 12)}...`
+                  : cast.name}
               </Text>
             </Box>
           ))}
