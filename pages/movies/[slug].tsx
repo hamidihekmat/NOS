@@ -7,7 +7,6 @@ import { useObserver } from '../../hooks/observer';
 
 const MoviePage = ({ slug }) => {
   const { setRef, movieResult, error, loading } = useObserver(slug);
-  console.log('movies');
   if (loading) {
     return (
       <Box
