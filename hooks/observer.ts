@@ -16,7 +16,6 @@ type SlugType =
   | 'popular-shows';
 
 export function useObserver(slug: SlugType) {
-  console.log(slug);
   const [ref, setRef] = useState<null | HTMLElement>(null);
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(0);
@@ -58,7 +57,7 @@ export function useObserver(slug: SlugType) {
         }
       },
       {
-        threshold: 1,
+        threshold: 0.3,
       }
     );
     observer.observe(ref);
