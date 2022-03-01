@@ -12,7 +12,7 @@ export type Playlist = {
 
 type MediaSource = {
   file: string;
-  type: 'video/mp4';
+  type?: string;
   label: '1080p' | '720p';
   default?: boolean;
 };

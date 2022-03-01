@@ -6,6 +6,11 @@ import {
 } from 'moviedb-promise/dist/request-types';
 export const tmdb = new MovieDb(process.env.TMDB_API_KEY || '');
 
+export async function fetchVideoMetadata(id: string) {
+  const video = await tmdb.movieVideos({ id });
+  return video.results;
+}
+
 export async function fetchNowPlayingMovies(
   page: number = 1
 ): Promise<DiscoverMovieResponse> {

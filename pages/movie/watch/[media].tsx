@@ -3,17 +3,28 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { BounceLoader } from 'react-spinners';
 import { Box } from '@chakra-ui/react';
-import { fetchPlaylist } from '../../../api/plex';
 // Next head
 import Head from 'next/head';
+import { Video } from 'moviedb-promise/dist/request-types';
+import { fetchVideoMetadata } from '../../../api/tmdb';
+
+function createPlaylist(video: Video[]) {
+  const youtube = video.find((v) => v.type === 'Trailer');
+
+  return youtube?.key;
+}
 
 function Watch() {
   const router = useRouter();
   const { media } = router.query;
-  const { data, error } = useSWR(media, () => fetchPlaylist(media as string), {
-    revalidateOnFocus: false,
-    refreshInterval: 0,
-  });
+  const { data, error } = useSWR(
+    media,
+    () => fetchVideoMetadata(media as string),
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 0,
+    }
+  );
   if (!data) {
     return (
       <Box pos="fixed" top="50%" right="50%" transform="translate(-50%)">
@@ -27,9 +38,9 @@ function Watch() {
   return (
     <>
       <Head>
-        <title>Watch - {data.title}</title>
+        <title>Watch - {data.find((v) => v.type === 'Trailer')?.name!}</title>
       </Head>
-      <Player playlist={data} />;
+      <Player videoId={createPlaylist(data)!} />;
     </>
   );
 }

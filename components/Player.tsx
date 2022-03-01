@@ -1,54 +1,37 @@
 // import { useJWPlayer } from '../hooks/usePlayer';
-import ReactJWPlayer from 'react-jw-player';
 import styled from '@emotion/styled';
-import { Playlist } from '../interfaces/player.interface';
 import { Container } from './_Container';
 import { IconButton } from '@chakra-ui/button';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 // Icons
 import { ArrowLeft } from 'phosphor-react';
 // import { useJWPlayer } from '../hooks/usePlayer';
 
-export const Player = ({ playlist }: { playlist: Playlist }) => {
+import Plyr from 'plyr-react';
+import 'plyr-react/dist/plyr.css';
+
+export const Player = ({ videoId }: { videoId: string }) => {
   const router = useRouter();
-  // const [onReady] = useJWPlayer(playlist);
-  const [playing, setPlaying] = useState(false);
-  const onPlay = () => {
-    setPlaying(true);
-  };
+
   return (
     <Container position="relative" overflow="hidden">
-      {playing && (
-        <BackButton
-          aria-label="back"
-          position="absolute"
-          onClick={() => router.back()}
-          top="15%"
-          zIndex={99}
-          left="3%"
-          icon={<ArrowLeft color="#f0f6fc" size={38} />}
-        />
-      )}
-
-      <StyledJWPlayer
-        playerId="player"
-        onPlay={onPlay}
-        // onReady={onReady}
-        playerScript="https://content.jwplatform.com/libraries/jvJ1Gu3c.js"
-        playlist={[playlist]}
-        customProps={{
-          renderCaptionsNatively: false,
-          skin: { name: 'netflix' },
-          captions: {
-            color: '#FFF',
-            fontSize: 12,
-            backgroundOpacity: 0,
-            edgeStyle: 'raised',
-          },
-        }}
-        // onReady={onReady}
+      <BackButton
+        aria-label="back"
+        position="absolute"
+        onClick={() => router.back()}
+        top="15%"
+        zIndex={99}
+        left="3%"
+        icon={<ArrowLeft color="#f0f6fc" size={38} />}
       />
+      <StyledJWPlayer>
+        <Plyr
+          source={{
+            sources: [{ src: videoId, provider: 'youtube' }],
+            type: 'video',
+          }}
+        />
+      </StyledJWPlayer>
     </Container>
   );
 };
@@ -62,13 +45,13 @@ const BackButton = styled(IconButton)`
   }
 `;
 
-const StyledJWPlayer = styled(ReactJWPlayer)`
-  #player {
-    height: calc(100vh - 3.75rem);
-    min-height: calc(100vh - 3.75rem);
-    max-height: calc(100vh - 3.75rem);
-    width: 100%;
-    min-width: 100%;
+const StyledJWPlayer = styled.div`
+  .plyr {
+    height: calc(100vh - 3.75rem) !important;
+    min-height: calc(100vh - 3.75rem) !important;
+    max-height: calc(100vh - 3.75rem) !important;
+    width: 100% !important;
+    min-width: 100% !important;
     /* min-width: calc(100vw - 100px);
     max-width: calc(100vw - 100px);
     margin-left: 100px; */

@@ -4,17 +4,14 @@ import styled from '@emotion/styled';
 import { useDebounce } from 'use-debounce';
 import { SearchResults } from './SearchResults';
 import { css } from '@emotion/react';
-// Icons
+
 import { MagnifyingGlass } from 'phosphor-react';
-// SWR
+
 import useSWR from 'swr';
 import { searchMedia } from '../api/tmdb';
 import { scrollStore } from '../store/scrollStore';
-// Router
-import { useRouter } from 'next/router';
 
 export const Search = () => {
-  const router = useRouter();
   const scroll = scrollStore((state) => state.scroll);
   const [query, setQuery] = useState('');
   const [debounceQuery] = useDebounce(query, 500);
@@ -25,17 +22,8 @@ export const Search = () => {
     const { value } = event.target;
     setQuery(value.trim());
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (query.trim()) {
-      router.push({ pathname: '/search', query: { query } });
-    }
-
-    setQuery('');
-  };
-
   return (
-    <Box position="relative" as="form" onSubmit={handleSubmit}>
+    <Box position="relative" as="form">
       <StyledInputGroup
         size="md"
         borderRadius="2xl"

@@ -20,6 +20,7 @@
     "next": "latest",
     "npm": "^8.5.2",
     "phosphor-react": "latest",
+    "plyr-react": "^3.2.1",
     "pretty-ms": "^7.0.1",
     "react": "lastest",
     "react-device-detect": "latest",
