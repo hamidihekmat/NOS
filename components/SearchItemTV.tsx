@@ -38,7 +38,12 @@ export const SearchItemTV = ({ media }: { media: TvResult }) => {
             </Text>
             {media.vote_average && (
               <HStack ml="1rem">
-                <Badge fontSize="xs" bg="#072541" borderRadius="sm">
+                <Badge
+                  fontSize="xs"
+                  bg="#072541"
+                  color="whitesmoke"
+                  borderRadius="sm"
+                >
                   TMDB
                 </Badge>
                 <Text color="white" fontSize="sm" fontWeight="black">
