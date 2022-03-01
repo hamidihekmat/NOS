@@ -1,41 +1,40 @@
-# TypeScript Next.js example
+# ⚡️ NOS - Streaming Movies & TV Shows [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/facebook/create-react-app/blob/main/CONTRIBUTING.md)
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+<img alt="Logo" align="right" src="public/android-chrome-512x512.png" width="20%" />
 
-## Deploy your own
+Responsive movies and tv show application buit with...
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+- [NextJS](https://github.com/vercel/next.js) – React Framework...
+- [Chakra UI ](https://github.com/chakra-ui/chakra-ui) – Chakra UI provides a set of accessible, reusable, and composable React components...
+- [Prisma](https://github.com/prisma/prisma) - Prisma is a next-generation ORM with PostgreSQL
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+## Quick Overview
 
-## How to use it?
+---
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
+```sh
+git clone https://github.com/hamidihekmat/nos-ui.git
+cd nos-ui
+yarn dev
 # or
-yarn create next-app --example with-typescript with-typescript-app
+npm run dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+# Example
 
-## Notes
+<img alt="demo" src="docs/demo.gif" width="100%">
+<img alt="UI" src="docs/main-ui.png" width="100%">
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+Deploy it to the cloud [view demo](https://nos.hekmathamidi.me/)
 
-```
-npm install --save-dev typescript
-```
+# Reflection
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+The goal of this project was to get comfortable with Typescript and UI component library...
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+What I learned....
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+- Fimilarized myself with `Typescript`, `Styled Components` & `CSS`
+- Learned about `NextJS` image optimization and `SWR` caching
+- Created resuable components to reduce code duplication
+- Designed `responsive` UI layouts
+- Created multiple custom hooks e.g `Intersection Observer` Hook for infinite scrolling
