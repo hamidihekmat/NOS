@@ -12,7 +12,7 @@ export const PosterSeasons = ({ season }: { season: TvSeasonResponse }) => {
   return (
     <Box
       as="a"
-      href={`/show/season/${season.id}`}
+      // href={`/show/season/${season.id}`}
       key={season.id}
       pos="relative"
       minW="176px"
