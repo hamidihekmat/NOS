@@ -8,7 +8,7 @@ import {
   fetchTopRated,
 } from '../api/tmdb';
 
-type SlugType =
+export type SlugType =
   | 'now-playing'
   | 'top-rated'
   | 'trending-movies'

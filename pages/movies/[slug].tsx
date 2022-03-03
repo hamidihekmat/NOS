@@ -3,10 +3,22 @@ import { PulseLoader } from 'react-spinners';
 import { MemoPoster } from '../../components/_Poster';
 import { Container } from '../../components/_Container';
 import { PaddedContainer } from '../../components/_PaddedContainer';
-import { useObserver } from '../../hooks/observer';
+import { SlugType, useObserver } from '../../hooks/observer';
 
-const MoviePage = ({ slug }) => {
-  const { setRef, movieResult, error, loading } = useObserver(slug);
+import { useRouter } from 'next/router';
+
+const slugs = ['now-playing', 'top-rated', 'trending-movies', 'popular-movies'];
+
+const MoviePage = () => {
+  const router = useRouter();
+
+  const slug = router.asPath.split('/movies/')[1];
+
+  if (!slugs.includes(slug) || !slug) {
+    router.push('/');
+  }
+
+  const { setRef, movieResult, error, loading } = useObserver(slug as SlugType);
   if (loading) {
     return (
       <Box
@@ -61,28 +73,5 @@ const MoviePage = ({ slug }) => {
     </Container>
   );
 };
-
-export async function getServerSideProps({ params }) {
-  const slugs = [
-    'now-playing',
-    'top-rated',
-    'trending-movies',
-    'popular-movies',
-  ];
-  if (!slugs.includes(params.slug)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/',
-      },
-      props: {},
-    };
-  }
-  return {
-    props: {
-      slug: params.slug,
-    },
-  };
-}
 
 export default MoviePage;
