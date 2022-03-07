@@ -11,6 +11,7 @@ import { PaddedContainer } from './_PaddedContainer';
 // Carousel
 import useEmblaCarousel from 'embla-carousel-react';
 import { MovieResult } from 'moviedb-promise/dist/request-types';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 export const Deck = ({
   media,
@@ -19,13 +20,18 @@ export const Deck = ({
   media: MovieResult[];
   title: string;
 }) => {
-  const [emblaRef, embla] = useEmblaCarousel({
-    align: 'start',
-    dragFree: true,
-    draggable: true,
-    containScroll: 'trimSnaps',
-    slidesToScroll: 3,
-  });
+  const wheelGestures = WheelGesturesPlugin();
+
+  const [emblaRef, embla] = useEmblaCarousel(
+    {
+      align: 'start',
+      loop: true,
+      dragFree: true,
+      inViewThreshold: 3,
+      slidesToScroll: 5,
+    },
+    [wheelGestures]
+  );
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);

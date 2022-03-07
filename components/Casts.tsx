@@ -13,19 +13,25 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { fetchCasts } from '../api/tmdb';
 import useSWR from 'swr';
 import { BounceLoader } from 'react-spinners';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 interface Castsprop {
   id: string;
 }
 
 export const Casts = (prop: Castsprop) => {
-  const [emblaRef, embla] = useEmblaCarousel({
-    align: 'start',
-    dragFree: true,
-    draggable: true,
-    containScroll: 'trimSnaps',
-    slidesToScroll: 6,
-  });
+  const wheelGestures = WheelGesturesPlugin();
+
+  const [emblaRef, embla] = useEmblaCarousel(
+    {
+      align: 'start',
+      loop: true,
+      dragFree: true,
+      inViewThreshold: 3,
+      slidesToScroll: 5,
+    },
+    [wheelGestures]
+  );
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
