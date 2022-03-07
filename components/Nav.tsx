@@ -40,13 +40,18 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem borderRadius="xl" as="a" href="/movies" aspath={router.asPath}>
+      <NavItem
+        borderRadius="xl"
+        as="a"
+        href="/movies?filter=now-playing"
+        aspath={router.asPath}
+      >
         <StyledIconButton
           maxW="3rem"
           aria-label="Movies"
           as="div"
           _focus={{ outline: 'none' }}
-          icon={<MoviesIcon href="/movie" size={32} />}
+          icon={<MoviesIcon href="/movies?filter=now-playing" size={32} />}
         />
         <Fade in={nav}>
           <Text fontWeight="bold" fontSize="large">
