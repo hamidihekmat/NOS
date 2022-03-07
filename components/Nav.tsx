@@ -55,7 +55,7 @@ export const Nav = () => {
             aria-label="Movies"
             as="div"
             _focus={{ outline: 'none' }}
-            icon={<MoviesIcon href="/movies?filter=now-playing" size={32} />}
+            icon={<MoviesIcon href="/movies" size={32} />}
           />
           <Fade in={nav}>
             <Text fontWeight="bold" fontSize="large">
