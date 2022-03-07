@@ -25,7 +25,6 @@ export const Casts = (prop: Castsprop) => {
   const [emblaRef, embla] = useEmblaCarousel(
     {
       align: 'start',
-      loop: true,
       dragFree: true,
       inViewThreshold: 3,
       slidesToScroll: 5,
