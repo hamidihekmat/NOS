@@ -19,7 +19,15 @@ const MoviePage = () => {
 
   const filter = router.query['filter'] as string;
 
-  if (!filter) {
+  if (!selections.includes(filter)) {
+    typeof window !== 'undefined' && router.push('/');
+  }
+
+  const { setRef, movieResult, error, loading } = useObserver(
+    filter as SlugType
+  );
+
+  if (loading) {
     return (
       <Box
         zIndex="99"
@@ -33,12 +41,6 @@ const MoviePage = () => {
       </Box>
     );
   }
-
-  if (!selections.includes(filter)) {
-    router.push('/');
-  }
-
-  const { setRef, movieResult, error } = useObserver(filter as SlugType);
 
   if (error) {
     return <h1>Error...</h1>;
@@ -59,7 +61,7 @@ const MoviePage = () => {
             fontWeight="bold"
             textTransform={'capitalize'}
           >
-            {filter.split('-').join(' ')}
+            {filter && filter.split('-').join(' ')}
           </Heading>
         </HStack>
 

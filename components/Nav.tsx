@@ -10,6 +10,7 @@ import { SearchIcon } from '../svg/_SearchIcon';
 // Store
 import { navStore } from '../store/navStore';
 import { scrollStore } from '../store/scrollStore';
+import Link from 'next/link';
 
 export const Nav = () => {
   const router = useRouter();
@@ -40,25 +41,30 @@ export const Nav = () => {
           </Text>
         </Fade>
       </NavItem>
-      <NavItem
-        borderRadius="xl"
-        as="a"
-        href="/movies?filter=now-playing"
-        aspath={router.asPath}
+      <Link
+        href={{
+          pathname: '/movies',
+          query: {
+            filter: 'now-playing',
+          },
+        }}
       >
-        <StyledIconButton
-          maxW="3rem"
-          aria-label="Movies"
-          as="div"
-          _focus={{ outline: 'none' }}
-          icon={<MoviesIcon href="/movies?filter=now-playing" size={32} />}
-        />
-        <Fade in={nav}>
-          <Text fontWeight="bold" fontSize="large">
-            Movies
-          </Text>
-        </Fade>
-      </NavItem>
+        <NavItem borderRadius="xl" as="a" href={{}} aspath={router.asPath}>
+          <StyledIconButton
+            maxW="3rem"
+            aria-label="Movies"
+            as="div"
+            _focus={{ outline: 'none' }}
+            icon={<MoviesIcon href="/movies?filter=now-playing" size={32} />}
+          />
+          <Fade in={nav}>
+            <Text fontWeight="bold" fontSize="large">
+              Movies
+            </Text>
+          </Fade>
+        </NavItem>
+      </Link>
+
       <NavItem borderRadius="xl" as="a" href="/show" aspath={router.asPath}>
         <StyledIconButton
           maxW="3rem"
