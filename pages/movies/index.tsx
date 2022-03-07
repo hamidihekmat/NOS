@@ -3,11 +3,23 @@ import { PulseLoader } from 'react-spinners';
 import { MemoPoster } from '../../components/_Poster';
 import { Container } from '../../components/_Container';
 import { PaddedContainer } from '../../components/_PaddedContainer';
-import { useObserver } from '../../hooks/observer';
+import { SlugType, useObserver } from '../../hooks/observer';
+
+import { useRouter } from 'next/router';
+
+const selections = [
+  'now-playing',
+  'top-rated',
+  'trending-movies',
+  'popular-movies',
+];
 
 const MoviePage = () => {
-  const { setRef, movieResult, error, loading } = useObserver('now-playing');
-  if (loading) {
+  const router = useRouter();
+
+  const filter = router.query['filter'] as string;
+
+  if (!filter) {
     return (
       <Box
         zIndex="99"
@@ -21,6 +33,13 @@ const MoviePage = () => {
       </Box>
     );
   }
+
+  if (!selections.includes(filter)) {
+    router.push('/');
+  }
+
+  const { setRef, movieResult, error } = useObserver(filter as SlugType);
+
   if (error) {
     return <h1>Error...</h1>;
   }
@@ -40,7 +59,7 @@ const MoviePage = () => {
             fontWeight="bold"
             textTransform={'capitalize'}
           >
-            Now Playing
+            {filter.split('-').join(' ')}
           </Heading>
         </HStack>
 
