@@ -69,12 +69,16 @@ export const DeckFetcher = ({
     <PaddedContainer>
       <HStack justifyContent="space-between">
         <Link
-          // href={type === 'movie' ? `/movies?filter=${queryKey}` : '#'}
+          // href={type === 'movie' ? `/movies?filter=${queryKey}` : '#'
+
           href={{
-            pathname: type === 'movie' ? '/movies' : '#',
-            query: {
-              filter: queryKey,
-            },
+            pathname: type === 'movie' ? '/movies' : null,
+            query:
+              type === 'movie'
+                ? {
+                    filter: queryKey,
+                  }
+                : null,
           }}
           prefetch
         >
