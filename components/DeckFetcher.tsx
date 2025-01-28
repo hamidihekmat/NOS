@@ -35,7 +35,7 @@ export const DeckFetcher = ({
   type,
   fetcher,
 }: DeckFetcherProp) => {
-  const { data, error } = useSWR(queryKey, fetcher);
+  const { data, error } = useSWR(queryKey, () => fetcher();
 
   const wheelGestures = WheelGesturesPlugin();
 
